@@ -4,12 +4,25 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SecurityIcon from '@mui/icons-material/Security';
 import foodDeliveryImg from '../assets/food delivery boy.jpg';
+import pizzaImg from '../assets/pizza.jpg';
+import biryaniImg from '../assets/biryani.jpg';
+import chickenImg from '../assets/chicken.jpg';
+import momoImg from '../assets/momo.jpeg';
+import fruitsImg from '../assets/fruits.jpg';
 
 const customerAvatars = [
   'https://randomuser.me/api/portraits/men/32.jpg',
   'https://randomuser.me/api/portraits/women/44.jpg',
   'https://randomuser.me/api/portraits/men/65.jpg',
   'https://randomuser.me/api/portraits/women/68.jpg',
+];
+
+const rotatingImages = [
+  { src: pizzaImg, alt: 'Pizza', link: '/gallery' },
+  { src: biryaniImg, alt: 'Biryani', link: '/gallery' },
+  { src: chickenImg, alt: 'Chicken', link: '/gallery' },
+  { src: momoImg, alt: 'Momo', link: '/gallery' },
+  { src: fruitsImg, alt: 'Fruits', link: '/gallery' },
 ];
 
 interface FoodDeliverySectionProps {
@@ -74,7 +87,7 @@ const FoodDeliverySection: React.FC<FoodDeliverySectionProps> = ({ sx }) => {
         </Stack>
       </Box>
       {/* Right: Image & Animated Arrow */}
-      <Box sx={{ flex: 1, position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 320, minHeight: 320 }}>
+      <Box sx={{ flex: 1, position: 'relative', display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'center', alignItems: 'center', minWidth: 320, minHeight: 320, gap: { xs: 2, sm: 4 } }}>
         {/* Animated Arrow (CSS) */}
         <Box
           sx={{
@@ -97,13 +110,14 @@ const FoodDeliverySection: React.FC<FoodDeliverySectionProps> = ({ sx }) => {
             <polygon points="110,50 102,46 104,54" fill="#ff3b00" />
           </svg>
         </Box>
+        {/* Delivery Boy Image */}
         <Box
           component="img"
           src={foodDeliveryImg}
           alt="Food Delivery Boy"
           sx={{
-            width: { xs: '90vw', sm: 320, md: 380 },
-            maxWidth: 420,
+            width: { xs: '90vw', sm: 220, md: 280 },
+            maxWidth: 320,
             borderRadius: 4,
             boxShadow: '0 8px 32px #0002',
             objectFit: 'cover',
@@ -111,6 +125,46 @@ const FoodDeliverySection: React.FC<FoodDeliverySectionProps> = ({ sx }) => {
             zIndex: 2,
           }}
         />
+        {/* Rotating Food Images (right of image on desktop, below on mobile) */}
+        <Box sx={{ position: 'relative', width: 160, height: 160, ml: { sm: 4 }, mt: { xs: 2, sm: 0 } }}>
+          {rotatingImages.map((img, i) => {
+            const angle = (i / rotatingImages.length) * 2 * Math.PI;
+            const radius = 60;
+            const x = Math.cos(angle) * radius + 40;
+            const y = Math.sin(angle) * radius + 40;
+            return (
+              <Box
+                key={img.alt}
+                component="a"
+                href={img.link}
+                sx={{
+                  position: 'absolute',
+                  left: x,
+                  top: y,
+                  width: 56,
+                  height: 56,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 8px #0002',
+                  border: '3px solid #fff',
+                  bgcolor: '#fff',
+                  transition: 'transform 0.3s',
+                  cursor: 'pointer',
+                  '&:hover': { transform: 'scale(1.12)', boxShadow: '0 4px 16px #ff3b0033' },
+                  animation: `rotateImg 4s linear infinite`,
+                  animationDelay: `${i * 0.5}s`,
+                  '@keyframes rotateImg': {
+                    '0%': { transform: `rotate(0deg) translateY(0)` },
+                    '100%': { transform: `rotate(360deg) translateY(0)` },
+                  },
+                }}
+                title={img.alt}
+              >
+                <Box component="img" src={img.src} alt={img.alt} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );
