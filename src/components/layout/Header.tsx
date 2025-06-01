@@ -65,6 +65,12 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
               <ShoppingCartIcon fontSize="large" />
             </Badge>
           </IconButton>
+          <Button component={Link} to="/login" variant="outlined" color="primary" sx={{ ml: 2, fontWeight: 600, borderRadius: 2 }}>
+            Login
+          </Button>
+          <Button component={Link} to="/signup" variant="contained" color="primary" sx={{ ml: 1, fontWeight: 600, borderRadius: 2 }}>
+            Signup
+          </Button>
         </Box>
       </Toolbar>
       {/* Cart Drawer */}
