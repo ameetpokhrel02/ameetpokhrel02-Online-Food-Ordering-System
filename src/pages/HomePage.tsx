@@ -20,6 +20,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
 import OffersSection from '../components/OffersSection';
+import FaqSection from '../components/FaqSection';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -452,6 +453,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           </Button>
         </Container>
       </Box>
+      <FaqSection />
     </Box>
   );
 };
