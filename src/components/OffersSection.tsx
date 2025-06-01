@@ -69,9 +69,9 @@ const OffersSection: React.FC = () => {
         Velit vel sit lacus pharetra pulvinar tempus massa sed. Turpis consectetur justo accumsan ac nuno ornare viverra pharetra.
       </Typography>
       {/* Categories */}
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, justifyContent: 'center', mb: 8 }}>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, justifyContent: 'center', mb: 8, maxWidth: 1200, mx: 'auto', px: { xs: 1, sm: 2, md: 0 } }}>
         {categories.map((cat) => (
-          <Box key={cat.title} sx={{ flex: 1, bgcolor: '#fafafa', borderRadius: 3, boxShadow: '0 2px 12px #0001', p: 3, textAlign: 'center', minWidth: 220 }}>
+          <Box key={cat.title} sx={{ flex: 1, bgcolor: '#fafafa', borderRadius: 3, boxShadow: '0 2px 12px #0001', p: 3, textAlign: 'center', minWidth: 220, maxWidth: 300, mx: 'auto' }}>
             <Box sx={{ width: 100, height: 100, mx: 'auto', mb: 2, borderRadius: '50%', overflow: 'hidden', boxShadow: '0 2px 8px #0002', bgcolor: '#fff' }}>
               <img src={cat.img} alt={cat.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Box>
@@ -82,7 +82,7 @@ const OffersSection: React.FC = () => {
       </Box>
       {/* Animated Offer Card */}
       <Fade in timeout={600} key={slide}>
-        <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: current.bg, color: current.color, borderRadius: 5, p: { xs: 3, md: 5 }, boxShadow: '0 4px 32px #0002', maxWidth: 900, mx: 'auto', minHeight: 220, mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: current.bg, color: current.color, borderRadius: 5, p: { xs: 3, md: 5 }, boxShadow: '0 4px 32px #0002', maxWidth: 900, mx: 'auto', minHeight: 220, mb: 2, px: { xs: 1, sm: 2, md: 5 } }}>
           <Box sx={{ flex: 1, minWidth: 180 }}>
             <img src={current.img} alt={current.title} style={{ width: '100%', maxWidth: 220, borderRadius: 16, boxShadow: '0 2px 12px #0003' }} />
           </Box>
