@@ -15,6 +15,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import { CartProvider } from './context/CartContext';
 import LoginSignupModal from './components/auth/LoginSignupModal';
+import SubscribeSection from './components/layout/SubscribeSection';
 
 const theme = createTheme({
   palette: {
@@ -107,6 +108,7 @@ function AppRoutes({ search, setSearch, isLoggedIn, setIsLoggedIn }: AppRoutesPr
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>
+      <SubscribeSection />
       <Footer />
       <LoginSignupModal open={modalOpen} onClose={handleCloseModal} onLogin={handleLogin} onSignup={handleSignup} />
     </>

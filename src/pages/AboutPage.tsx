@@ -1,36 +1,91 @@
-import React from 'react';
-import { Box, Typography, Container, Button, Link as MuiLink } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Container, Button, Fade } from '@mui/material';
+import vegetableGirl2 from '../assets/vegetable girl 2.jpg';
+import vegetableGirl4 from '../assets/vegetable girl 4.jpg';
+import { Link as RouterLink } from 'react-router-dom';
+
+const aboutSlides = [
+  {
+    image: vegetableGirl2,
+    title: 'Empowering Women Farmers',
+    subtitle: 'Fresh from the Fields',
+    pills: [
+      { color: '#e8f5e9', textColor: '#388e3c', icon: '👩‍🌾', label: 'Women-led farms' },
+      { color: '#fffde7', textColor: '#fbc02d', icon: '🥕', label: 'Organic vegetables' },
+    ],
+    desc: 'We support women farmers by bringing their fresh, organic produce directly to your table. Every purchase helps empower local communities.',
+    info: 'Sustainably grown, hand-picked, and delivered with care.',
+    button: 'Meet Our Farmers',
+    buttonLink: '/about#farmers',
+  },
+  {
+    image: vegetableGirl4,
+    title: 'Healthy Eating, Happy Living',
+    subtitle: 'Eat Well, Live Well',
+    pills: [
+      { color: '#e3f2fd', textColor: '#1976d2', icon: '🥗', label: 'Nutritious meals' },
+      { color: '#fce4ec', textColor: '#d81b60', icon: '🍅', label: 'Farm to table' },
+    ],
+    desc: 'Discover the joy of healthy eating with our range of fresh, seasonal vegetables. Perfect for every meal and every lifestyle.',
+    info: 'Freshness guaranteed, taste the difference every day.',
+    button: 'Explore Recipes',
+    buttonLink: '/about#recipes',
+  },
+];
 
 const AboutPage = () => {
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlide((prev) => (prev + 1) % aboutSlides.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const current = aboutSlides[slide];
+
   return (
     <Container sx={{ py: 8 }}>
       <Typography variant="h3" component="h1" gutterBottom align="center">
         About Us
       </Typography>
-
-      {/* About Section */}
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, alignItems: 'center', mb: 8 }}>
-        <Box sx={{ flex: 1 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            Learn More About Amyths
-          </Typography>
-          <Typography variant="body1" paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Typography>
-          <Typography variant="body1" paragraph>
-            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-          </Typography>
+      {/* Animated About Section */}
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 6, bgcolor: '#f6fcf7', borderRadius: 4, boxShadow: '0 4px 24px rgba(0,0,0,0.06)', px: { xs: 2, md: 6 }, py: { xs: 4, md: 6 }, mb: 8 }}>
+        {/* Left: Animated Text */}
+        <Box sx={{ flex: 2, pr: { md: 6 }, textAlign: { xs: 'center', md: 'left' } }}>
+          <Fade in timeout={600} key={slide}>
+            <Box>
+              <Typography variant="subtitle1" sx={{ color: '#4caf50', fontWeight: 600, mb: 1 }}>
+                {current.subtitle}
+              </Typography>
+              <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: '#222' }}>
+                {current.title}
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                {current.pills.map((pill, i) => (
+                  <Box key={i} sx={{ bgcolor: pill.color, color: pill.textColor, px: 2.5, py: 1, borderRadius: 99, fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', boxShadow: 1 }}>
+                    <span role="img" aria-label="icon" style={{ marginRight: 8 }}>{pill.icon}</span> {pill.label}
+                  </Box>
+                ))}
+              </Box>
+              <Typography variant="body1" sx={{ mb: 2, color: '#555' }}>{current.desc}</Typography>
+              <Box sx={{ bgcolor: '#e0f7fa', color: '#00796b', px: 3, py: 2, borderRadius: 2, mb: 3, fontWeight: 500, fontSize: '1.1rem', display: 'inline-block' }}>{current.info}</Box>
+              <br />
+              <Button variant="contained" color="primary" size="large" component={RouterLink} to={current.buttonLink} sx={{ mt: 2, borderRadius: 25, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', bgcolor: '#ff3b00', '&:hover': { bgcolor: '#c1452b' } }}>{current.button}</Button>
+            </Box>
+          </Fade>
         </Box>
-        <Box
-          sx={{
-            flex: 1,
-            backgroundImage: 'url(https://via.placeholder.com/600x400)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            minHeight: 300,
-            borderRadius: 2,
-          }}
-        />
+        {/* Right: Animated Image */}
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', mt: { xs: 4, md: 0 } }}>
+          <Fade in timeout={600} key={slide + '-img'}>
+            <Box
+              component="img"
+              src={current.image}
+              alt={current.title}
+              sx={{ width: { xs: '80%', md: 340 }, maxWidth: 400, borderRadius: '24px', boxShadow: '0 8px 32px rgba(0,0,0,0.10)', objectFit: 'cover', background: '#fff' }}
+            />
+          </Fade>
+        </Box>
       </Box>
 
       {/* Our Team Section */}

@@ -18,6 +18,7 @@ import momo from '../assets/momo.jpeg';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -233,35 +234,63 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
 
       {/* About Us Section */}
       <Container sx={{ py: 8 }}>
-        <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ mb: 6 }}>
-          <span className="section-title">About Us</span>
-        </Typography>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, alignItems: 'center' }}>
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="h5" component="h3" gutterBottom>
-              Learn More About Amyths
+        <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: 'center',
+          gap: 6,
+          bgcolor: '#f6fcf7',
+          borderRadius: 4,
+          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+          px: { xs: 2, md: 6 },
+          py: { xs: 4, md: 6 },
+        }}>
+          {/* Left: Content */}
+          <Box sx={{ flex: 2, pr: { md: 6 }, textAlign: { xs: 'center', md: 'left' } }}>
+            <Typography variant="subtitle1" sx={{ color: '#4caf50', fontWeight: 600, mb: 1 }}>
+              Farming with Love
             </Typography>
-            <Typography variant="body1" paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: '#222' }}>
+              Organic & healthy fresh<br />food provider
             </Typography>
-            <Typography variant="body1" paragraph>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+            <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Box sx={{ bgcolor: '#e8f5e9', color: '#388e3c', px: 2.5, py: 1, borderRadius: 99, fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', boxShadow: 1 }}>
+                <span role="img" aria-label="leaf" style={{ marginRight: 8 }}>🌱</span> The natural products
+              </Box>
+              <Box sx={{ bgcolor: '#fffde7', color: '#fbc02d', px: 2.5, py: 1, borderRadius: 99, fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', boxShadow: 1 }}>
+                <span role="img" aria-label="sun" style={{ marginRight: 8 }}>🌞</span> Everyday fresh food
+              </Box>
+            </Box>
+            <Typography variant="body1" sx={{ mb: 2, color: '#555' }}>
+              We connect buyers and sellers of natural, organic products who are so beguiled demoralized charme of pleasure
             </Typography>
-            <Button variant="contained" color="primary" size="large" component={Link} to="/about" sx={{ mt: 2, borderRadius: 25 }}>
-              Learn More
+            <Typography variant="body2" sx={{ mb: 2, color: '#888' }}>
+              Velit wisi et lacus pharetra pulvinar tempus massa sed. Turpis consectetur justo accumsan ac nunc ornare viverra pharetra. Lorem elementum mauris morbi cursus tellus ullamcorper.
+            </Typography>
+            <Box sx={{ bgcolor: '#e0f7fa', color: '#00796b', px: 3, py: 2, borderRadius: 2, mb: 3, fontWeight: 500, fontSize: '1.1rem', display: 'inline-block' }}>
+              Every day fresh and quality products for you deliver at doorstep
+            </Box>
+            <br />
+            <Button variant="contained" color="primary" size="large" component={Link} to="/about" sx={{ mt: 2, borderRadius: 25, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', bgcolor: '#ff3b00', '&:hover': { bgcolor: '#c1452b' } }}>
+              Explore Us
             </Button>
           </Box>
-          <Box
-            sx={{
-              flex: 1,
-              backgroundImage: 'url(https://media.istockphoto.com/id/1165399909/photo/delicious-meal-on-a-black-plate-top-view-copy-space.jpg?s=612x612&w=0&k=20&c=vrMzS4pY_QjiDtCzpVE3ClKqbU636fb4CKH0nlsduC4=)', // Placeholder image
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              minHeight: 300,
-              borderRadius: 2,
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add subtle shadow to image container
-            }}
-          />
+          {/* Right: Image */}
+          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', mt: { xs: 4, md: 0 } }}>
+            <Box
+              component="img"
+              src={girlcarryingvegetables}
+              alt="Girl carrying vegetables"
+              sx={{
+                width: { xs: '80%', md: 340 },
+                maxWidth: 400,
+                borderRadius: '24px',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
+                objectFit: 'cover',
+                background: '#fff',
+              }}
+            />
+          </Box>
         </Box>
       </Container>
 
