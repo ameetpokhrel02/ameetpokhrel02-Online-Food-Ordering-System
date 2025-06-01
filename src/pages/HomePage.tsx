@@ -19,6 +19,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
+import OffersSection from '../components/OffersSection';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -318,6 +319,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           ))}
         </Box>
       </Container>
+      <OffersSection />
 
       {/* Delivery Available Section */}
       <Container sx={{ py: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

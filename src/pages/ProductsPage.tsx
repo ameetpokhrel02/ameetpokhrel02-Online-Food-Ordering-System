@@ -11,6 +11,7 @@ import lolipop from '../assets/lolipop.jpg';
 import pizza from '../assets/pizza.jpg';
 import momo from '../assets/momo.jpeg';
 import burgerImg from '../assets/pizza.jpg';
+import OffersSection from '../components/OffersSection';
 
 const allProducts = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza' },
@@ -307,26 +308,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             // transform: `translateX(-${featIndex * (100 / productsToShow)}%)`,
             width: '100%', // Ensure it takes full width of its container
           }}>
-            {products.map((product) => (
-              <Box 
-                key={product.id} 
-                sx={{
-                  // Remove flex distribution styles from previous slider implementation
-                  // flex: `0 0 calc(${100 / productsToShow}% - ${(productsToShow - 1) * 4 / productsToShow}px)`,
-                  // maxWidth: `calc(${100 / productsToShow}% - ${(productsToShow - 1) * 4 / productsToShow}px)`,
-                  // minWidth: 260,
-                  // minHeight: 380,
-                  boxSizing: 'border-box',
-                  width: '100%', // Ensure card container takes full grid cell width
-                  height: '100%', // Ensure card container takes full grid cell height
-                  display: 'flex', // Use flex within cell to center card if needed
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+            {products.map((product, idx) => (
+              <Box key={product.id} ref={(el: HTMLDivElement | null) => { productRefs.current[idx] = el; }} data-idx={idx} sx={{ opacity: visibleCards.includes(idx) ? 1 : 0, transform: visibleCards.includes(idx) ? 'none' : 'translateY(40px)', transition: 'all 0.7s cubic-bezier(.4,2,.3,1)' }}>
                 <ProductCard product={product} />
               </Box>
             ))}
           </Box>
+          <OffersSection />
         </Box>
       </Box>
     </Container>
