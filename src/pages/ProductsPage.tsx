@@ -12,6 +12,7 @@ import pizza from '../assets/pizza.jpg';
 import momo from '../assets/momo.jpeg';
 import burgerImg from '../assets/pizza.jpg';
 import OffersSection from '../components/OffersSection';
+import FoodDeliverySection from '../components/FoodDeliverySection';
 
 const allProducts = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza' },
@@ -315,6 +316,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             ))}
           </Box>
           <OffersSection />
+          <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
         </Box>
       </Box>
     </Container>

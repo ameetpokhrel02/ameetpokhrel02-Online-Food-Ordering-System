@@ -4,6 +4,7 @@ import vegetableGirl2 from '../assets/vegetable girl 2.jpg';
 import vegetableGirl4 from '../assets/vegetable girl 4.jpg';
 import { Link as RouterLink } from 'react-router-dom';
 import AboutQualitySection from '../components/AboutQualitySection';
+import FoodDeliverySection from '../components/FoodDeliverySection';
 
 const aboutSlides = [
   {
@@ -178,6 +179,7 @@ const AboutPage = () => {
         </Box>
       </Box>
       <AboutQualitySection />
+      <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
     </Container>
   );
 };

@@ -21,6 +21,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
 import OffersSection from '../components/OffersSection';
 import FaqSection from '../components/FaqSection';
+import FoodDeliverySection from '../components/FoodDeliverySection';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -321,138 +322,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         </Box>
       </Container>
       <OffersSection />
-
-      {/* Delivery Available Section */}
-      <Container sx={{ py: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4, bgcolor: '#fff8e1', p: 4, borderRadius: 3, boxShadow: 2 }}>
-          <img src={deliveryGif} alt="Delivery Available" style={{ width: 120, height: 120, objectFit: 'contain' }} />
-          <Box>
-            <Typography variant="h5" fontWeight={700} color="primary" gutterBottom>
-              Fast Delivery Available!
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              We deliver your favorite food right to your doorstep. Order now and enjoy quick, reliable delivery service!
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
-
-      {/* Why Choose Us Section */}
-      <Box sx={{ py: 8, backgroundColor: '#f8f8f8' }}>
-        <Container>
-          <Box className="section-title">
-            <Typography variant="h4" component="h2" gutterBottom>
-              Why Choose Amyths
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Here are a few reasons why customers love shopping with us.
-            </Typography>
-          </Box>
-          <Box sx={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            gap: 4,
-            '& > *': {
-              flex: { xs: '1 1 100%', md: '1 1 calc(33.333% - 22px)' },
-              maxWidth: { xs: '100%', md: 'calc(33.333% - 22px)' },
-            }
-          }}>
-            <Box sx={{ textAlign: 'center', p: 3, border: '1px solid #eee', borderRadius: 2 }}>
-              <CheckCircleOutlineIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography variant="h6" component="h3" gutterBottom>
-                High Quality Products
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-              </Typography>
-            </Box>
-
-            <Box sx={{ textAlign: 'center', p: 3, border: '1px solid #eee', borderRadius: 2 }}>
-              <CheckCircleOutlineIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography variant="h6" component="h3" gutterBottom>
-                Fast Shipping
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
-              </Typography>
-            </Box>
-
-            <Box sx={{ textAlign: 'center', p: 3, border: '1px solid #eee', borderRadius: 2 }}>
-              <CheckCircleOutlineIcon color="primary" sx={{ fontSize: 60, mb: 2 }} />
-              <Typography variant="h6" component="h3" gutterBottom>
-                Excellent Customer Support
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Typography>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Testimonials Section */}
-      <Box sx={{ py: 8 }}>
-        <Container>
-          <Box className="section-title">
-            <Typography variant="h4" component="h2" gutterBottom>
-              What Our Customers Say
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Hear from our satisfied customers.
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Box sx={{ maxWidth: 800, width: '100%' }}>
-              <Paper elevation={3} sx={{ padding: 4, textAlign: 'center' }}>
-                <Typography variant="body1" paragraph>
-                  "Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper."
-                </Typography>
-                <Typography variant="h6" component="h3" gutterBottom sx={{ mt: 3 }}>
-                  Saul Goodman
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Satisfied Customer
-                </Typography>
-              </Paper>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Call to Action Section */}
-      <Box 
-        sx={{
-          py: 8,
-          textAlign: 'center',
-          backgroundColor: 'primary.main', // Use primary color for background
-          color: 'white',
-        }}
-      >
-        <Container>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Ready to find your next favorite item?
-          </Typography>
-          <Typography variant="h6" component="p" sx={{ mb: 4 }}>
-            Explore our curated collection now!
-          </Typography>
-          <Button 
-            variant="contained" 
-            color="secondary" 
-            size="large" 
-            component={Link} 
-            to="/products"
-            sx={{
-              py: 1.5,
-              px: 4,
-              fontSize: '1.2rem',
-              textTransform: 'none',
-              borderRadius: 2,
-            }}
-          >
-            Shop All Products
-          </Button>
-        </Container>
-      </Box>
+      <FoodDeliverySection />
       <FaqSection />
     </Box>
   );

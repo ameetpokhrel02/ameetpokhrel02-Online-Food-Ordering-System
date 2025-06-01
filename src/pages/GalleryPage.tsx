@@ -14,6 +14,7 @@ import chowmein from '../assets/chowmein.webp';
 import kd8z02kfs9u61 from '../assets/kd8z02kfs9u61.jpg';
 import chicken from '../assets/chicken.jpg';
 import GalleryMenuItem from '../components/GalleryMenuItem';
+import FoodDeliverySection from '../components/FoodDeliverySection';
 
 const allGalleryItems = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1 },
@@ -105,6 +106,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
           </Box>
         </Container>
       )}
+      <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
     </Box>
   );
 }
