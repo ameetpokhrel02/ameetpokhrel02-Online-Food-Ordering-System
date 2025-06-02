@@ -65,24 +65,6 @@ const ContactPage = () => {
             mb: { xs: 6, md: 0 },
             boxShadow: '0 8px 32px rgba(255,59,0,0.08)',
           }}>
-            <Box sx={{
-              position: 'absolute',
-              top: -70,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 140,
-              height: 140,
-              zIndex: 2,
-              boxShadow: '0 8px 32px rgba(255,59,0,0.12)',
-              borderRadius: '50%',
-              bgcolor: '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              p: 1,
-            }}>
-              <img src={deliveryGif} alt="Delivery" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%' }} />
-            </Box>
             <Box sx={{ mt: 10, textAlign: 'center', width: '100%' }}>
               <Typography variant="h6" component="h3" gutterBottom sx={{ color: '#ff3b00', fontWeight: 700 }}>
                 Get in Touch
@@ -94,6 +76,27 @@ const ContactPage = () => {
                 <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Address:</Box> A108 Adam Street, New York, NY 535022</Typography>
                 <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Phone:</Box> +1 5589 55488 55</Typography>
                 <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Email:</Box> info@example.com</Typography>
+              </Box>
+              {/* Delivery GIF below contact info */}
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mt: 4,
+              }}>
+                <Box sx={{
+                  width: 120,
+                  height: 120,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(255,59,0,0.10)',
+                  bgcolor: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <img src={deliveryGif} alt="Delivery Animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </Box>
               </Box>
             </Box>
           </Paper>
