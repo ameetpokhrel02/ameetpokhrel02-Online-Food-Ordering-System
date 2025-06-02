@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import deliveryGif from '../assets/delivery.gif';
+import foodDeliveryAnimation from '../assets/Food-delivery-animation.gif';
 
 const TextareaAutosize = styled(MuiTextareaAutosize)(({ theme }) => ({
   width: '100%',
@@ -96,6 +97,27 @@ const ContactPage = () => {
                   justifyContent: 'center',
                 }}>
                   <img src={deliveryGif} alt="Delivery Animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </Box>
+              </Box>
+              {/* Food Delivery Animation GIF below email section */}
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mt: 4,
+              }}>
+                <Box sx={{
+                  width: 120,
+                  height: 120,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(255,59,0,0.10)',
+                  bgcolor: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <img src={foodDeliveryAnimation} alt="Food Delivery Animation" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </Box>
               </Box>
             </Box>
