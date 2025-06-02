@@ -24,7 +24,7 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
         border: '2px solid #fff2',
       }}
     >
-      {/* Left: Food image/logo and background */}
+      {/* Left: Food image/logo */}
       <Box
         sx={{
           display: { xs: 'none', md: 'flex' },

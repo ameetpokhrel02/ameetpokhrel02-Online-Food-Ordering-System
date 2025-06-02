@@ -3,16 +3,17 @@ import { Box, Typography, Container, Button, TextField, Paper, TextareaAutosize 
 import { styled } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import deliveryGif from '../assets/delivery.gif';
 
 const TextareaAutosize = styled(MuiTextareaAutosize)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(1.5),
-  border: `1px solid ${theme.palette.divider}`, // Use theme divider color
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
   fontSize: '1rem',
   fontFamily: theme.typography.fontFamily,
   '&:focus': {
-    borderColor: theme.palette.primary.main, // Highlight on focus
+    borderColor: theme.palette.primary.main,
     outline: 'none',
   },
 }));
@@ -40,45 +41,75 @@ const ContactPage = () => {
   });
 
   return (
-    <Container sx={{ py: 8 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6 }}>
-        Contact Us
-      </Typography>
-
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-        {/* Contact Information */}
-        <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 40%' } }}>
-          <Paper elevation={3} sx={{ padding: 4 }}>
-            <Typography variant="h6" component="h3" gutterBottom>
-              Get in Touch
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              We'd love to hear from you! Please fill out the form or use the contact information below.
-            </Typography>
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Address:</Box> A108 Adam Street, New York, NY 535022</Typography>
-              <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Phone:</Box> +1 5589 55488 55</Typography>
-              <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Email:</Box> info@example.com</Typography>
+    <Box sx={{
+      py: 8,
+      bgcolor: 'linear-gradient(135deg, #fff8f5 0%, #ffe0d9 100%)',
+      minHeight: '100vh',
+    }}>
+      <Container>
+        <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6, color: '#ff3b00', fontWeight: 700 }}>
+          Contact Us
+        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6, alignItems: 'stretch', justifyContent: 'center' }}>
+          {/* Contact Information + Delivery Image */}
+          <Paper elevation={6} sx={{
+            flex: { xs: '1 1 100%', md: '1 1 40%' },
+            p: { xs: 3, md: 5 },
+            borderRadius: 5,
+            bgcolor: '#fff8f5',
+            position: 'relative',
+            overflow: 'visible',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mb: { xs: 6, md: 0 },
+            boxShadow: '0 8px 32px rgba(255,59,0,0.08)',
+          }}>
+            <Box sx={{
+              position: 'absolute',
+              top: -70,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 140,
+              height: 140,
+              zIndex: 2,
+              boxShadow: '0 8px 32px rgba(255,59,0,0.12)',
+              borderRadius: '50%',
+              bgcolor: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              p: 1,
+            }}>
+              <img src={deliveryGif} alt="Delivery" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%' }} />
             </Box>
-            {/* Placeholder Map (can be replaced with an actual map embed) */}
-            <Box
-              sx={{
-                width: '100%',
-                height: 250,
-                backgroundImage: 'url(https://via.placeholder.com/600x250?text=Map+Placeholder)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: 1,
-                mt: 3,
-              }}
-            />
+            <Box sx={{ mt: 10, textAlign: 'center', width: '100%' }}>
+              <Typography variant="h6" component="h3" gutterBottom sx={{ color: '#ff3b00', fontWeight: 700 }}>
+                Get in Touch
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                We'd love to hear from you! Please fill out the form or use the contact information below.
+              </Typography>
+              <Box sx={{ mb: 2, textAlign: 'left' }}>
+                <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Address:</Box> A108 Adam Street, New York, NY 535022</Typography>
+                <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Phone:</Box> +1 5589 55488 55</Typography>
+                <Typography variant="body2" color="text.secondary"><Box component="strong" sx={{ color: '#333' }}>Email:</Box> info@example.com</Typography>
+              </Box>
+            </Box>
           </Paper>
-        </Box>
 
-        {/* Contact Form */}
-        <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 60%' } }}>
-          <Paper elevation={3} sx={{ padding: 4 }}>
-            <Typography variant="h6" component="h3" gutterBottom>
+          {/* Contact Form */}
+          <Paper elevation={3} sx={{
+            flex: { xs: '1 1 100%', md: '1 1 60%' },
+            p: { xs: 3, md: 5 },
+            borderRadius: 5,
+            bgcolor: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            boxShadow: '0 8px 32px rgba(255,59,0,0.08)',
+          }}>
+            <Typography variant="h6" component="h3" gutterBottom sx={{ color: '#ff3b00', fontWeight: 700 }}>
               Send us a message
             </Typography>
             <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
@@ -138,14 +169,14 @@ const ContactPage = () => {
                 </Typography>
               )}
 
-              <Button color="primary" variant="contained" size="large" fullWidth type="submit">
+              <Button color="primary" variant="contained" size="large" fullWidth type="submit" sx={{ borderRadius: 3, fontWeight: 700, fontSize: 18, py: 1.5, mt: 1 }}>
                 Send Message
               </Button>
             </Box>
           </Paper>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

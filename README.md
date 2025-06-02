@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# Amyths E-commerce React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive e-commerce web application inspired by the [Yummy template](https://themewagon.github.io/yummy-red/). Built with React, TypeScript, Material-UI, and Formik/Yup for robust UI, validation, and state management. Features a beautiful landing page, product catalog, gallery, authentication, shopping cart, and more.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Modern UI**: Inspired by the Yummy template, with custom Material-UI theming and animations.
+- **Responsive Design**: Works seamlessly on desktop and mobile devices.
+- **Authentication**: Login and signup forms with validation (Formik + Yup).
+- **Product Catalog**: Browse, search, and filter products. Add to cart with animated feedback.
+- **Gallery**: View top menu items and a full gallery of dishes.
+- **Shopping Cart**: Persistent cart with add/remove/clear and checkout UI.
+- **Contact Page**: Contact form with validation and styled map placeholder.
+- **About Page**: Animated about section and team showcase.
+- **Global Search**: Search bar in the header filters products and gallery items.
+- **Reusable Components**: ProductCard, GalleryMenuItem, layout components, and more.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **React** (with TypeScript)
+- **Material-UI (MUI)** for UI components and theming
+- **Formik & Yup** for forms and validation
+- **React Router** for navigation
+- **Context API** for cart state management
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Start the development server:**
+   ```bash
+   npm start
+   ```
+   The app will run at [http://localhost:3000](http://localhost:3000).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
-### `npm run build`
+## Folder Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+reactapp/
+├── public/                # Static assets (favicon, manifest, images)
+├── src/
+│   ├── assets/            # App images and media
+│   │   ├── components/
+│   │   │   ├── auth/          # Auth pages and layouts
+│   │   │   ├── layout/        # Header, Footer, SubscribeSection, etc.
+│   │   │   └── ...            # Reusable UI components
+│   │   ├── context/           # CartContext for global cart state
+│   │   ├── pages/             # Main pages: Home, About, Products, Gallery, Contact
+│   │   ├── App.tsx            # Main app and routing
+│   │   ├── theme.ts           # Custom Material-UI theme
+│   │   └── index.tsx          # App entry point
+│   ├── package.json           # Project metadata and dependencies
+│   ├── tsconfig.json          # TypeScript configuration
+│   └── README.md              # Project documentation
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
+- **Browse Products:** Use the Products or Home page to view and filter products. Add items to your cart.
+- **Gallery:** Explore featured and all menu items in the Gallery.
+- **Authentication:** Register or log in via the Signup/Login pages.
+- **Cart:** Access your cart from the header. Add, remove, or clear items.
+- **Contact:** Use the contact form to send a message (simulated).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Customization
+- Update images in `src/assets/` or `public/` for your own dishes/products.
+- Edit theme colors in `src/theme.ts`.
+- Add more products or gallery items in the respective page/component files.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+This project is for educational/demo purposes. For commercial use, customize as needed.
