@@ -63,7 +63,7 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: '#111',
+        bgcolor: 'linear-gradient(135deg, #fff8f5 0%, #ffe0d9 100%)',
       }}
     >
       <Paper
