@@ -4,6 +4,7 @@ import vegetableImg from '../assets/vegetable.jpg';
 import fruitsImg from '../assets/fruits.jpg';
 import spiciesImg from '../assets/spicies.jpg';
 import dryFruitsImg from '../assets/dry fruits.jpg';
+import girlCarryingVegetablesImg from '../assets/girlcarryingvegetables.jpg';
 
 const categories = [
   {
@@ -46,6 +47,15 @@ const offerSlides = [
     bg: '#256029',
     color: '#fff',
     btn: 'Shop Fruits',
+  },
+  {
+    img: girlCarryingVegetablesImg,
+    title: 'Vegetables Offer',
+    offer: '50% OFF',
+    desc: 'Fresh vegetables at half price. Eat healthy, save more!',
+    bg: '#4e7d4c',
+    color: '#fff',
+    btn: 'Shop Vegetables',
   },
 ];
 
