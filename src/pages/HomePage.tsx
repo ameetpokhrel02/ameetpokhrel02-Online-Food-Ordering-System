@@ -79,7 +79,6 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
-  // Use the same product images as ProductsPage
   const products = [
     { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1 },
     { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2 },
@@ -100,9 +99,6 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
   const [featuredIndex, setFeaturedIndex] = useState(4); // Start with Classic Biryani
   const [animating, setAnimating] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Products to show in the circular arc (excluding the featured one)
-  const circularProducts = products.filter((_, idx) => idx !== featuredIndex).slice(0, 4);
 
   // Auto-play effect for hero section
   useEffect(() => {
@@ -125,19 +121,29 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
 
   const handleSelectFeatured = (idx: number) => {
     if (idx === featuredIndex) return;
+    if (timerRef.current) clearTimeout(timerRef.current); // Reset timer immediately
     setAnimating(true);
     setTimeout(() => {
       setFeaturedIndex(idx);
       setAnimating(false);
     }, 400);
-    if (timerRef.current) clearTimeout(timerRef.current); // Reset timer
   };
 
   const featuredProduct = products[featuredIndex];
 
+  // Arc positioning for small images (spread evenly around a circle, but only show a subset in a visible arc)
+  const arcCount = 5; // Number of small images to show in the arc
+  const arcRadius = 220; // Distance from center of main image
+  const arcStart = -40; // Start angle in degrees (left)
+  const arcEnd = 40; // End angle in degrees (right)
+  const arcIndexes = products
+    .map((_, idx) => idx)
+    .filter(idx => idx !== featuredIndex)
+    .slice(0, arcCount);
+
   return (
     <Box>
-      {/* --- HERO SECTION (restored design, now with auto-play) --- */}
+      {/* --- HERO SECTION (fixed arc and manual change) --- */}
       <Box
         sx={{
           position: 'relative',
@@ -231,19 +237,23 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             {/* Circular Images in Arc */}
             <Box sx={{
               position: 'absolute',
-              width: '100%',
-              height: '100%',
-              top: 0,
-              left: 0,
-              zIndex: 2,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              width: 380,
+              height: 380,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 4,
+              pointerEvents: animating ? 'none' : 'auto',
             }}>
-              {products.map((product, idx) => (
-                idx !== featuredIndex && (
+              {arcIndexes.map((idx, i) => {
+                // Spread arcCount images from arcStart to arcEnd degrees
+                const angle = arcStart + ((arcEnd - arcStart) * i) / (arcCount - 1);
+                const rad = (angle * Math.PI) / 180;
+                const x = 190 + arcRadius * Math.cos(rad) - 40; // 40 = half of small image size
+                const y = 190 + arcRadius * Math.sin(rad) - 40;
+                return (
                   <Box
-                    key={product.id}
+                    key={products[idx].id}
                     onClick={() => handleSelectFeatured(idx)}
                     sx={{
                       position: 'absolute',
@@ -253,22 +263,22 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                       overflow: 'hidden',
                       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                       cursor: 'pointer',
-                      transition: 'all 0.3s ease-in-out',
-                      '&:hover': { transform: 'scale(1.1)' },
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      // Positioning in arc
-                      top: `${50 + 30 * Math.sin((idx / products.length) * 2 * Math.PI)}%`,
-                      left: `${50 + 30 * Math.cos((idx / products.length) * 2 * Math.PI)}%`,
-                      transform: 'translate(-50%, -50%)',
+                      left: x,
+                      top: y,
+                      border: '3px solid #ffe0d9',
+                      zIndex: 5,
+                      transition: 'box-shadow 0.2s, border 0.2s',
+                      '&:hover': { boxShadow: '0 8px 24px #ff3b0033', border: '3px solid #ff3b00' },
                     }}
                   >
-                    <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={products[idx].imageUrl} alt={products[idx].name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </Box>
-                )
-              ))}
+                );
+              })}
             </Box>
           </Box>
         </Container>
