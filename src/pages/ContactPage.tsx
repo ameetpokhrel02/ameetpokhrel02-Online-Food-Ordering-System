@@ -178,6 +178,30 @@ const ContactPage = () => {
               </Button>
             </Box>
           </Paper>
+
+          {/* Google Maps Embed */}
+          <Box sx={{ mt: 8, width: '100%' }}>
+            <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ mb: 4, color: '#ff3b00', fontWeight: 700 }}>
+              Find Us on the Map
+            </Typography>
+            <Box sx={{
+              width: '100%',
+              height: 400, // Adjust height as needed
+              borderRadius: 4,
+              overflow: 'hidden',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
+            }}>
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                style={{ border: 0 }}
+                src="https://www.google.com/maps?q=Kathmandu,+Nepal&hl=en&z=14&output=embed"
+                allowFullScreen
+              >
+              </iframe>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </Box>
