@@ -10,6 +10,7 @@ import amitImg from '../assets/amit.jpg';
 import ameetImg from '../assets/ameet.jpg';
 import himaniImg from '../assets/vegetable girl 2.jpg';
 import nabinImg from '../assets/vegetable girl 4.jpg';
+import nabinTamangImg from '../assets/food delivery boy.jpg';
 
 const aboutSlides = [
   {
@@ -115,8 +116,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
-              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
+              flex: '1 1 100%',
+              maxWidth: '100%',
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -164,8 +165,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
-              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
+              flex: '1 1 100%',
+              maxWidth: '100%',
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -213,8 +214,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
-              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
+              flex: '1 1 100%',
+              maxWidth: '100%',
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -262,8 +263,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
-              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
+              flex: '1 1 100%',
+              maxWidth: '100%',
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -305,6 +306,55 @@ const AboutPage = () => {
               <IconButton component="a" href="https://github.com/nabin" target="_blank" rel="noopener" sx={{ color: '#333', transition: 'color 0.3s', '&:hover': { color: '#24292e', bgcolor: '#e3e3e3' } }}><GitHub /></IconButton>
               <IconButton component="a" href="https://instagram.com/nabin" target="_blank" rel="noopener" sx={{ color: '#E4405F', transition: 'color 0.3s', '&:hover': { color: '#C13584', bgcolor: '#fce4ec' } }}><Instagram /></IconButton>
               <IconButton component="a" href="https://linkedin.com/in/nabin" target="_blank" rel="noopener" sx={{ color: '#0A66C2', transition: 'color 0.3s', '&:hover': { color: '#004182', bgcolor: '#e3f2fd' } }}><LinkedIn /></IconButton>
+            </Box>
+          </Box>
+          {/* Team Member 5 - Nabin Tamang */}
+          <Box
+            sx={{
+              position: 'relative',
+              flex: '1 1 100%',
+              maxWidth: '100%',
+              textAlign: 'center',
+              p: 3,
+              borderRadius: 4,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              bgcolor: '#fff',
+              '&:hover': {
+                transform: 'translateY(-10px) scale(1.04)',
+                boxShadow: '0 8px 32px #00bcd433',
+              },
+            }}
+          >
+            <Box
+              component="img"
+              src={nabinTamangImg}
+              alt="Nabin Tamang"
+              sx={{
+                width: 140,
+                height: 140,
+                objectFit: 'cover',
+                borderRadius: '50%',
+                mx: 'auto',
+                mb: 2,
+                border: '4px solid #00bcd4',
+                transition: 'border-color 0.3s',
+                boxShadow: '0 2px 12px #00bcd422',
+              }}
+            />
+            <Typography variant="h6" component="h3" gutterBottom>
+              Nabin Tamang
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              UI/UX Designer
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Nabin focuses on creating intuitive and visually appealing user interfaces.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
+              <IconButton component="a" href="https://github.com/nabintamang" target="_blank" rel="noopener" sx={{ color: '#333', transition: 'color 0.3s', '&:hover': { color: '#24292e', bgcolor: '#e3e3e3' } }}><GitHub /></IconButton>
+              <IconButton component="a" href="https://instagram.com/nabintamang" target="_blank" rel="noopener" sx={{ color: '#E4405F', transition: 'color 0.3s', '&:hover': { color: '#C13584', bgcolor: '#fce4ec' } }}><Instagram /></IconButton>
+              <IconButton component="a" href="https://linkedin.com/in/nabintamang" target="_blank" rel="noopener" sx={{ color: '#0A66C2', transition: 'color 0.3s', '&:hover': { color: '#004182', bgcolor: '#e3f2fd' } }}><LinkedIn /></IconButton>
             </Box>
           </Box>
         </Box>
