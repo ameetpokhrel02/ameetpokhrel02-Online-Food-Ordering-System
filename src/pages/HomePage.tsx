@@ -22,6 +22,7 @@ import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
 import OffersSection from '../components/OffersSection';
 import FaqSection from '../components/FaqSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -30,21 +31,54 @@ const carouselItems = [
   { image: galleryPng, name: 'Yummy Dessert' },
 ];
 
+// --- HERO CAROUSEL DATA ---
+const heroItems = [
+  {
+    name: 'Classic Biryani',
+    price: 22.0,
+    desc: 'Aromatic rice dish with tender meat and spices.',
+    image: biryani,
+  },
+  {
+    name: 'Delicious Pizza',
+    price: 18.0,
+    desc: 'A classic Italian pizza with fresh ingredients and a crispy crust.',
+    image: pizza,
+  },
+  {
+    name: 'Steamed Momo',
+    price: 16.0,
+    desc: 'Soft dumplings filled with savory goodness.',
+    image: momo,
+  },
+  {
+    name: 'Chicken Lollipop',
+    price: 18.5,
+    desc: 'Crispy fried chicken lollipops, a spicy treat.',
+    image: lolipop,
+  },
+  {
+    name: 'Tasty Burger',
+    price: 29.5,
+    desc: 'Juicy burger with fresh veggies and special sauce.',
+    image: food2,
+  },
+  {
+    name: 'Special Dish',
+    price: 15.0,
+    desc: 'A chef special with a unique blend of flavors.',
+    image: imagePng,
+  },
+];
+
+const AUTO_PLAY_INTERVAL = 4000;
+
 interface HomePageProps {
   search: string;
   setSearch: (query: string) => void;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
-  // Carousel state for hero background (removed as per new design)
-  // const [current, setCurrent] = useState(0);
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrent((prev) => (prev + 1) % carouselItems.length);
-  //   }, 3500);
-  //   return () => clearInterval(interval);
-  // }, []);
-
   // Use the same product images as ProductsPage
   const products = [
     { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1 },
@@ -62,50 +96,58 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Animation state for hero section (removed as per new design)
-  // const [heroVisible, setHeroVisible] = useState(false);
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setHeroVisible(true), 200);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  // Featured Products slider state (for the section below Hero)
-  const [featIndex, setFeatIndex] = useState(0);
-  const productsToShow = 3;
-  const maxIndex = Math.max(0, products.length - productsToShow);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const prevFeatIndex = useRef(featIndex); // To track previous index for animation direction
-
-  const handlePrev = () => setFeatIndex((i) => Math.max(0, i - 1));
-  const handleNext = () => setFeatIndex((i) => Math.min(maxIndex, i + 1));
-
-  // Update slider position and add card animations (for the section below Hero)
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.style.transition = 'transform 0.7s cubic-bezier(.4,2,.3,1)';
-      sliderRef.current.style.transform = `translateX(-${featIndex * (100 / productsToShow)}%)`;
-    }
-  }, [featIndex, productsToShow]);
-
-  // State for the currently featured product in the Hero section
-  const [featuredProduct, setFeaturedProduct] = useState(products[0]); // Start with the first product
+  // --- HERO SECTION STATE ---
+  const [featuredIndex, setFeaturedIndex] = useState(4); // Start with Classic Biryani
+  const [animating, setAnimating] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Products to show in the circular arc (excluding the featured one)
-  const circularProducts = products.filter(p => p.id !== featuredProduct.id).slice(0, 4); // Get up to 4 other products
+  const circularProducts = products.filter((_, idx) => idx !== featuredIndex).slice(0, 4);
+
+  // Auto-play effect for hero section
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      handleNextFeatured();
+    }, AUTO_PLAY_INTERVAL);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+    // eslint-disable-next-line
+  }, [featuredIndex]);
+
+  const handleNextFeatured = () => {
+    setAnimating(true);
+    setTimeout(() => {
+      setFeaturedIndex((prev) => (prev + 1) % products.length);
+      setAnimating(false);
+    }, 400);
+  };
+
+  const handleSelectFeatured = (idx: number) => {
+    if (idx === featuredIndex) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setFeaturedIndex(idx);
+      setAnimating(false);
+    }, 400);
+    if (timerRef.current) clearTimeout(timerRef.current); // Reset timer
+  };
+
+  const featuredProduct = products[featuredIndex];
 
   return (
     <Box>
-      {/* Hero Section based on Dribbble design */}
+      {/* --- HERO SECTION (restored design, now with auto-play) --- */}
       <Box
         sx={{
           position: 'relative',
           minHeight: 'calc(100vh - 64px)',
-          bgcolor: '#fff8f5', // Light pink background
+          bgcolor: '#fff8f5',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
-          pb: 8, // Add padding at the bottom
-          pt: 8, // Add padding at the top
+          pb: 8,
+          pt: 8,
         }}
       >
         {/* Large curved background shape */}
@@ -114,10 +156,10 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             position: 'absolute',
             top: 0,
             right: 0,
-            width: '80%', // Adjust size as needed
+            width: '80%',
             height: '100%',
-            bgcolor: '#ffe0d9', // Slightly darker pink
-            borderRadius: '0 0 0 50%', // Curved bottom left corner
+            bgcolor: '#ffe0d9',
+            borderRadius: '0 0 0 50%',
             zIndex: 1,
           }}
         />
@@ -125,13 +167,13 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
           {/* Left Content: Title, Price, Description, Button */}
           <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
-            <Typography variant="h2" component="h1" sx={{ fontWeight: 700, fontSize: { xs: '3rem', md: '4rem', lg: '5rem' }, mb: 2, color: '#ff3b00' }}>
+            <Typography variant="h2" component="h1" sx={{ fontWeight: 700, fontSize: { xs: '3rem', md: '4rem', lg: '5rem' }, mb: 2, color: '#ff3b00', transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
               {featuredProduct.name}
             </Typography>
-            <Typography variant="h4" component="p" sx={{ fontWeight: 600, mb: 2, color: '#222' }}>
+            <Typography variant="h4" component="p" sx={{ fontWeight: 600, mb: 2, color: '#222', transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
               ${featuredProduct.price}
             </Typography>
-            <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', maxWidth: 400, mx: { xs: 'auto', md: 0 } }}>
+            <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', maxWidth: 400, mx: { xs: 'auto', md: 0 }, transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </Typography>
@@ -146,6 +188,8 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                 fontSize: '1.1rem',
                 bgcolor: '#ff3b00',
                 '&:hover': { bgcolor: '#c1452b' },
+                transition: 'opacity 0.4s',
+                opacity: animating ? 0 : 1,
               }}
             >
               Order Now
@@ -157,8 +201,8 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             {/* Main Food Image */}
             <Box
               sx={{
-                width: 380, // Adjust size
-                height: 380, // Adjust size
+                width: 380,
+                height: 380,
                 borderRadius: '50%',
                 overflow: 'hidden',
                 boxShadow: '0 16px 32px rgba(0,0,0,0.2)',
@@ -169,8 +213,8 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'transform 0.8s cubic-bezier(.4,2,.3,1), opacity 0.8s cubic-bezier(.4,2,.3,1)',
-                 transform: 'scale(1)',
-                 opacity: 1,
+                transform: animating ? 'scale(0.92)' : 'scale(1)',
+                opacity: animating ? 0 : 1,
               }}
             >
               <img
@@ -187,8 +231,8 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             {/* Circular Images in Arc */}
             <Box sx={{
               position: 'absolute',
-              width: '100%', // Adjusted width for better positioning
-              height: '100%', // Adjusted height for better positioning
+              width: '100%',
+              height: '100%',
               top: 0,
               left: 0,
               zIndex: 2,
@@ -196,44 +240,40 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-                {circularProducts.map((product, index) => (
-                 <Box
-                   key={product.id}
-                   onClick={() => setFeaturedProduct(product)}
-                   sx={{
-                     position: 'absolute',
-                     width: 80,
-                     height: 80,
-                     borderRadius: '50%',
-                     overflow: 'hidden',
-                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                     cursor: 'pointer',
-                     transition: 'all 0.3s ease-in-out',
-                     '&:hover': { transform: 'scale(1.1)' },
+              {products.map((product, idx) => (
+                idx !== featuredIndex && (
+                  <Box
+                    key={product.id}
+                    onClick={() => handleSelectFeatured(idx)}
+                    sx={{
+                      position: 'absolute',
+                      width: 80,
+                      height: 80,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': { transform: 'scale(1.1)' },
                       background: '#fff',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      // Positioning (adjust as needed for arc effect)
-                      top: `${50 + (-1) * (index * 15)}%`,
-                      left: `${50 + (index * 18)}%`,
-                       transform: 'translate(-50%, -50%)',
-
-                   }}
-                 >
-                   <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                 </Box>
-               ))}
-                 {/* Add dashed lines here if needed */}
-            </Box>
-             {/* Scroll Down Icons */}
-             <Box sx={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 2, zIndex: 4 }}>
-                <IconButton sx={{ bgcolor: 'rgba(255,255,255,0.5)', '&:hover': { bgcolor: 'rgba(255,255,255,0.8)' } }}><ArrowDownwardIcon /></IconButton>
-                 <IconButton sx={{ bgcolor: 'rgba(0,0,0,0.2)', color: '#fff', '&:hover': { bgcolor: 'rgba(0,0,0,0.5)' } }}><ArrowDownwardIcon /></IconButton>
+                      // Positioning in arc
+                      top: `${50 + 30 * Math.sin((idx / products.length) * 2 * Math.PI)}%`,
+                      left: `${50 + 30 * Math.cos((idx / products.length) * 2 * Math.PI)}%`,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  >
+                    <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </Box>
+                )
+              ))}
             </Box>
           </Box>
         </Container>
       </Box>
+      {/* --- END HERO SECTION --- */}
 
       {/* About Us Section */}
       <Container sx={{ py: 8 }}>
