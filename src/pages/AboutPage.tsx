@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container, Button, Fade } from '@mui/material';
+import { Box, Typography, Container, Button, Fade, IconButton, Dialog } from '@mui/material';
 import vegetableGirl2 from '../assets/vegetable girl 2.jpg';
 import vegetableGirl4 from '../assets/vegetable girl 4.jpg';
 import { Link as RouterLink } from 'react-router-dom';
 import AboutQualitySection from '../components/AboutQualitySection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
+import { GitHub, Instagram, LinkedIn, Chat } from '@mui/icons-material';
+import amitImg from '../assets/amit.jpg';
+import ameetImg from '../assets/ameet.jpg';
 
 const aboutSlides = [
   {
@@ -37,6 +40,8 @@ const aboutSlides = [
 
 const AboutPage = () => {
   const [slide, setSlide] = useState(0);
+  const [chatOpen, setChatOpen] = useState(false);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setSlide((prev) => (prev + 1) % aboutSlides.length);
@@ -90,7 +95,10 @@ const AboutPage = () => {
         </Box>
       </Box>
 
-      {/* Our Team Section */}
+      <AboutQualitySection />
+      <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
+
+      {/* Our Talented Team Section */}
       <Box sx={{ py: 8 }}>
         <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ mb: 6 }}>
           Our Talented Team
@@ -101,85 +109,130 @@ const AboutPage = () => {
           gap: 4,
           justifyContent: 'center',
         }}>
-          {/* Placeholder Team Member 1 */}
-          <Box sx={{
-            flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(33.333% - 22px)' },
-            maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.333% - 22px)' },
-            textAlign: 'center'
-          }}>
+          {/* Team Member 1 */}
+          <Box
+            sx={{
+              position: 'relative',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(33.333% - 22px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.333% - 22px)' },
+              textAlign: 'center',
+              p: 3,
+              borderRadius: 4,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              bgcolor: '#fff',
+              '&:hover': {
+                transform: 'translateY(-10px) scale(1.04)',
+                boxShadow: '0 8px 32px #00bcd433',
+              },
+            }}
+          >
             <Box
+              component="img"
+              src={amitImg}
+              alt="Amit Kumar"
               sx={{
-                backgroundImage: 'url(https://lh3.googleusercontent.com/a/ACg8ocJD7tq2kPo5jX4gNsvwV6zVJZ7Ma5_obXOuZnBgxLaXUm7M4xhB=s360-c-no)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: 200,
-                width: 200,
+                width: 140,
+                height: 140,
+                objectFit: 'cover',
                 borderRadius: '50%',
                 mx: 'auto',
                 mb: 2,
+                border: '4px solid #00bcd4',
+                transition: 'border-color 0.3s',
+                boxShadow: '0 2px 12px #00bcd422',
               }}
             />
             <Typography variant="h6" component="h3" gutterBottom>
-              Team Member Name 1
+              Amit Kumar
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Role 1
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Full Stack Developer
             </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Amit leads our backend and infrastructure, ensuring robust and scalable systems.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
+              <IconButton component="a" href="https://github.com/amit" target="_blank" rel="noopener" sx={{ color: '#333', transition: 'color 0.3s', '&:hover': { color: '#24292e', bgcolor: '#e3e3e3' } }}><GitHub /></IconButton>
+              <IconButton component="a" href="https://instagram.com/amit" target="_blank" rel="noopener" sx={{ color: '#E4405F', transition: 'color 0.3s', '&:hover': { color: '#C13584', bgcolor: '#fce4ec' } }}><Instagram /></IconButton>
+              <IconButton component="a" href="https://linkedin.com/in/amit" target="_blank" rel="noopener" sx={{ color: '#0A66C2', transition: 'color 0.3s', '&:hover': { color: '#004182', bgcolor: '#e3f2fd' } }}><LinkedIn /></IconButton>
+            </Box>
           </Box>
-          {/* Placeholder Team Member 2 */}
-          <Box sx={{
-            flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(33.333% - 22px)' },
-            maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.333% - 22px)' },
-            textAlign: 'center'
-          }}>
+          {/* Team Member 2 */}
+          <Box
+            sx={{
+              position: 'relative',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(33.333% - 22px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.333% - 22px)' },
+              textAlign: 'center',
+              p: 3,
+              borderRadius: 4,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              bgcolor: '#fff',
+              '&:hover': {
+                transform: 'translateY(-10px) scale(1.04)',
+                boxShadow: '0 8px 32px #00bcd433',
+              },
+            }}
+          >
             <Box
+              component="img"
+              src={ameetImg}
+              alt="Ameet Pokhrel"
               sx={{
-                backgroundImage: 'url(https://lh3.googleusercontent.com/a/ACg8ocLHBH8JEQ1oG9NSNE-EGPF84ln-qk5-1s5J44yQ2krQ5x0JUCU=s360-c-no)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: 200,
-                width: 200,
+                width: 140,
+                height: 140,
+                objectFit: 'cover',
                 borderRadius: '50%',
                 mx: 'auto',
                 mb: 2,
+                border: '4px solid #00bcd4',
+                transition: 'border-color 0.3s',
+                boxShadow: '0 2px 12px #00bcd422',
               }}
             />
             <Typography variant="h6" component="h3" gutterBottom>
-              Team Member Name 2
+              Ameet Pokhrel
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Role 2
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Frontend Designer
             </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Ameet specializes in UI/UX prototyping and comprehensive documentation.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
+              <IconButton component="a" href="https://github.com/ameet" target="_blank" rel="noopener" sx={{ color: '#333', transition: 'color 0.3s', '&:hover': { color: '#24292e', bgcolor: '#e3e3e3' } }}><GitHub /></IconButton>
+              <IconButton component="a" href="https://instagram.com/ameet" target="_blank" rel="noopener" sx={{ color: '#E4405F', transition: 'color 0.3s', '&:hover': { color: '#C13584', bgcolor: '#fce4ec' } }}><Instagram /></IconButton>
+              <IconButton component="a" href="https://linkedin.com/in/ameet" target="_blank" rel="noopener" sx={{ color: '#0A66C2', transition: 'color 0.3s', '&:hover': { color: '#004182', bgcolor: '#e3f2fd' } }}><LinkedIn /></IconButton>
+            </Box>
           </Box>
-          {/* Placeholder Team Member 3 */}
-          <Box sx={{
-            flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(33.333% - 22px)' },
-            maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(33.333% - 22px)' },
-            textAlign: 'center'
-          }}>
-            <Box
-              sx={{
-                backgroundImage: 'url(https://media.istockphoto.com/id/1165399909/photo/delicious-meal-on-a-black-plate-top-view-copy-space.jpg?s=612x612&w=0&k=20&c=vrMzS4pY_QjiDtCzpVE3ClKqbU636fb4CKH0nlsduC4=)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: 200,
-                width: 200,
-                borderRadius: '50%',
-                mx: 'auto',
-                mb: 2,
-              }}
-            />
-            <Typography variant="h6" component="h3" gutterBottom>
-              Team Member Name 3
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Role 3
-            </Typography>
-          </Box>
+          {/* Add more team members as needed */}
         </Box>
+        {/* Chat with our team button and modal */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Chat />}
+            sx={{ borderRadius: 3, fontWeight: 700, px: 4, py: 1.5, fontSize: '1.1rem', boxShadow: '0 2px 8px #00bcd422', transition: 'box-shadow 0.3s', '&:hover': { boxShadow: '0 6px 24px #00bcd444' } }}
+            onClick={() => setChatOpen(true)}
+          >
+            Chat with our team
+          </Button>
+        </Box>
+        {/* Chat Modal */}
+        <Dialog open={chatOpen} onClose={() => setChatOpen(false)} maxWidth="xs" fullWidth>
+          <Box sx={{ p: 3, bgcolor: '#f6fcf7', borderRadius: 3 }}>
+            <Typography variant="h6" fontWeight={700} gutterBottom>Chat with our Team</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>Ask us anything! Our team will respond as soon as possible.</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <input type="text" placeholder="Type your message..." style={{ padding: 12, borderRadius: 8, border: '1px solid #ccc', fontSize: 16 }} />
+              <Button variant="contained" color="primary">Send</Button>
+            </Box>
+          </Box>
+        </Dialog>
       </Box>
-      <AboutQualitySection />
-      <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
     </Container>
   );
 };

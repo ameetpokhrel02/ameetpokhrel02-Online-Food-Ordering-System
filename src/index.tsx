@@ -16,7 +16,7 @@ root.render(
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CartProvider> {/* Wrap your App with CartProvider */}
-          <App />
+    <App />
         </CartProvider>
       </ThemeProvider>
     </BrowserRouter>
