@@ -43,11 +43,11 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
         </Link>
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <MuiLink component={Link} to="/" color="inherit" underline="none" sx={{ fontWeight: 500 }}>Home</MuiLink>
-          <MuiLink component={Link} to="/about" color="inherit" underline="none" sx={{ fontWeight: 500 }}>About</MuiLink>
-          <MuiLink component={Link} to="/products" color="inherit" underline="none" sx={{ fontWeight: 500 }}>Products</MuiLink>
-          <MuiLink component={Link} to="/gallery" color="inherit" underline="none" sx={{ fontWeight: 500 }}>Gallery</MuiLink>
-          <MuiLink component={Link} to="/contact" color="inherit" underline="none" sx={{ fontWeight: 500 }}>Contact</MuiLink>
+          <MuiLink component={Link} to="/" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Home</MuiLink>
+          <MuiLink component={Link} to="/about" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>About</MuiLink>
+          <MuiLink component={Link} to="/products" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Products</MuiLink>
+          <MuiLink component={Link} to="/gallery" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Gallery</MuiLink>
+          <MuiLink component={Link} to="/contact" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Contact</MuiLink>
           {/* Global Search Bar */}
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', bgcolor: '#f5f5f5', borderRadius: 2, px: 1, ml: 2 }}>
             <SearchIcon color="action" />
