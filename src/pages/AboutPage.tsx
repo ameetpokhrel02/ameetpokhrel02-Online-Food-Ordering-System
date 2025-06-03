@@ -116,8 +116,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: '1 1 100%',
-              maxWidth: '100%',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -165,8 +165,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: '1 1 100%',
-              maxWidth: '100%',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -214,8 +214,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: '1 1 100%',
-              maxWidth: '100%',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -263,8 +263,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: '1 1 100%',
-              maxWidth: '100%',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
@@ -312,8 +312,8 @@ const AboutPage = () => {
           <Box
             sx={{
               position: 'relative',
-              flex: '1 1 100%',
-              maxWidth: '100%',
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' },
               textAlign: 'center',
               p: 3,
               borderRadius: 4,
