@@ -17,7 +17,7 @@ const LoginPage = () => {
     initialValues: { email: '', password: '' },
     validationSchema,
     onSubmit: (values) => {
-      // Handle login logic here
+      // Handle login logic here and send the data to the backend
       alert(JSON.stringify(values, null, 2));
     },
   });
