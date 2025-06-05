@@ -96,9 +96,14 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
   );
 
   // --- HERO SECTION STATE ---
-  const [featuredIndex, setFeaturedIndex] = useState(4); // Start with Classic Biryani
+  const [featuredIndex, setFeaturedIndex] = useState(0); // Start with the first item
   const [animating, setAnimating] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Get the featured product from heroItems instead of products
+  const featuredProduct = heroItems[featuredIndex];
+
+  console.log('Featured Product:', featuredProduct);
 
   // Auto-play effect for hero section
   useEffect(() => {
@@ -114,7 +119,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
   const handleNextFeatured = () => {
     setAnimating(true);
     setTimeout(() => {
-      setFeaturedIndex((prev) => (prev + 1) % products.length);
+      setFeaturedIndex((prev) => (prev + 1) % heroItems.length);
       setAnimating(false);
     }, 400);
   };
@@ -128,8 +133,6 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
       setAnimating(false);
     }, 400);
   };
-
-  const featuredProduct = products[featuredIndex];
 
   // Arc positioning for small images (spread evenly around a circle, but only show a subset in a visible arc)
   const arcCount = 5; // Number of small images to show in the arc
@@ -148,7 +151,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         sx={{
           position: 'relative',
           minHeight: 'calc(100vh - 64px)',
-          bgcolor: '#fff8f5',
+          background: 'linear-gradient(135deg, #fff8f5 0%, #fff 100%)',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
@@ -156,7 +159,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           pt: 8,
         }}
       >
-        {/* Large curved background shape */}
+        {/* Large curved background shape with gradient */}
         <Box
           sx={{
             position: 'absolute',
@@ -164,42 +167,95 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             right: 0,
             width: '80%',
             height: '100%',
-            bgcolor: '#ffe0d9',
+            background: 'linear-gradient(135deg, #FFE0D9 0%, #FFD6CF 100%)',
             borderRadius: '0 0 0 50%',
             zIndex: 1,
+            opacity: 0.9,
           }}
         />
 
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
           {/* Left Content: Title, Price, Description, Button */}
           <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
-            <Typography variant="h2" component="h1" sx={{ fontWeight: 700, fontSize: { xs: '3rem', md: '4rem', lg: '5rem' }, mb: 2, color: '#ff3b00', transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
-              {featuredProduct.name}
-            </Typography>
-            <Typography variant="h4" component="p" sx={{ fontWeight: 600, mb: 2, color: '#222', transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
-              ${featuredProduct.price}
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', maxWidth: 400, mx: { xs: 'auto', md: 0 }, transition: 'opacity 0.4s', opacity: animating ? 0 : 1 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                borderRadius: 25,
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                bgcolor: '#ff3b00',
-                '&:hover': { bgcolor: '#c1452b' },
-                transition: 'opacity 0.4s',
-                opacity: animating ? 0 : 1,
-              }}
-            >
-              Order Now
-            </Button>
+            {/* Conditionally render content only if featuredProduct is defined */}
+            {featuredProduct ? (
+              <>
+                <Typography 
+                  variant="h2" 
+                  component="h1" 
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4.5rem' },
+                    mb: 2,
+                    color: 'primary.main',
+                    transition: 'all 0.4s ease',
+                    opacity: animating ? 0 : 1,
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
+                    '&:hover': {
+                      transform: 'scale(1.02)',
+                    },
+                  }}
+                >
+                  {featuredProduct.name}
+                </Typography>
+                <Typography 
+                  variant="h4" 
+                  component="p" 
+                  sx={{
+                    fontWeight: 600,
+                    mb: 2,
+                    color: 'secondary.main',
+                    transition: 'all 0.4s ease',
+                    opacity: animating ? 0 : 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <span style={{ color: 'primary.main' }}>$</span>
+                  {featuredProduct.price}
+                </Typography>
+                <Typography 
+                  variant="body1" 
+                  sx={{
+                    mb: 4,
+                    color: 'text.secondary',
+                    maxWidth: 400,
+                    mx: { xs: 'auto', md: 0 },
+                    transition: 'all 0.4s ease',
+                    opacity: animating ? 0 : 1,
+                    fontSize: '1.1rem',
+                    lineHeight: 1.8,
+                  }}
+                >
+                  {featuredProduct.desc}
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  sx={{
+                    borderRadius: '25px',
+                    px: 4,
+                    py: 1.5,
+                    fontSize: '1.1rem',
+                    background: 'linear-gradient(45deg, #FF4B2B 30%, #FF6B4B 90%)',
+                    boxShadow: '0 3px 12px rgba(255, 75, 43, 0.3)',
+                    '&:hover': {
+                      background: 'linear-gradient(45deg, #E63B1B 30%, #FF4B2B 90%)',
+                      boxShadow: '0 6px 16px rgba(255, 75, 43, 0.4)',
+                    },
+                    transition: 'all 0.4s ease',
+                    opacity: animating ? 0 : 1,
+                  }}
+                >
+                  Order Now
+                </Button>
+              </>
+            ) : (
+              // Optional: Render a loading state or placeholder if featuredProduct is undefined
+              <Typography variant="h6" color="text.secondary">Loading product details...</Typography>
+            )}
           </Box>
 
           {/* Right Content: Main Image and Circular Images */}
@@ -224,7 +280,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
               }}
             >
               <img
-                src={featuredProduct.imageUrl}
+                src={featuredProduct.image}
                 alt={featuredProduct.name}
                 style={{
                   width: '100%',
