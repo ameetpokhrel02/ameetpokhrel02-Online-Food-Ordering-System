@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Container, Link as MuiLink } from '@mui/material';
 import { Facebook, Instagram, Twitter, LinkedIn } from '@mui/icons-material';
+import GitHub from '@mui/icons-material/GitHub';
 
 const Footer = () => {
   return (
@@ -58,6 +59,7 @@ const Footer = () => {
               <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><Twitter /></MuiLink>
               <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><Facebook /></MuiLink>
               <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><Instagram /></MuiLink>
+              <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><GitHub /></MuiLink>
               <MuiLink href="#" sx={{ color: '#555', '&:hover': { color: 'primary.main' } }}><LinkedIn /></MuiLink>
             </Box>
           </Box>
