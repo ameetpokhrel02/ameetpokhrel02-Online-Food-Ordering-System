@@ -115,7 +115,13 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
               <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={clearCart}>
                 Clear Cart
               </Button>
-              <Button variant="contained" color="secondary" fullWidth>
+              <Button 
+                variant="contained" 
+                color="secondary" 
+                fullWidth
+                component={Link} 
+                to="/payment"
+              >
                 Checkout
               </Button>
             </>
