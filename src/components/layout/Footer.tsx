@@ -33,7 +33,7 @@ const Footer = () => {
               Phone: +977-9847226995
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Email: info@example.com
+              Email: amyths04@gmail.com
             </Typography>
           </Box>
 
