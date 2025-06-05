@@ -27,10 +27,10 @@ const Footer = () => {
               Amyths
             </Typography>
             <Typography variant="body2" color="text.secondary" paragraph>
-              A108 Adam Street, New York, NY 535022
+              Kathmandu, Nepal
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Phone: +1 5589 55488 55
+              Phone: +977-9847226995
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Email: info@example.com
