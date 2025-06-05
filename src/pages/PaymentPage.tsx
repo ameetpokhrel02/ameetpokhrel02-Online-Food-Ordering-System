@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography, Container, Paper, Grid, Button, TextField } from '@mui/material';
+import { Box, Typography, Container, Paper, Grid, Button, TextField, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import esewaLogo from '../assets/esewa.png';
 import imepayLogo from '../assets/ime.png';
 import paymentImage from '../assets/payment.jpeg';
@@ -9,6 +10,13 @@ const PaymentPage: React.FC = () => {
   const [esewaPhone, setEsewaPhone] = useState('');
   const [imepayAmount, setImepayAmount] = useState('');
   const [imepayPhone, setImepayPhone] = useState('');
+
+  // State to manage expanded accordion panel
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleAccordionChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   const handleEsewaAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEsewaAmount(event.target.value);
@@ -94,90 +102,88 @@ const PaymentPage: React.FC = () => {
                 Pay with:
               </Typography>
               
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                {/* eSewa Payment Method */}
-                <Box>
-                  <Button 
-                    variant="outlined" 
-                    fullWidth 
-                    sx={{
-                      borderColor: '#60B554',
-                      color: '#60B554',
-                      py: 1.5,
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        bgcolor: '#60B554',
-                        color: '#fff',
-                        boxShadow: '0 4px 12px rgba(96, 181, 84, 0.4)',
-                        transform: 'translateY(-2px)',
-                      },
-                    }}
-                    onClick={handleEsewaPayment}
-                  >
-                    <Box component="img" src={esewaLogo} alt="eSewa Logo" sx={{ height: 30, mr: 1 }} />
-                    Pay with eSewa
-                  </Button>
-                  <TextField
-                    label="Amount"
-                    type="number"
-                    fullWidth
-                    margin="normal"
-                    value={esewaAmount}
-                    onChange={handleEsewaAmountChange}
-                  />
-                  <TextField
-                    label="Phone Number"
-                    type="tel"
-                    fullWidth
-                    margin="normal"
-                    value={esewaPhone}
-                    onChange={handleEsewaPhoneChange}
-                  />
-                </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-                {/* IME Pay Payment Method */}
-                <Box>
-                  <Button 
-                    variant="outlined" 
-                    fullWidth 
-                     sx={{
-                      borderColor: '#1E3376',
-                      color: '#1E3376',
-                      py: 1.5,
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        bgcolor: '#1E3376',
-                        color: '#fff',
-                        boxShadow: '0 4px 12px rgba(30, 51, 118, 0.4)',
-                        transform: 'translateY(-2px)',
-                      },
-                    }}
-                     onClick={handleImepayPayment}
-                  >
-                     <Box component="img" src={imepayLogo} alt="IME Pay Logo" sx={{ height: 30, mr: 1 }} />
-                    Pay with IME Pay
-                  </Button>
+                {/* eSewa Payment Method Accordion */}
+                <Accordion expanded={expanded === 'esewaPanel'} onChange={handleAccordionChange('esewaPanel')}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component="img" src={esewaLogo} alt="eSewa Logo" sx={{ height: 30, mr: 2 }} />
+                      <Typography variant="h6">Pay with eSewa</Typography>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TextField
+                      label="Amount"
+                      type="number"
+                      fullWidth
+                      margin="normal"
+                      value={esewaAmount}
+                      onChange={handleEsewaAmountChange}
+                    />
+                    <TextField
+                      label="Phone Number"
+                      type="tel"
+                      fullWidth
+                      margin="normal"
+                      value={esewaPhone}
+                      onChange={handleEsewaPhoneChange}
+                    />
+                    <Button 
+                      variant="contained" 
+                      fullWidth 
+                      sx={{
+                        bgcolor: '#60B554',
+                        '&:hover': { bgcolor: '#50A045' },
+                        mt: 2,
+                      }}
+                      onClick={handleEsewaPayment}
+                    >
+                      Pay with eSewa
+                    </Button>
+                  </AccordionDetails>
+                </Accordion>
+
+                {/* IME Pay Payment Method Accordion */}
+                <Accordion expanded={expanded === 'imepayPanel'} onChange={handleAccordionChange('imepayPanel')}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component="img" src={imepayLogo} alt="IME Pay Logo" sx={{ height: 30, mr: 2 }} />
+                      <Typography variant="h6">Pay with IME Pay</Typography>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
                    <TextField
-                    label="Amount"
-                    type="number"
-                    fullWidth
-                    margin="normal"
-                    value={imepayAmount}
-                    onChange={handleImepayAmountChange}
-                  />
-                  <TextField
-                    label="Phone Number"
-                    type="tel"
-                    fullWidth
-                    margin="normal"
-                    value={imepayPhone}
-                    onChange={handleImepayPhoneChange}
-                  />
-                </Box>
+                      label="Amount"
+                      type="number"
+                      fullWidth
+                      margin="normal"
+                      value={imepayAmount}
+                      onChange={handleImepayAmountChange}
+                    />
+                    <TextField
+                      label="Phone Number"
+                      type="tel"
+                      fullWidth
+                      margin="normal"
+                      value={imepayPhone}
+                      onChange={handleImepayPhoneChange}
+                    />
+                    <Button 
+                      variant="contained" 
+                      fullWidth 
+                       sx={{
+                        bgcolor: '#1E3376',
+                         '&:hover': { bgcolor: '#152550' },
+                         mt: 2,
+                      }}
+                       onClick={handleImepayPayment}
+                    >
+                     Pay with IME Pay
+                    </Button>
+                  </AccordionDetails>
+                </Accordion>
+
               </Box>
             </Paper>
           </Grid>
