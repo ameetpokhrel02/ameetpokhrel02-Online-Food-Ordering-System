@@ -9,16 +9,21 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Drawer from '@mui/material/Drawer';
 import { useCart } from '../../context/CartContext';
 import { CartItem } from '../../context/CartContext';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
   const [search, setSearch] = React.useState('');
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { cartItems, removeFromCart, clearCart } = useCart();
+  const { cartItems, removeFromCart, clearCart, addToCart, decreaseQuantity } = useCart();
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     if (onSearch) onSearch(e.target.value);
   };
   const cartCount = cartItems.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
+  const getCartTotal = () => {
+    return cartItems.reduce((sum: number, item: CartItem) => sum + Number(item.price) * item.quantity, 0);
+  };
   return (
     <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
       <Toolbar sx={{
@@ -87,16 +92,25 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
                     <img src={item.imageUrl} alt={item.name} style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 8, marginRight: 12 }} />
                     <Box sx={{ flex: 1 }}>
                       <Typography fontWeight={600}>{item.name}</Typography>
-                      <Typography color="text.secondary">${item.price} x {item.quantity}</Typography>
+                      <Typography color="text.secondary">${item.price}</Typography>
                     </Box>
-                    <IconButton color="error" onClick={() => removeFromCart(item.id)}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)}>
+                        <RemoveCircleOutlineIcon />
+                      </IconButton>
+                      <Typography sx={{ mx: 1 }}>{item.quantity}</Typography>
+                      <IconButton size="small" color="primary" onClick={() => addToCart(item)}>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Box>
+                    <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1 }}>
                       ×
                     </IconButton>
                   </Box>
                 ))}
               </Box>
               <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
-                Total: ${cartItems.reduce((sum: number, item: CartItem) => sum + Number(item.price) * item.quantity, 0).toFixed(2)}
+                Total: ${getCartTotal().toFixed(2)}
               </Typography>
               <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={clearCart}>
                 Clear Cart
