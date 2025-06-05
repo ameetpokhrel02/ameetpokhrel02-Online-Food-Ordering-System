@@ -60,7 +60,7 @@ const Footer = () => {
               <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><Facebook /></MuiLink>
               <MuiLink href="#" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><Instagram /></MuiLink>
               <MuiLink href="https://github.com/ameetpokhrel02" sx={{ color: '#555', mr: 2, '&:hover': { color: 'primary.main' } }}><GitHub /></MuiLink>
-              <MuiLink href="#" sx={{ color: '#555', '&:hover': { color: 'primary.main' } }}><LinkedIn /></MuiLink>
+              <MuiLink href="https://www.linkedin.com/in/ameet-pokhrel-82533433b/" sx={{ color: '#555', '&:hover': { color: 'primary.main' } }}><LinkedIn /></MuiLink>
             </Box>
           </Box>
         </Box>
