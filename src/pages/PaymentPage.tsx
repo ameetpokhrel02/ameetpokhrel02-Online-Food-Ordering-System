@@ -3,6 +3,7 @@ import { Box, Typography, Container, Paper, Grid, Button, TextField, Accordion, 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import esewaLogo from '../assets/esewa.png';
 import imepayLogo from '../assets/ime.png';
+import khaltiLogo from '../assets/khalti.png';
 import paymentImage from '../assets/payment.jpeg';
 
 const PaymentPage: React.FC = () => {
@@ -10,6 +11,8 @@ const PaymentPage: React.FC = () => {
   const [esewaPhone, setEsewaPhone] = useState('');
   const [imepayAmount, setImepayAmount] = useState('');
   const [imepayPhone, setImepayPhone] = useState('');
+  const [khaltiAmount, setKhaltiAmount] = useState('');
+  const [khaltiPhone, setKhaltiPhone] = useState('');
 
   // State to manage expanded accordion panel
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -34,6 +37,14 @@ const PaymentPage: React.FC = () => {
     setImepayPhone(event.target.value);
   };
 
+  const handleKhaltiAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKhaltiAmount(event.target.value);
+  };
+
+  const handleKhaltiPhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKhaltiPhone(event.target.value);
+  };
+
   // Placeholder functions for initiating payment
   const handleEsewaPayment = () => {
     console.log('Initiating eSewa payment:', { amount: esewaAmount, phone: esewaPhone });
@@ -43,6 +54,11 @@ const PaymentPage: React.FC = () => {
   const handleImepayPayment = () => {
     console.log('Initiating IME Pay payment:', { amount: imepayAmount, phone: imepayPhone });
     // Add IME Pay payment initiation logic here (without backend)
+  };
+
+  const handleKhaltiPayment = () => {
+    console.log('Initiating Khalti payment:', { amount: khaltiAmount, phone: khaltiPhone });
+    // Add Khalti payment initiation logic here (without backend)
   };
 
   return (
@@ -147,13 +163,13 @@ const PaymentPage: React.FC = () => {
                 {/* IME Pay Payment Method Accordion */}
                 <Accordion expanded={expanded === 'imepayPanel'} onChange={handleAccordionChange('imepayPanel')}>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <Box component="img" src={imepayLogo} alt="IME Pay Logo" sx={{ height: 30, mr: 2 }} />
                       <Typography variant="h6">Pay with IME Pay</Typography>
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
-                   <TextField
+                    <TextField
                       label="Amount"
                       type="number"
                       fullWidth
@@ -172,14 +188,54 @@ const PaymentPage: React.FC = () => {
                     <Button 
                       variant="contained" 
                       fullWidth 
-                       sx={{
+                      sx={{
                         bgcolor: '#1E3376',
-                         '&:hover': { bgcolor: '#152550' },
-                         mt: 2,
+                        '&:hover': { bgcolor: '#152550' },
+                        mt: 2,
                       }}
-                       onClick={handleImepayPayment}
+                      onClick={handleImepayPayment}
                     >
-                     Pay with IME Pay
+                      Pay with IME Pay
+                    </Button>
+                  </AccordionDetails>
+                </Accordion>
+
+                {/* Khalti Payment Method Accordion */}
+                <Accordion expanded={expanded === 'khaltiPanel'} onChange={handleAccordionChange('khaltiPanel')}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box component="img" src={khaltiLogo} alt="Khalti Logo" sx={{ height: 30, mr: 2 }} />
+                      <Typography variant="h6">Pay with Khalti</Typography>
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TextField
+                      label="Amount"
+                      type="number"
+                      fullWidth
+                      margin="normal"
+                      value={khaltiAmount}
+                      onChange={handleKhaltiAmountChange}
+                    />
+                    <TextField
+                      label="Phone Number"
+                      type="tel"
+                      fullWidth
+                      margin="normal"
+                      value={khaltiPhone}
+                      onChange={handleKhaltiPhoneChange}
+                    />
+                    <Button 
+                      variant="contained" 
+                      fullWidth 
+                      sx={{
+                        bgcolor: '#5C2D91',
+                        '&:hover': { bgcolor: '#4A2473' },
+                        mt: 2,
+                      }}
+                      onClick={handleKhaltiPayment}
+                    >
+                      Pay with Khalti
                     </Button>
                   </AccordionDetails>
                 </Accordion>
