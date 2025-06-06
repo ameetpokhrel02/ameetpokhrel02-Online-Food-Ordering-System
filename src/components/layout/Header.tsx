@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import foodLogo from '../../assets/image.png';
+import newLogo from '../../assets/logo.jpg';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
@@ -32,7 +32,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
         px: { xs: 2, md: 3 },
       }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <img src={foodLogo} alt="Food Logo" style={{ height: 40, marginRight: 12, borderRadius: 8 }} />
+          <img src={newLogo} alt="Website Logo" style={{ height: 40, marginRight: 12, borderRadius: 8 }} />
           <Typography 
             variant="h6" 
             color="primary.main" // Use primary color for site title
