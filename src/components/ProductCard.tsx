@@ -12,9 +12,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  const truncatedDescription = product.description.length > 50 
-    ? product.description.substring(0, 50) + '...' 
-    : product.description;
+  // Truncate description for display, safely handle undefined description
+  const truncatedDescription = product.description 
+    ? (product.description.length > 50 
+      ? product.description.substring(0, 50) + '...' 
+      : product.description)
+    : ''; // Provide a default empty string if description is undefined
 
   const { addToCart } = useCart();
 
@@ -27,6 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleReadMoreClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    // Implement logic to show full description, maybe in a modal or new page
     console.log('Read More clicked for:', product.name);
   };
 
@@ -127,24 +131,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             {product.name}
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ mb: 1 }}
-          >
-            {truncatedDescription}
-          </Typography>
-          <Button 
-            size="small"
-            onClick={handleReadMoreClick}
-            sx={{
-              textTransform: 'none',
-              p: 0,
-              justifyContent: 'flex-start'
-            }}
-          >
-            Read More
-          </Button>
+          {/* Conditionally render description and Read More button */}
+          {product.description && (
+            <>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ mb: 1 }}
+              >
+                {truncatedDescription}
+              </Typography>
+              {/* Safely check description length before rendering Read More button */}
+              {product.description && product.description.length > 50 && (
+                 <Button 
+                  size="small"
+                  onClick={handleReadMoreClick}
+                  sx={{
+                    textTransform: 'none',
+                    p: 0,
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  Read More
+                </Button>
+              )}
+            </>
+          )}
           <Typography
             variant="body1"
             sx={{

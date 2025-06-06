@@ -23,6 +23,7 @@ import OffersSection from '../components/OffersSection';
 import FaqSection from '../components/FaqSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { Product } from '../types/product'; // Import the shared Product interface
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -79,15 +80,15 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
-  const products = [
-    { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1 },
-    { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2 },
-    { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng },
-    { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng },
-    { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani },
-    { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop },
-    { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza },
-    { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo },
+  const products: Product[] = [
+    { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, description: 'A delicious pizza made with the freshest ingredients.' },
+    { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, description: 'Juicy burger with all the fixings.' },
+    { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, description: 'Our chef\'s special creation, a must-try!' },
+    { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng, description: 'Indulge in this sweet and delightful dessert.' },
+    { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, description: 'Aromatic and flavorful classic biryani.' },
+    { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, description: 'Crispy and juicy chicken lollipops.' },
+    { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza, description: 'Extra cheesy pizza for cheese lovers.' },
+    { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, description: 'Soft and tender steamed momos with spicy sauce.' },
   ];
 
   // Filter products by search
@@ -259,38 +260,45 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           </Box>
 
           {/* Right Content: Main Image and Circular Images */}
-          <Box sx={{ flex: 1, position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
-            {/* Main Food Image */}
-            <Box
-              sx={{
-                width: 380,
-                height: 380,
-                borderRadius: '50%',
-                overflow: 'hidden',
-                boxShadow: '0 16px 32px rgba(0,0,0,0.2)',
-                position: 'relative',
-                zIndex: 3,
-                background: '#fff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.8s cubic-bezier(.4,2,.3,1), opacity 0.8s cubic-bezier(.4,2,.3,1)',
-                transform: animating ? 'scale(0.92)' : 'scale(1)',
-                opacity: animating ? 0 : 1,
-              }}
-            >
-              <img
-                src={featuredProduct.image}
-                alt={featuredProduct.name}
-                style={{
+          <Box sx={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            overflow: 'visible',
+            minHeight: 320,
+          }}>
+            {/* Main featured image with parallax */}
+            {heroItems.map((item, idx) => (
+              <Box
+                key={item.name}
+                sx={{
+                  position: 'absolute',
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+                  maxWidth: { xs: 300, md: 400 },
+                  maxHeight: { xs: 300, md: 340 },
+                  borderRadius: 24,
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px #0002',
+                  opacity: idx === featuredIndex ? 1 : 0,
+                  zIndex: idx === featuredIndex ? 2 : 1,
+                  transform: `translateY(${parallax}px) scale(${idx === featuredIndex ? 1 : 0.98})`,
+                  transition: 'opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1)',
+                  willChange: 'transform, opacity',
                 }}
-              />
+              >
+                <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            ))}
+            {/* Food name overlay (for mobile) */}
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, position: 'absolute', bottom: 16, left: 0, right: 0, justifyContent: 'center', zIndex: 3 }}>
+              <Typography variant="h5" sx={{ bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', px: 2, py: 1, borderRadius: 2 }}>
+                {heroItems[featuredIndex].name}
+              </Typography>
             </Box>
 
-            {/* Circular Images in Arc */}
+            {/* Circular thumbnail images positioned in an arc */}
             <Box sx={{
               position: 'absolute',
               width: 380,
@@ -339,71 +347,13 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           </Box>
         </Container>
       </Box>
-      {/* --- END HERO SECTION --- */}
 
-      {/* About Us Section */}
+      {/* --- CATEGORY SECTION --- */}
       <Container sx={{ py: 8 }}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          alignItems: 'center',
-          gap: 6,
-          bgcolor: '#f6fcf7',
-          borderRadius: 4,
-          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-          px: { xs: 2, md: 6 },
-          py: { xs: 4, md: 6 },
-        }}>
-          {/* Left: Content */}
-          <Box sx={{ flex: 2, pr: { md: 6 }, textAlign: { xs: 'center', md: 'left' } }}>
-            <Typography variant="subtitle1" sx={{ color: '#4caf50', fontWeight: 600, mb: 1 }}>
-              Farming with Love
-            </Typography>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: '#222' }}>
-              Organic & healthy fresh<br />food provider
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <Box sx={{ bgcolor: '#e8f5e9', color: '#388e3c', px: 2.5, py: 1, borderRadius: 99, fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', boxShadow: 1 }}>
-                <span role="img" aria-label="leaf" style={{ marginRight: 8 }}>🌱</span> The natural products
-              </Box>
-              <Box sx={{ bgcolor: '#fffde7', color: '#fbc02d', px: 2.5, py: 1, borderRadius: 99, fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', boxShadow: 1 }}>
-                <span role="img" aria-label="sun" style={{ marginRight: 8 }}>🌞</span> Everyday fresh food
-              </Box>
-            </Box>
-            <Typography variant="body1" sx={{ mb: 2, color: '#555' }}>
-              We connect buyers and sellers of natural, organic products who are so beguiled demoralized charme of pleasure
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2, color: '#888' }}>
-              Velit wisi et lacus pharetra pulvinar tempus massa sed. Turpis consectetur justo accumsan ac nunc ornare viverra pharetra. Lorem elementum mauris morbi cursus tellus ullamcorper.
-            </Typography>
-            <Box sx={{ bgcolor: '#e0f7fa', color: '#00796b', px: 3, py: 2, borderRadius: 2, mb: 3, fontWeight: 500, fontSize: '1.1rem', display: 'inline-block' }}>
-              Every day fresh and quality products for you deliver at doorstep
-            </Box>
-            <br />
-            <Button variant="contained" color="primary" size="large" component={Link} to="/about" sx={{ mt: 2, borderRadius: 25, px: 5, py: 1.5, fontWeight: 600, fontSize: '1.1rem', bgcolor: '#ff3b00', '&:hover': { bgcolor: '#c1452b' } }}>
-              Explore Us
-            </Button>
-          </Box>
-          {/* Right: Image */}
-          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', mt: { xs: 4, md: 0 } }}>
-            <Box
-              component="img"
-              src={girlcarryingvegetables}
-              alt="Girl carrying vegetables"
-              sx={{
-                width: { xs: '80%', md: 340 },
-                maxWidth: 400,
-                borderRadius: '24px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
-                objectFit: 'cover',
-                background: '#fff',
-              }}
-            />
-          </Box>
-        </Box>
+        {/* Add Category Content Here */}
       </Container>
 
-      {/* Featured Products Section as horizontal slider */}
+      {/* --- FEATURED PRODUCTS SECTION --- */}
       <Container sx={{ py: 8 }}>
         <Box className="section-title">
           <Typography variant="h4" component="h2" gutterBottom>
@@ -420,15 +370,21 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           gap: 4,
           mt: 4,
         }}>
-          {products.map((product) => (
+          {products.map((product: Product) => (
             <Box key={product.id}>
               <ProductCard product={product} />
             </Box>
           ))}
         </Box>
       </Container>
+
+      {/* --- OFFERS SECTION --- */}
       <OffersSection />
+
+      {/* --- DELIVERY SECTION --- */}
       <FoodDeliverySection />
+
+      {/* --- FAQ SECTION --- */}
       <FaqSection />
     </Box>
   );
