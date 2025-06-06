@@ -25,7 +25,7 @@ const Footer = () => {
         }}>
           <Box>
             <Typography variant="h6" gutterBottom sx={{ color: '#333' }}>
-              Amyths
+              BiteBazaar
             </Typography>
             <Typography variant="body2" color="text.secondary" paragraph>
               Kathmandu, Nepal
@@ -34,7 +34,7 @@ const Footer = () => {
               Phone: +977-9847226995
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Email: amyths04@gmail.com
+              Email: bitebazaar@gmail.com
             </Typography>
           </Box>
 
@@ -66,8 +66,8 @@ const Footer = () => {
         </Box>
 
         <Box sx={{ mt: 6, pt: 4, borderTop: '1px solid #ccc', textAlign: 'center' }}>
-          <Typography variant="body2" color="text.secondary">
-            © {new Date().getFullYear()} Amyths. All rights reserved.
+          <Typography variant="body2" color="text.secondary" align="center">
+            © {new Date().getFullYear()} BiteBazaar. All rights reserved.
           </Typography>
         </Box>
       </Container>

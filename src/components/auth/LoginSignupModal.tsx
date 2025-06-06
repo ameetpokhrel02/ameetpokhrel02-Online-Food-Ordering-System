@@ -15,7 +15,7 @@ const LoginSignupModal = ({ open, onClose, onLogin, onSignup }: LoginSignupModal
     <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', pb: 0 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <img src={foodLogo} alt="Food" style={{ height: 36, borderRadius: 8 }} />
-        <Typography variant="h6" fontWeight={700} color="primary.main">Amyths</Typography>
+        <Typography variant="h6" fontWeight={700} color="primary.main">BiteBazaar</Typography>
       </Box>
       <IconButton onClick={onClose} sx={{ color: '#fff' }}><CloseIcon /></IconButton>
     </DialogTitle>

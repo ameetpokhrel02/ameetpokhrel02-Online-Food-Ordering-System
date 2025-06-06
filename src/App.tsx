@@ -78,7 +78,7 @@ function AppRoutes({ search, setSearch, isLoggedIn, setIsLoggedIn }: AppRoutesPr
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn || localStorage.getItem('amyths_modal_dismissed')) return;
+    if (isLoggedIn || localStorage.getItem('bitebazaar_modal_dismissed')) return;
     const timer = setTimeout(() => {
       setModalOpen(true);
     }, 10000); // 10 seconds
@@ -88,12 +88,12 @@ function AppRoutes({ search, setSearch, isLoggedIn, setIsLoggedIn }: AppRoutesPr
   const handleCloseModal = () => setModalOpen(false);
   const handleLogin = () => {
     setModalOpen(false);
-    localStorage.setItem('amyths_modal_dismissed', '1');
+    localStorage.setItem('bitebazaar_modal_dismissed', '1');
     navigate('/login');
   };
   const handleSignup = () => {
     setModalOpen(false);
-    localStorage.setItem('amyths_modal_dismissed', '1');
+    localStorage.setItem('bitebazaar_modal_dismissed', '1');
     navigate('/signup');
   };
 

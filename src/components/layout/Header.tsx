@@ -33,17 +33,21 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
       }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <img src={newLogo} alt="Website Logo" style={{ height: 40, marginRight: 12, borderRadius: 8 }} />
-          <Typography 
-            variant="h6" 
-            color="primary.main" // Use primary color for site title
-            noWrap 
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
             sx={{
-              flexGrow: 1,
-              fontWeight: 700, // Make title bold
+              textDecoration: 'none',
+              color: 'primary.main',
+              fontWeight: 700,
               fontSize: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
             }}
           >
-            Amyths
+            BiteBazaar
           </Typography>
         </Link>
         <Box sx={{ flexGrow: 1 }} />

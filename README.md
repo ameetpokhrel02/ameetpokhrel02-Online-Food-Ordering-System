@@ -1,6 +1,7 @@
-# Amyths E-commerce React App
+# BiteBazaar E-commerce React App
 
 A modern, responsive e-commerce web application inspired by the [Yummy template](https://themewagon.github.io/yummy-red/). Built with React, TypeScript, Material-UI, and Formik/Yup for robust UI, validation, and state management. Features a beautiful landing page, product catalog, gallery, authentication, shopping cart, and more.
+image.png
 
 ## Features
 
