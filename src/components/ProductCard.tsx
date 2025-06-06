@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, IconButton, Paper, Fade } from '@mui/material';
 import { Favorite, FavoriteBorder, AddShoppingCart } from '@mui/icons-material';
 import { useCart } from '../context/CartContext';
-
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  imageUrl: string;
-  description: string;
-}
+import { Product } from '../types/product';
 
 interface ProductCardProps {
   product: Product;

@@ -1,15 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Product } from '../types/product'; // Import the shared Product interface
 
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  imageUrl: string;
+interface CartItem extends Product {
+  quantity: number;
 }
-
-// interface CartItem extends Product {
-//   quantity: number;
-// }
 
 interface CartContextType {
   cartItems: CartItem[];

@@ -15,8 +15,9 @@ import kd8z02kfs9u61 from '../assets/kd8z02kfs9u61.jpg';
 import chicken from '../assets/chicken.jpg';
 import GalleryMenuItem from '../components/GalleryMenuItem';
 import FoodDeliverySection from '../components/FoodDeliverySection';
+import { Product } from '../types/product'; // Import the shared Product interface
 
-const allGalleryItems = [
+const allGalleryItems: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, description: 'A delicious pizza made with the freshest ingredients.' },
   { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, description: 'Juicy burger with all the fixings.' },
   { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, description: 'Our chef\'s special creation, a must-try!' },
@@ -97,7 +98,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
             All Menu Items
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
-            {filteredGalleryItems.map((item) => (
+            {filteredGalleryItems.map((item: Product) => (
               <Box key={item.id} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' }, maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' } }}>
                 {/* Using ProductCard for now, will replace with GalleryMenuItem if needed for different style */}
                 <ProductCard product={item} />

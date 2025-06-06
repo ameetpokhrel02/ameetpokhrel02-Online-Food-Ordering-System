@@ -13,16 +13,17 @@ import momo from '../assets/momo.jpeg';
 import burgerImg from '../assets/pizza.jpg';
 import OffersSection from '../components/OffersSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
+import { Product } from '../types/product';
 
-const allProducts = [
-  { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza' },
-  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, category: 'Burger' },
-  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, category: 'Special' },
-  { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng, category: 'Dessert' },
-  { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, category: 'Rice' },
-  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, category: 'Starter' },
-  { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza, category: 'Pizza' },
-  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, category: 'Dumpling' },
+const allProducts: Product[] = [
+  { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
+  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, category: 'Burger', description: 'Juicy burger with all the fixings.' },
+  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, category: 'Special', description: 'Our chef\'s special creation, a must-try!' },
+  { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng, category: 'Dessert', description: 'Indulge in this sweet and delightful dessert.' },
+  { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, category: 'Rice', description: 'Aromatic and flavorful classic biryani.' },
+  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, category: 'Starter', description: 'Crispy and juicy chicken lollipops.' },
+  { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza, category: 'Pizza', description: 'Extra cheesy pizza for cheese lovers.' },
+  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, category: 'Dumpling', description: 'Soft and tender steamed momos with spicy sauce.' },
 ];
 
 const categories = ['All', 'Pizza', 'Burger', 'Special', 'Dessert', 'Rice', 'Starter', 'Dumpling'];
