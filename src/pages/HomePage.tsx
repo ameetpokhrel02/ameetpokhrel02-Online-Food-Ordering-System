@@ -278,7 +278,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                   width: '100%',
                   maxWidth: { xs: 300, md: 400 },
                   maxHeight: { xs: 300, md: 340 },
-                  borderRadius: 24,
+                  borderRadius: '50%',
                   overflow: 'hidden',
                   boxShadow: '0 8px 32px #0002',
                   opacity: idx === featuredIndex ? 1 : 0,
