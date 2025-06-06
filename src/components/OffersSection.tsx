@@ -81,12 +81,15 @@ const OffersSection: React.FC = () => {
       {/* Categories */}
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, justifyContent: 'center', mb: 8, maxWidth: 1200, mx: 'auto', px: { xs: 1, sm: 2, md: 0 } }}>
         {categories.map((cat) => (
-          <Box key={cat.title} sx={{ flex: 1, bgcolor: '#fafafa', borderRadius: 3, boxShadow: '0 2px 12px #0001', p: 3, textAlign: 'center', minWidth: 220, maxWidth: 300, mx: 'auto' }}>
-            <Box sx={{ width: 100, height: 100, mx: 'auto', mb: 2, borderRadius: '50%', overflow: 'hidden', boxShadow: '0 2px 8px #0002', bgcolor: '#fff' }}>
-              <img src={cat.img} alt={cat.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <Box key={cat.title} sx={{ flex: 1, bgcolor: '#fafafa', borderRadius: 3, boxShadow: '0 2px 12px #0001', p: 3, textAlign: 'center', minWidth: 220, maxWidth: 300, mx: 'auto', transition: 'transform 0.3s ease-in-out', '&:hover': { transform: 'translateY(-5px)' } }}>
+            <Box sx={{ width: 100, height: 100, mx: 'auto', mb: 2, borderRadius: '50%', overflow: 'hidden', boxShadow: '0 2px 8px #0002', bgcolor: '#fff', transition: 'transform 0.3s ease-in-out', '&:hover img': { transform: 'scale(1.1)' } }}>
+              <img src={cat.img} alt={cat.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease-in-out' }} />
             </Box>
             <Typography variant="h6" sx={{ color: '#388e3c', fontWeight: 700, mb: 1 }}>{cat.title}</Typography>
-            <Typography variant="body2" sx={{ color: '#666' }}>{cat.desc}</Typography>
+            <Typography variant="body2" sx={{ color: '#666', mb: 2 }}>{cat.desc}</Typography>
+            <Button variant="outlined" size="small" sx={{ color: '#388e3c', borderColor: '#388e3c', borderRadius: 2, '&:hover': { borderColor: '#2e7d32', color: '#2e7d32', bgcolor: 'rgba(56, 142, 60, 0.08)' } }}>
+              Read More
+            </Button>
           </Box>
         ))}
       </Box>

@@ -118,106 +118,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero/Slider Section with Parallax and Food Name Overlay */}
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', mb: 4, gap: 6, position: 'relative', minHeight: 360 }}>
-        {/* Left: Text */}
-        <Box sx={{ flex: 1, minWidth: 280, zIndex: 2 }}>
-          <Typography variant="subtitle2" sx={{ letterSpacing: 2, mb: 2, color: 'text.secondary', fontWeight: 600 }}>
-            WELCOME TO OUR RESTAURANT
-          </Typography>
-          <Typography variant="h2" sx={{ fontWeight: 700, fontSize: { xs: '2.2rem', md: '3.5rem', lg: '4.2rem' }, mb: 3, lineHeight: 1.1 }}>
-            {heroSlides[currentSlide].name}
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4, maxWidth: 420 }}>
-            Our burgers are made with high-quality ingredients, delivering a tasty, juicy, and satisfying meal in every bite.
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-            <Button variant="contained" color="primary" size="large" sx={{ borderRadius: 8, px: 4, fontWeight: 700 }}>Order now</Button>
-            <Button variant="outlined" color="inherit" size="large" sx={{ borderRadius: 8, px: 4, fontWeight: 700, bgcolor: '#fff', color: 'text.primary', borderColor: '#eee' }}>Reservation</Button>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mr: 1 }}>
-              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user1" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #fff', marginLeft: -8, zIndex: 2 }} />
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user2" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #fff', marginLeft: -8, zIndex: 1 }} />
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="user3" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #fff', marginLeft: -8, zIndex: 0 }} />
-            </Box>
-            <Box>
-              <Typography variant="body2" sx={{ fontWeight: 600 }}>50k+ Happy customer</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600 }}>4.9</Typography>
-                <span role="img" aria-label="star">⭐</span>
-                <span role="img" aria-label="star">⭐</span>
-                <span role="img" aria-label="star">⭐</span>
-                <span role="img" aria-label="star">⭐</span>
-                <span role="img" aria-label="star">⭐</span>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-        {/* Right: Parallax Main Image with Overlay */}
-        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', overflow: 'visible', minHeight: 320 }}>
-          {heroSlides.map((slide, idx) => (
-            <img
-              key={slide.name}
-              src={slide.image}
-              alt={slide.name}
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                width: '100%',
-                maxWidth: 400,
-                maxHeight: 340,
-                borderRadius: 24,
-                boxShadow: '0 8px 32px #0002',
-                opacity: idx === currentSlide ? 1 : 0,
-                zIndex: idx === currentSlide ? 2 : 1,
-                transform: `translateY(${parallax}px) scale(${idx === currentSlide ? 1 : 0.98})`,
-                transition: 'opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1)',
-                willChange: 'transform, opacity',
-              }}
-            />
-          ))}
-          {/* Food name overlay (for mobile) */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, position: 'absolute', bottom: 16, left: 0, right: 0, justifyContent: 'center', zIndex: 3 }}>
-            <Typography variant="h5" sx={{ bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', px: 2, py: 1, borderRadius: 2 }}>
-              {heroSlides[currentSlide].name}
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-      {/* Circular Thumbnails Row */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, mb: 8 }}>
-        {heroSlides.map((slide, idx) => (
-          <Box
-            key={slide.name}
-            sx={{
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              overflow: 'hidden',
-              border: idx === currentSlide ? '3px solid #ff3b00' : '2px solid #eee',
-              boxShadow: idx === currentSlide ? '0 4px 16px #ff3b0033' : 'none',
-              transition: 'border 0.3s, box-shadow 0.3s',
-              cursor: 'pointer',
-              position: 'relative',
-              background: '#fff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              opacity: idx === currentSlide ? 1 : 0.7,
-            }}
-            onClick={() => setCurrentSlide(idx)}
-          >
-            <img src={slide.image} alt={slide.name} style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: '50%' }} />
-            {idx === currentSlide && (
-              <Box sx={{ position: 'absolute', bottom: -10, left: '50%', transform: 'translateX(-50%)', bgcolor: '#ff3b00', color: '#fff', px: 1.5, py: 0.5, borderRadius: 2, fontSize: 13, fontWeight: 700, boxShadow: 2 }}>
-                {slide.name}
-              </Box>
-            )}
-          </Box>
-        ))}
-      </Box>
+      {/* The original hero/slider section was here, removing it to avoid duplication */}
+
+      {/* Add the FoodDeliverySection here */}
+      <FoodDeliverySection />
+
+      {/* Add back the product listing, filters, and search bar */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexWrap: 'wrap', gap: 2 }}>
         <Typography variant="h3" component="h1" gutterBottom>
           Our Products
@@ -299,7 +205,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         {/* Product Grid: 3 per row */}
         <Box sx={{ flex: 1 }}>
           {/* Slider */}
-          <Box 
+          <Box
             // ref={sliderRef} // Remove slider ref
             sx={{
             display: 'grid',
@@ -316,10 +222,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
               </Box>
             ))}
           </Box>
-          <OffersSection />
-          <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
+          {/* OffersSection was here, moving it below the main flex container */}
+          {/* <OffersSection /> */}
         </Box>
       </Box>
+
+      {/* Place the OffersSection here to span the full width */}
+      <OffersSection />
 
       {/* Add the FoodDeliverySection here */}
       <FoodDeliverySection />
