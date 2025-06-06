@@ -320,6 +320,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
         </Box>
       </Box>
+
+      {/* Add the FoodDeliverySection here */}
+      <FoodDeliverySection />
+
     </Container>
   );
 };
