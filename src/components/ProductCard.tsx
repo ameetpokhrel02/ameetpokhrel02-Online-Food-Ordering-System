@@ -8,6 +8,7 @@ interface Product {
   name: string;
   price: string;
   imageUrl: string;
+  description: string;
 }
 
 interface ProductCardProps {
@@ -18,6 +19,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
+  const truncatedDescription = product.description.length > 50 
+    ? product.description.substring(0, 50) + '...' 
+    : product.description;
+
   const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,6 +30,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addToCart(product);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
+  };
+
+  const handleReadMoreClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    console.log('Read More clicked for:', product.name);
   };
 
   return (
@@ -35,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         overflow: 'hidden',
         borderRadius: 4,
         cursor: 'pointer',
-        height: 420,
+        height: 480,
         display: 'flex',
         flexDirection: 'column',
         transition: 'all 0.4s cubic-bezier(.4,2,.3,1)',
@@ -111,7 +121,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          height: 'calc(100% - 280px)',
         }}
       >
         <Box>
@@ -126,11 +135,30 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </Typography>
           <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mb: 1 }}
+          >
+            {truncatedDescription}
+          </Typography>
+          <Button 
+            size="small"
+            onClick={handleReadMoreClick}
+            sx={{
+              textTransform: 'none',
+              p: 0,
+              justifyContent: 'flex-start'
+            }}
+          >
+            Read More
+          </Button>
+          <Typography
             variant="body1"
             sx={{
               color: 'primary.main',
               fontWeight: 700,
               fontSize: '1rem',
+              mt: 1,
             }}
           >
             ${product.price}

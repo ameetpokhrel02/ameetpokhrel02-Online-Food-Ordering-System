@@ -17,18 +17,18 @@ import GalleryMenuItem from '../components/GalleryMenuItem';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 
 const allGalleryItems = [
-  { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1 },
-  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2 },
-  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng },
-  { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng },
-   { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani },
-  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop },
-  { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza },
-  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo },
-  { id: 9, name: 'Buff Keema Noodles', price: '14.50', imageUrl: buffKeemaNoodles },
-  { id: 10, name: 'Chowmein', price: '12.00', imageUrl: chowmein },
-  { id: 11, name: 'Delicious Meal', price: '35.00', imageUrl: kd8z02kfs9u61 },
-  { id: 12, name: 'Roasted Chicken', price: '28.75', imageUrl: chicken },
+  { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, description: 'A delicious pizza made with the freshest ingredients.' },
+  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, description: 'Juicy burger with all the fixings.' },
+  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, description: 'Our chef\'s special creation, a must-try!' },
+  { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng, description: 'Indulge in this sweet and delightful dessert.' },
+   { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, description: 'Aromatic and flavorful classic biryani.' },
+  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, description: 'Crispy and juicy chicken lollipops.' },
+  { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza, description: 'Extra cheesy pizza for cheese lovers.' },
+  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, description: 'Soft and tender steamed momos with spicy sauce.' },
+  { id: 9, name: 'Buff Keema Noodles', price: '14.50', imageUrl: buffKeemaNoodles, description: 'Spicy buff keema noodles.' },
+  { id: 10, name: 'Chowmein', price: '12.00', imageUrl: chowmein, description: 'Classic stir-fried chowmein.' },
+  { id: 11, name: 'Delicious Meal', price: '35.00', imageUrl: kd8z02kfs9u61, description: 'A hearty and delicious complete meal.' },
+  { id: 12, name: 'Roasted Chicken', price: '28.75', imageUrl: chicken, description: 'Tender and flavorful roasted chicken.' },
 ];
 
 interface GalleryPageProps {
