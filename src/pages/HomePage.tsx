@@ -283,7 +283,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                   boxShadow: '0 8px 32px #0002',
                   opacity: idx === featuredIndex ? 1 : 0,
                   zIndex: idx === featuredIndex ? 2 : 1,
-                  transform: `translateY(${parallax}px) scale(${idx === featuredIndex ? 1 : 0.98})`,
+                  transform: `translateY(${typeof parallax === 'number' ? parallax : 0}px) scale(${idx === featuredIndex ? 1 : 0.98})`,
                   transition: 'opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1)',
                   willChange: 'transform, opacity',
                 }}
