@@ -14,6 +14,7 @@ import burgerImg from '../assets/pizza.jpg';
 import OffersSection from '../components/OffersSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 import { Product } from '../types/product';
+import { InputBase } from '@mui/material';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -118,129 +119,139 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero Section with Transaction Animation */}
-      <Box sx={{ position: 'relative', mb: 8, overflow: 'hidden', borderRadius: 4 }}>
-        <Box
-          ref={sliderRef}
-          sx={{
+      {/* Hero Section with Custom Design */}
+      <Box sx={{
+        position: 'relative',
+        height: { xs: 'auto', md: '500px' },
+        mb: 8,
+        borderRadius: 4,
+        overflow: 'hidden',
+        bgcolor: '#222', // Dark background as in the image
+        color: 'white',
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        p: { xs: 3, md: 6 },
+        gap: { xs: 4, md: 0 },
+      }}>
+        {/* Left Side: Text and Search Bar */}
+        <Box sx={{ flex: 1, zIndex: 1, textAlign: { xs: 'center', md: 'left' } }}>
+          <Typography
+            variant="h3"
+            component="h1"
+            sx={{
+              fontFamily: '"Georgia", serif', // Custom font similar to image
+              fontWeight: 700,
+              mb: 2,
+              fontSize: { xs: '2rem', md: '3rem', lg: '3.5rem' },
+              lineHeight: 1.2,
+            }}
+          >
+            It is even better than an expensive cookery book
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '0.9rem', md: '1.1rem' },
+              mb: 4,
+              maxWidth: { xs: '100%', md: '450px' },
+              mx: { xs: 'auto', md: 'unset' },
+              color: 'rgba(255,255,255,0.8)',
+            }}
+          >
+            Learn how to make your favorite restaurant's dishes
+          </Typography>
+
+          {/* Search Bar */}
+          <Box sx={{
             display: 'flex',
-            transition: 'transform 0.7s cubic-bezier(.4,2,.3,1)',
-            transform: `translateX(-${featIndex * (100 / productsToShow)}%)`,
-            width: '100%',
-          }}
-        >
-          {allProducts.slice(0, productsToShow).map((product, idx) => (
-            <Box
-              key={product.id}
+            alignItems: 'center',
+            bgcolor: 'rgba(255,255,255,0.1)',
+            borderRadius: 8,
+            overflow: 'hidden',
+            maxWidth: { xs: '100%', sm: '500px' },
+            height: 56,
+            mx: { xs: 'auto', md: 'unset' },
+            boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+            border: '1px solid rgba(255,255,255,0.3)',
+          }}>
+            <InputBase
+              placeholder="I want to make..."
               sx={{
-                minWidth: `calc(100% / ${productsToShow})`,
-                p: 2,
-                position: 'relative',
-                transition: 'all 0.3s ease-in-out',
+                ml: 2,
+                flex: 1,
+                color: 'white',
+                '&::placeholder': {
+                  color: 'rgba(255,255,255,0.7)',
+                },
+              }}
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <Select
+              value="Categories" // Placeholder, actual filtering is handled elsewhere
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              sx={{
+                bgcolor: 'transparent',
+                color: 'white',
+                border: 'none',
+                height: '100%',
+                '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                '& .MuiSelect-select': { pr: 1, pl: 2 },
+                '& .MuiSvgIcon-root': { color: 'white' },
+                borderLeft: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: 0,
+                minWidth: 120,
+              }}
+            >
+              <MenuItem value="Categories" disabled>Categories</MenuItem>
+              {categories.slice(1).map((cat) => ( // Exclude 'All' for this dropdown
+                <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+              ))}
+            </Select>
+            <Button
+              sx={{
+                minWidth: 56,
+                height: '100%',
+                borderRadius: 8,
+                bgcolor: '#4CAF50', // Green search button
+                color: 'white',
                 '&:hover': {
-                  transform: 'scale(1.02)',
-                  '& .product-overlay': {
-                    opacity: 1,
-                  },
+                  bgcolor: '#388E3C',
                 },
               }}
             >
-              <Box
-                sx={{
-                  position: 'relative',
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  boxShadow: 3,
-                  height: '400px',
-                  transition: 'all 0.3s ease-in-out',
-                }}
-              >
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.3s ease-in-out',
-                  }}
-                />
-                <Box
-                  className="product-overlay"
-                  sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    p: 3,
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                    color: 'white',
-                    opacity: 0.9,
-                    transition: 'all 0.3s ease-in-out',
-                  }}
-                >
-                  <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
-                    {product.name}
-                  </Typography>
-                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 600 }}>
-                    ${product.price}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                      mt: 2,
-                      opacity: 0,
-                      transform: 'translateY(20px)',
-                      transition: 'all 0.3s ease-in-out',
-                      '&:hover': {
-                        transform: 'translateY(0)',
-                      },
-                    }}
-                  >
-                    Order Now
-                  </Button>
-                </Box>
-              </Box>
-            </Box>
-          ))}
+              <span style={{ fontSize: 24 }}>&#128269;</span> {/* Search icon */}
+            </Button>
+          </Box>
         </Box>
-        <IconButton
-          onClick={handlePrev}
-          sx={{
-            position: 'absolute',
-            left: 16,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            bgcolor: 'rgba(255,255,255,0.9)',
-            '&:hover': { 
-              bgcolor: 'white',
-              transform: 'translateY(-50%) scale(1.1)',
-            },
-            transition: 'all 0.3s ease-in-out',
-            display: featIndex === 0 ? 'none' : 'flex',
-          }}
-        >
-          <span style={{ fontSize: 24 }}>←</span>
-        </IconButton>
-        <IconButton
-          onClick={handleNext}
-          sx={{
-            position: 'absolute',
-            right: 16,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            bgcolor: 'rgba(255,255,255,0.9)',
-            '&:hover': { 
-              bgcolor: 'white',
-              transform: 'translateY(-50%) scale(1.1)',
-            },
-            transition: 'all 0.3s ease-in-out',
-            display: featIndex === maxIndex ? 'none' : 'flex',
-          }}
-        >
-          <span style={{ fontSize: 24 }}>→</span>
-        </IconButton>
+
+        {/* Right Side: Image */}
+        <Box sx={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: { xs: 250, md: '100%' }, // Adjust height for responsiveness
+          minWidth: { xs: 'auto', md: '400px' },
+          maxWidth: { xs: '90%', md: '50%' },
+          overflow: 'hidden',
+          mt: { xs: 4, md: 0 },
+        }}>
+          {/* Using a placeholder image for now, replace with an actual suitable image */}
+          <img
+            src={food1} // Using food1 as a placeholder, ideally a specific hero image
+            alt="Delicious meal"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain', // 'contain' to ensure full image visibility
+              transform: 'scale(1.1)', // Slight zoom to match original image
+            }}
+          />
+        </Box>
       </Box>
 
       {/* Product Listing Section */}
