@@ -118,12 +118,55 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* The original hero/slider section was here, removing it to avoid duplication */}
+      {/* Hero Section with Parallax */}
+      <Box sx={{ position: 'relative', height: '60vh', mb: 8, overflow: 'hidden', borderRadius: 4 }}>
+        {heroSlides.map((slide, index) => (
+          <Box
+            key={index}
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              opacity: currentSlide === index ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
+              transform: `translateY(${parallax}px)`,
+            }}
+          >
+            <img
+              ref={heroImgRef}
+              src={slide.image}
+              alt={slide.name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                p: 4,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                color: 'white',
+              }}
+            >
+              <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 1 }}>
+                {slide.name}
+              </Typography>
+              <Typography variant="h6" sx={{ opacity: 0.9 }}>
+                Discover our delicious menu
+              </Typography>
+            </Box>
+          </Box>
+        ))}
+      </Box>
 
-      {/* Add the FoodDeliverySection here */}
-      <FoodDeliverySection />
-
-      {/* Add back the product listing, filters, and search bar */}
+      {/* Product Listing Section */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexWrap: 'wrap', gap: 2 }}>
         <Typography variant="h3" component="h1" gutterBottom>
           Our Products
