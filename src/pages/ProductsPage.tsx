@@ -126,7 +126,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         mb: 8,
         borderRadius: 4,
         overflow: 'hidden',
-        bgcolor: '#222', // Dark background as in the image
+        bgcolor: '#2e2e2e', // Dark gray background to match the image
         color: 'white',
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
