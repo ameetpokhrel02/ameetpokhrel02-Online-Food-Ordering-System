@@ -15,6 +15,7 @@ import OffersSection from '../components/OffersSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 import { Product } from '../types/product';
 import { InputBase } from '@mui/material';
+import { AddShoppingCart } from '@mui/icons-material';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -58,6 +59,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const productsToShow = 3;
   const maxIndex = Math.max(0, allProducts.length - productsToShow);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [mainProduct, setMainProduct] = useState<Product | null>(null);
+  const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
 
   // Parallax effect for hero image
   useEffect(() => {
@@ -116,6 +119,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
       sliderRef.current.style.transform = `translateX(-${featIndex * (100 / productsToShow)}%)`;
     }
   }, [featIndex, productsToShow]);
+
+  const handleOrbitingProductClick = (product: Product) => {
+    setMainProduct(product);
+    setOrbitingProducts(allProducts.filter(p => p.category === product.category && p.id !== product.id));
+  };
 
   return (
     <Container sx={{ py: 8 }}>
@@ -300,6 +308,105 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             </Box>
           </Box>
         ))}
+      </Box>
+
+      {/* Main Product Display with Orbiting Items */}
+      <Box sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        minHeight: 500,
+        bgcolor: '#fefefe', // Light background for this section as in the image
+        borderRadius: 4,
+        boxShadow: 3,
+        p: 4,
+        overflow: 'hidden',
+      }}>
+        {/* Left side: Main Product Details */}
+        <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mr: { xs: 0, md: 4 }, zIndex: 2 }}>
+          <Typography variant="h4" sx={{ color: '#ffc107', fontWeight: 700, mb: 1 }}>
+            ${mainProduct?.price}
+          </Typography>
+          <Typography variant="h3" component="h2" sx={{ fontWeight: 700, mb: 2 }}>
+            {mainProduct?.name}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 350, mx: { xs: 'auto', md: 'unset' } }}>
+            {mainProduct?.description}
+          </Typography>
+          <Button variant="contained" color="primary" size="large" startIcon={<AddShoppingCart />}>
+            Add to Card
+          </Button>
+        </Box>
+
+        {/* Right side: Orbiting Images and Main Image */}
+        <Box sx={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+          height: '100%',
+          minHeight: { xs: 300, md: 'auto' },
+          zIndex: 1,
+        }}>
+          {/* Animated path for orbiting items */}
+          <Box sx={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            border: '1px dashed #ccc',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            {/* Main Product Image (Central) */}
+            <Box sx={{
+              width: 220,
+              height: 220,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+              transition: 'all 0.5s ease-in-out',
+            }}>
+              <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </Box>
+
+            {/* Orbiting Small Product Images */}
+            {orbitingProducts.map((product, index) => (
+              <Box
+                key={product.id}
+                onClick={() => handleOrbitingProductClick(product)}
+                sx={{
+                  position: 'absolute',
+                  width: 80,
+                  height: 80,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease-in-out',
+                  bgcolor: 'white',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                    boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                  },
+                  // Positioning around the circle - adjust as needed
+                  top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
+                  left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
+                }}
+              >
+                <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       {/* Product Listing Section */}
