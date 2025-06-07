@@ -118,52 +118,129 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero Section with Parallax */}
-      <Box sx={{ position: 'relative', height: '60vh', mb: 8, overflow: 'hidden', borderRadius: 4 }}>
-        {heroSlides.map((slide, index) => (
-          <Box
-            key={index}
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              opacity: currentSlide === index ? 1 : 0,
-              transition: 'opacity 1s ease-in-out',
-              transform: `translateY(${parallax}px)`,
-            }}
-          >
-            <img
-              ref={heroImgRef}
-              src={slide.image}
-              alt={slide.name}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-            />
+      {/* Hero Section with Transaction Animation */}
+      <Box sx={{ position: 'relative', mb: 8, overflow: 'hidden', borderRadius: 4 }}>
+        <Box
+          ref={sliderRef}
+          sx={{
+            display: 'flex',
+            transition: 'transform 0.7s cubic-bezier(.4,2,.3,1)',
+            transform: `translateX(-${featIndex * (100 / productsToShow)}%)`,
+            width: '100%',
+          }}
+        >
+          {allProducts.slice(0, productsToShow).map((product, idx) => (
             <Box
+              key={product.id}
               sx={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                p: 4,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
-                color: 'white',
+                minWidth: `calc(100% / ${productsToShow})`,
+                p: 2,
+                position: 'relative',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                  '& .product-overlay': {
+                    opacity: 1,
+                  },
+                },
               }}
             >
-              <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 1 }}>
-                {slide.name}
-              </Typography>
-              <Typography variant="h6" sx={{ opacity: 0.9 }}>
-                Discover our delicious menu
-              </Typography>
+              <Box
+                sx={{
+                  position: 'relative',
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: 3,
+                  height: '400px',
+                  transition: 'all 0.3s ease-in-out',
+                }}
+              >
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.3s ease-in-out',
+                  }}
+                />
+                <Box
+                  className="product-overlay"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 3,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+                    color: 'white',
+                    opacity: 0.9,
+                    transition: 'all 0.3s ease-in-out',
+                  }}
+                >
+                  <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
+                    {product.name}
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 600 }}>
+                    ${product.price}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      mt: 2,
+                      opacity: 0,
+                      transform: 'translateY(20px)',
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        transform: 'translateY(0)',
+                      },
+                    }}
+                  >
+                    Order Now
+                  </Button>
+                </Box>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
+        </Box>
+        <IconButton
+          onClick={handlePrev}
+          sx={{
+            position: 'absolute',
+            left: 16,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            bgcolor: 'rgba(255,255,255,0.9)',
+            '&:hover': { 
+              bgcolor: 'white',
+              transform: 'translateY(-50%) scale(1.1)',
+            },
+            transition: 'all 0.3s ease-in-out',
+            display: featIndex === 0 ? 'none' : 'flex',
+          }}
+        >
+          <span style={{ fontSize: 24 }}>←</span>
+        </IconButton>
+        <IconButton
+          onClick={handleNext}
+          sx={{
+            position: 'absolute',
+            right: 16,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            bgcolor: 'rgba(255,255,255,0.9)',
+            '&:hover': { 
+              bgcolor: 'white',
+              transform: 'translateY(-50%) scale(1.1)',
+            },
+            transition: 'all 0.3s ease-in-out',
+            display: featIndex === maxIndex ? 'none' : 'flex',
+          }}
+        >
+          <span style={{ fontSize: 24 }}>→</span>
+        </IconButton>
       </Box>
 
       {/* Product Listing Section */}
@@ -172,12 +249,31 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           Our Products
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <IconButton onClick={() => setDrawerOpen(true)} sx={{ display: { xs: 'inline-flex', md: 'none' } }}>
+          <IconButton 
+            onClick={() => setDrawerOpen(true)} 
+            sx={{ 
+              display: { xs: 'inline-flex', md: 'none' },
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                transform: 'scale(1.1)',
+              },
+            }}
+          >
             <FilterListIcon />
           </IconButton>
           <FormControl size="small" sx={{ minWidth: 140 }}>
             <InputLabel>Sort By</InputLabel>
-            <Select value={sort} label="Sort By" onChange={handleSortChange}>
+            <Select 
+              value={sort} 
+              label="Sort By" 
+              onChange={handleSortChange}
+              sx={{
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                },
+              }}
+            >
               <MenuItem value="default">Default</MenuItem>
               <MenuItem value="price-asc">Price: Low to High</MenuItem>
               <MenuItem value="price-desc">Price: High to Low</MenuItem>
@@ -185,6 +281,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           </FormControl>
         </Box>
       </Box>
+
       <Box sx={{ display: 'flex', gap: 4 }}>
         {/* Sidebar: Search + Categories */}
         <Box sx={{
@@ -199,9 +296,27 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           flexDirection: 'column',
           alignItems: 'stretch',
           height: 'fit-content',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            transform: 'translateY(-5px)',
+            boxShadow: 4,
+          },
         }}>
           {/* Search Bar */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, bgcolor: '#f5f5f5', borderRadius: 3, px: 2, py: 1 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            mb: 4, 
+            bgcolor: '#f5f5f5', 
+            borderRadius: 3, 
+            px: 2, 
+            py: 1,
+            transition: 'all 0.3s ease-in-out',
+            '&:focus-within': {
+              transform: 'scale(1.02)',
+              boxShadow: 1,
+            },
+          }}>
             <input
               type="text"
               placeholder="Search Item"
@@ -236,7 +351,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 mb: 1,
                 textTransform: 'none',
                 pl: 0,
-                '&:hover': { color: '#ff3b00', background: 'rgba(255,59,0,0.07)' },
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': { 
+                  color: '#ff3b00', 
+                  background: 'rgba(255,59,0,0.07)',
+                  transform: 'translateX(5px)',
+                },
               }}
               onClick={() => handleFilterChange(cat)}
               fullWidth
@@ -245,37 +365,40 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             </Button>
           ))}
         </Box>
-        {/* Product Grid: 3 per row */}
+
+        {/* Product Grid */}
         <Box sx={{ flex: 1 }}>
-          {/* Slider */}
-          <Box
-            // ref={sliderRef} // Remove slider ref
-            sx={{
+          <Box sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }, // Responsive grid
+            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
             gap: 4,
-            // Remove slider specific styles
-            // transition: 'transform 0.7s cubic-bezier(.4,2,.3,1)',
-            // transform: `translateX(-${featIndex * (100 / productsToShow)}%)`,
-            width: '100%', // Ensure it takes full width of its container
           }}>
             {products.map((product, idx) => (
-              <Box key={product.id} ref={(el: HTMLDivElement | null) => { productRefs.current[idx] = el; }} data-idx={idx} sx={{ opacity: visibleCards.includes(idx) ? 1 : 0, transform: visibleCards.includes(idx) ? 'none' : 'translateY(40px)', transition: 'all 0.7s cubic-bezier(.4,2,.3,1)' }}>
+              <Box 
+                key={product.id} 
+                ref={(el: HTMLDivElement | null) => { productRefs.current[idx] = el; }} 
+                data-idx={idx} 
+                sx={{ 
+                  opacity: visibleCards.includes(idx) ? 1 : 0, 
+                  transform: visibleCards.includes(idx) ? 'none' : 'translateY(40px)', 
+                  transition: 'all 0.7s cubic-bezier(.4,2,.3,1)',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                  },
+                }}
+              >
                 <ProductCard product={product} />
               </Box>
             ))}
           </Box>
-          {/* OffersSection was here, moving it below the main flex container */}
-          {/* <OffersSection /> */}
         </Box>
       </Box>
 
-      {/* Place the OffersSection here to span the full width */}
+      {/* Offers Section */}
       <OffersSection />
 
-      {/* Add the FoodDeliverySection here */}
+      {/* Food Delivery Section */}
       <FoodDeliverySection />
-
     </Container>
   );
 };
