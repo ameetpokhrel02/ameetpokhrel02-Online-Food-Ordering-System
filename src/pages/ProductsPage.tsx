@@ -400,7 +400,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                   overflow: 'hidden',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease-in-out',
                   bgcolor: 'white',
                   display: 'flex',
                   justifyContent: 'center',
