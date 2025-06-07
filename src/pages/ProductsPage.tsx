@@ -119,14 +119,14 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero Section with Custom Design */}
+      {/* Hero Section with Custom Design and Image Slider */}
       <Box sx={{
         position: 'relative',
         height: { xs: 'auto', md: '500px' },
         mb: 8,
         borderRadius: 4,
         overflow: 'hidden',
-        bgcolor: '#2e2e2e', // Dark gray background to match the image
+        bgcolor: '#2e2e2e', // Dark gray background
         color: 'white',
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
@@ -135,7 +135,35 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         p: { xs: 3, md: 6 },
         gap: { xs: 4, md: 0 },
       }}>
-        {/* Left Side: Text and Search Bar */}
+        {/* Image Slider as Background */}
+        {heroSlides.map((slide, index) => (
+          <Box
+            key={index}
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              opacity: currentSlide === index ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
+              // Apply parallax effect with transform if needed, but fade is primary here
+              transform: `translateY(${parallax}px)`,
+            }}
+          >
+            <img
+              src={slide.image}
+              alt={slide.name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        ))}
+
+        {/* Left Side: Text and Search Bar (Overlay) */}
         <Box sx={{ flex: 1, zIndex: 1, textAlign: { xs: 'center', md: 'left' } }}>
           <Typography
             variant="h3"
@@ -228,29 +256,21 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           </Box>
         </Box>
 
-        {/* Right Side: Image */}
+        {/* Right Side: Image Overlay (static image from previous design, now animated background) */}
         <Box sx={{
           flex: 1,
-          display: 'flex',
+          display: { xs: 'none', md: 'flex' }, // Hide on small screens to prioritize text/search
           justifyContent: 'center',
           alignItems: 'center',
-          height: { xs: 250, md: '100%' }, // Adjust height for responsiveness
-          minWidth: { xs: 'auto', md: '400px' },
-          maxWidth: { xs: '90%', md: '50%' },
-          overflow: 'hidden',
-          mt: { xs: 4, md: 0 },
+          height: '100%',
+          minWidth: '400px',
+          maxWidth: '50%',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          zIndex: 0, // Ensure it's behind text and search bar
         }}>
-          {/* Using a placeholder image for now, replace with an actual suitable image */}
-          <img
-            src={food1} // Using food1 as a placeholder, ideally a specific hero image
-            alt="Delicious meal"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain', // 'contain' to ensure full image visibility
-              transform: 'scale(1.1)', // Slight zoom to match original image
-            }}
-          />
+          {/* The image is now handled by the slider background */}
         </Box>
       </Box>
 
