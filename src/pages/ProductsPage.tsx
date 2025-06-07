@@ -59,7 +59,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const productsToShow = 3;
   const maxIndex = Math.max(0, allProducts.length - productsToShow);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [mainProduct, setMainProduct] = useState<Product | null>(null);
+  const [mainProduct, setMainProduct] = useState<Product>(allProducts[0]);
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
 
   // Parallax effect for hero image
@@ -79,6 +79,18 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
     }, 3500);
     return () => clearInterval(interval);
   }, []);
+
+  // Initialize orbiting products when component mounts or mainProduct changes
+  useEffect(() => {
+    if (mainProduct) {
+      // Select other products, excluding the main one, from the same category or overall
+      setOrbitingProducts(allProducts.filter(p => p.id !== mainProduct.id && p.category === mainProduct.category).slice(0, 5)); // Limit to 5 orbiting products for visual appeal
+      // Fallback if not enough in the same category
+      if (orbitingProducts.length < 5) {
+        setOrbitingProducts(allProducts.filter(p => p.id !== mainProduct.id).slice(0,5));
+      }
+    }
+  }, [mainProduct]);
 
   // Filter by global search
   let products = allProducts.filter(p => filter === 'All' || p.category === filter);
@@ -400,9 +412,42 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                   // Positioning around the circle - adjust as needed
                   top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
                   left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
+                  // Hover effects for orbiting items
+                  '& .details-overlay': {
+                    position: 'absolute',
+                    top: 0,
+                    right: 0, // Position at the right
+                    width: 0, // Starts at 0 width
+                    height: '100%',
+                    background: 'rgba(0,0,0,0.6)', // Semi-transparent overlay
+                    opacity: 0, // Starts transparent
+                    transition: 'width 0.3s ease-in-out, opacity 0.3s ease-in-out',
+                    overflow: 'hidden', // Hide content until revealed
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    color: 'white',
+                    p: 1,
+                    borderRadius: '50%',
+                  },
+                  '&:hover .details-overlay': {
+                    width: '100%', // Wipes left to 100% width
+                    opacity: 1, // Becomes fully opaque
+                  },
                 }}
               >
                 <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {/* Details overlay for orbiting items */}
+                <Box className="details-overlay">
+                  <Typography variant="caption" fontWeight={700} sx={{ lineHeight: 1.2 }}>
+                    {product.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#ffc107' }}>
+                    ${product.price}
+                  </Typography>
+                </Box>
               </Box>
             ))}
           </Box>
