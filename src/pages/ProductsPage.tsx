@@ -119,7 +119,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero Section with Custom Design and Image Slider */}
+      {/* Hero Section with Animated Circular Image and Text Overlay */}
       <Box sx={{
         position: 'relative',
         height: { xs: 'auto', md: '500px' },
@@ -135,20 +135,40 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         p: { xs: 3, md: 6 },
         gap: { xs: 4, md: 0 },
       }}>
-        {/* Image Slider as Background */}
+        {/* Image Slider as Circular Background with Animation */}
         {heroSlides.map((slide, index) => (
           <Box
             key={index}
             sx={{
               position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
+              top: '50%',
+              right: { xs: '50%', md: 0 },
+              transform: { xs: 'translate(50%, -50%)', md: 'translateY(-50%)' },
+              width: { xs: 280, md: 400 }, // Size of the circular image
+              height: { xs: 280, md: 400 },
+              borderRadius: '50%',
+              overflow: 'hidden',
               opacity: currentSlide === index ? 1 : 0,
               transition: 'opacity 1s ease-in-out',
-              // Apply parallax effect with transform if needed, but fade is primary here
-              transform: `translateY(${parallax}px)`,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              zIndex: 0, // Ensure it's behind text and search bar
+              '&:hover img': {
+                transform: 'scale(1.1)', // Zoom effect on image hover
+              },
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                background: 'rgba(0,0,0,0.3)', // Overlay on hover
+                opacity: 0, // Hidden by default
+                transition: 'opacity 0.3s ease-in-out',
+              },
+              '&:hover::after': {
+                opacity: 1,
+              },
             }}
           >
             <img
@@ -158,8 +178,30 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                transition: 'transform 0.3s ease-in-out',
               }}
             />
+            {/* Details overlay for current slide, visible on hover */}
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 20,
+                left: 20,
+                right: 20,
+                color: 'white',
+                textAlign: 'left',
+                opacity: 0, // Hidden by default
+                transition: 'opacity 0.3s ease-in-out',
+                zIndex: 2, // Above overlay
+                '&:hover': {
+                  opacity: 1,
+                },
+              }}
+            >
+              <Typography variant="h5" fontWeight={700}>{slide.name}</Typography>
+              <Typography variant="body2">Price: ${allProducts.find(p => p.name === slide.name)?.price || 'N/A'}</Typography>
+              <Button variant="contained" size="small" sx={{ mt: 1 }}>View Details</Button>
+            </Box>
           </Box>
         ))}
 
