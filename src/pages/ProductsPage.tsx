@@ -207,7 +207,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
               }}
             >
               <MenuItem value="Categories" disabled>Categories</MenuItem>
-              {categories.slice(1).map((cat) => ( // Exclude 'All' for this dropdown
+              {categories.slice(1).map((cat) => (
                 <MenuItem key={cat} value={cat}>{cat}</MenuItem>
               ))}
             </Select>
