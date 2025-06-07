@@ -268,11 +268,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 position: 'absolute',
                 bottom: 0,
                 left: 0,
-                width: '100%',
-                height: 0, // Starts at 0 height
+                width: 0, // Starts at 0 width for wipe from left
+                height: '100%', // Full height
                 background: 'rgba(0,0,0,0.7)', // Dark overlay color
-                transition: 'height 0.3s ease-in-out, opacity 0.3s ease-in-out',
-                opacity: 0,
+                transition: 'width 0.3s ease-in-out, opacity 0.3s ease-in-out',
+                opacity: 0.9, // Slightly visible initially for better transition
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -282,7 +282,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 color: 'white',
               },
               '&:hover .details-overlay': {
-                height: '100%', // Wipes up to 100%
+                width: '100%', // Wipes right to 100% width
                 opacity: 1, // Becomes fully opaque
               },
             }}
