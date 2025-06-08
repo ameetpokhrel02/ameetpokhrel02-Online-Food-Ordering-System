@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import biryani from '../assets/biryani.jpg';
 import pizza from '../assets/pizza.jpg';
 import momo from '../assets/momo.jpeg';
 import lolipop from '../assets/lolipop.jpg';
+import menuBackground from '../assets/gallery.png'; // Using an existing image for the parallax background
 
 // Placeholder data for menu items
 const menuItems = [
@@ -38,18 +39,81 @@ const menuItems = [
 ];
 
 const MenuPage: React.FC = () => {
+  const [parallaxOffset, setParallaxOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Adjust the multiplier for the parallax effect speed
+      setParallaxOffset(window.pageYOffset * 0.4);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <Box
       sx={{
         minHeight: '100vh',
         bgcolor: '#20222f', // Dark background color from the image
         color: '#fff',
-        py: 8,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <Container maxWidth="lg">
+      {/* Parallax Landing Section */}
+      <Box
+        sx={{
+          position: 'relative',
+          height: '60vh', // Adjust height as needed
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          background: `url(${menuBackground}) no-repeat center center fixed`,
+          backgroundSize: 'cover',
+          transform: `translateY(${parallaxOffset}px)`,
+          zIndex: 0, // Ensure it's behind other content if needed
+          '&::before': { // Overlay for better text readability
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 1,
+          },
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+          <Typography
+            variant="h2"
+            component="h1"
+            gutterBottom
+            sx={{
+              fontWeight: 700,
+              fontSize: { xs: '2.5rem', md: '4rem', lg: '5rem' },
+              color: '#fff',
+              textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
+            }}
+          >
+            Discover Our Delicious Menu
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              color: '#f5f5f5',
+              maxWidth: 700,
+              mx: 'auto',
+              mt: 2,
+            }}
+          >
+            Explore a world of flavors, from traditional dishes to modern culinary creations.
+          </Typography>
+        </Container>
+      </Box>
+
+      <Container maxWidth="lg" sx={{ py: 8, bgcolor: '#20222f', position: 'relative', zIndex: 1 }}>
         <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ fontWeight: 700, mb: 6, color: '#ffc107' }}>
           Our Menu
         </Typography>
