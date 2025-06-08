@@ -62,6 +62,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const [mainProductIndex, setMainProductIndex] = useState(0);
   const [mainProduct, setMainProduct] = useState<Product>(allProducts[mainProductIndex]);
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
+  const [orbitingStartIndex, setOrbitingStartIndex] = useState(0);
+  const NUM_ORBITING_ITEMS = 5;
 
   // Auto-play for main product
   useEffect(() => {
@@ -75,6 +77,35 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   useEffect(() => {
     setMainProduct(allProducts[mainProductIndex]);
   }, [mainProductIndex]);
+
+  // Auto-play for orbiting products
+  useEffect(() => {
+    const orbitInterval = setInterval(() => {
+      setOrbitingStartIndex((prevIndex) => {
+        const potentialOrbitingProducts = allProducts.filter(p => p.id !== mainProduct.id);
+        if (potentialOrbitingProducts.length === 0) return 0; // Handle empty array
+        return (prevIndex + 1) % potentialOrbitingProducts.length;
+      });
+    }, 2000); // Orbiting items change every 2 seconds
+    return () => clearInterval(orbitInterval);
+  }, [allProducts, mainProduct]);
+
+  // Update orbitingProducts when mainProduct or orbitingStartIndex changes
+  useEffect(() => {
+    if (mainProduct) {
+      const potentialOrbitingProducts = allProducts.filter(p => p.id !== mainProduct.id);
+      const visibleOrbitingProducts: Product[] = [];
+      const itemsToSlice = Math.min(NUM_ORBITING_ITEMS, potentialOrbitingProducts.length);
+
+      for (let i = 0; i < itemsToSlice; i++) {
+        const index = (orbitingStartIndex + i) % potentialOrbitingProducts.length;
+        if (potentialOrbitingProducts[index]) {
+          visibleOrbitingProducts.push(potentialOrbitingProducts[index]);
+        }
+      }
+      setOrbitingProducts(visibleOrbitingProducts);
+    }
+  }, [mainProduct, orbitingStartIndex, allProducts]);
 
   // Parallax effect for hero image
   useEffect(() => {
@@ -93,18 +124,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
     }, 3500);
     return () => clearInterval(interval);
   }, []);
-
-  // Initialize orbiting products when component mounts or mainProduct changes
-  useEffect(() => {
-    if (mainProduct) {
-      // Select other products, excluding the main one, from the same category or overall
-      setOrbitingProducts(allProducts.filter(p => p.id !== mainProduct.id && p.category === mainProduct.category).slice(0, 5)); // Limit to 5 orbiting products for visual appeal
-      // Fallback if not enough in the same category
-      if (orbitingProducts.length < 5) {
-        setOrbitingProducts(allProducts.filter(p => p.id !== mainProduct.id).slice(0,5));
-      }
-    }
-  }, [mainProduct]);
 
   // Filter by global search
   let products = allProducts.filter(p => filter === 'All' || p.category === filter);
@@ -148,7 +167,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   const handleOrbitingProductClick = (product: Product) => {
     setMainProduct(product);
-    setOrbitingProducts(allProducts.filter(p => p.category === product.category && p.id !== product.id));
   };
 
   return (
