@@ -125,6 +125,14 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
     }, 400);
   };
 
+  const handlePrevFeatured = () => {
+    setAnimating(true);
+    setTimeout(() => {
+      setFeaturedIndex((prev) => (prev - 1 + heroItems.length) % heroItems.length);
+      setAnimating(false);
+    }, 400);
+  };
+
   const handleSelectFeatured = (idx: number) => {
     if (idx === featuredIndex) return;
     if (timerRef.current) clearTimeout(timerRef.current); // Reset timer immediately
@@ -269,6 +277,42 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             overflow: 'visible',
             minHeight: 320,
           }}>
+            {/* Previous Button */}
+            <IconButton
+              onClick={handlePrevFeatured}
+              sx={{
+                position: 'absolute',
+                left: { xs: 0, md: -60 },
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowBackIos />
+            </IconButton>
+
+            {/* Next Button */}
+            <IconButton
+              onClick={handleNextFeatured}
+              sx={{
+                position: 'absolute',
+                right: { xs: 0, md: -60 },
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowForwardIos />
+            </IconButton>
+
             {/* Main featured image with parallax */}
             {heroItems.map((item, idx) => (
               <Box
@@ -283,7 +327,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                   boxShadow: '0 8px 32px #0002',
                   opacity: idx === featuredIndex ? 1 : 0,
                   zIndex: idx === featuredIndex ? 2 : 1,
-                  transform: `translateY(${typeof parallax === 'number' ? parallax : 0}px) scale(${idx === featuredIndex ? 1 : 0.98})`,
+                  transform: `scale(${idx === featuredIndex ? 1 : 0.98})`,
                   transition: 'opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1)',
                   willChange: 'transform, opacity',
                 }}
