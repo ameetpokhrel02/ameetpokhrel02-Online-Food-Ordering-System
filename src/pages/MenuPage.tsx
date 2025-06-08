@@ -244,93 +244,93 @@ const MenuPage: React.FC = () => {
                 boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
                 transition: 'all 0.5s ease-in-out',
                 border: '2px solid #ffc107', // Added border to main image
-              }}
-            >
-              <img src={mainMenuItem?.imageUrl} alt={mainMenuItem?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Box>
+              }}>
+                <img src={mainMenuItem?.imageUrl} alt={mainMenuItem?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
 
-            {/* Previous Button */}
-            <IconButton
-              onClick={handlePrevMainMenuItem}
-              sx={{
-                position: 'absolute',
-                left: { xs: 0, md: -60 },
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 5,
-                color: '#ffc107',
-                bgcolor: 'rgba(0,0,0,0.5)',
-                '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
-                boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-              }}
-            >
-              <ArrowBackIos />
-            </IconButton>
-
-            {/* Next Button */}
-            <IconButton
-              onClick={handleNextMainMenuItem}
-              sx={{
-                position: 'absolute',
-                right: { xs: 0, md: -60 },
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 5,
-                color: '#ffc107',
-                bgcolor: 'rgba(0,0,0,0.5)',
-                '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
-                boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-              }}
-            >
-              <ArrowForwardIos />
-            </IconButton>
-
-            {/* Orbiting Small Menu Item Images */}
-            {orbitingMenuItems.map((item, index) => (
-              <Box
-                key={item.id}
-                onClick={() => handleOrbitingMenuItemClick(item)}
+              {/* Previous Button */}
+              <IconButton
+                onClick={handlePrevMainMenuItem}
                 sx={{
                   position: 'absolute',
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                  cursor: 'pointer',
-                  bgcolor: '#333', // Darker background for orbiting items
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  border: '2px solid #ffc107', // Border for orbiting items
-                  transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
-                  '&:hover': {
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
-                    transform: 'scale(1.1)',
-                  },
-                  // Positioning around the circle - adjust as needed
-                  top: `calc(50% + ${150 * Math.sin((2 * Math.PI * index) / orbitingMenuItems.length)}px - 40px)`,
-                  left: `calc(50% + ${150 * Math.cos((2 * Math.PI * index) / orbitingMenuItems.length)}px - 40px)`,
+                  left: { xs: 0, md: -60 },
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 5,
+                  color: '#ffc107',
+                  bgcolor: 'rgba(0,0,0,0.5)',
+                  '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
                 }}
               >
-                <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                {/* Price tag for orbiting items - optional, if desired */}
-                {/* <Typography
-                  variant="caption"
+                <ArrowBackIos />
+              </IconButton>
+
+              {/* Next Button */}
+              <IconButton
+                onClick={handleNextMainMenuItem}
+                sx={{
+                  position: 'absolute',
+                  right: { xs: 0, md: -60 },
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 5,
+                  color: '#ffc107',
+                  bgcolor: 'rgba(0,0,0,0.5)',
+                  '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                }}
+              >
+                <ArrowForwardIos />
+              </IconButton>
+
+              {/* Orbiting Small Menu Item Images */}
+              {orbitingMenuItems.map((item, index) => (
+                <Box
+                  key={item.id}
+                  onClick={() => handleOrbitingMenuItemClick(item)}
                   sx={{
                     position: 'absolute',
-                    bottom: 5,
-                    right: 5,
-                    bgcolor: 'rgba(0,0,0,0.6)',
-                    color: '#fff',
-                    px: 0.5,
-                    borderRadius: '2px',
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    cursor: 'pointer',
+                    bgcolor: '#333', // Darker background for orbiting items
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    border: '2px solid #ffc107', // Border for orbiting items
+                    transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
+                    '&:hover': {
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+                      transform: 'scale(1.1)',
+                    },
+                    // Positioning around the circle - adjust as needed
+                    top: `calc(50% + ${150 * Math.sin((2 * Math.PI * index) / orbitingMenuItems.length)}px - 40px)`,
+                    left: `calc(50% + ${150 * Math.cos((2 * Math.PI * index) / orbitingMenuItems.length)}px - 40px)`,
                   }}
                 >
-                  ${item.price}
-                </Typography> */}
-              </Box>
-            ))}
+                  <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Price tag for orbiting items - optional, if desired */}
+                  {/* <Typography
+                    variant="caption"
+                    sx={{
+                      position: 'absolute',
+                      bottom: 5,
+                      right: 5,
+                      bgcolor: 'rgba(0,0,0,0.6)',
+                      color: '#fff',
+                      px: 0.5,
+                      borderRadius: '2px',
+                    }}
+                  >
+                    ${item.price}
+                  </Typography> */}
+                </Box>
+              ))}
+            </Box>
           </Box>
         </Box>
 
