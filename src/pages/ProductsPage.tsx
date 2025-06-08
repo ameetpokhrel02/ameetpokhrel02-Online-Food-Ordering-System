@@ -67,7 +67,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setMainProductIndex((prevIndex) => (prevIndex + 1) % allProducts.length);
-    }, 4000); // Change product every 4 seconds
+    }, 2500); // Change product every 2.5 seconds
     return () => clearInterval(interval);
   }, []);
 
