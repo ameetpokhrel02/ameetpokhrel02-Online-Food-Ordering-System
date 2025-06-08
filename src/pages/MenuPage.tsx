@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import spaghettiMeat from '../assets/spaghetti_meat_frying.jpg'; // Assuming these will be created or exist
-import spaghettiOlive from '../assets/spaghetti_with_olive_oil.jpg';
-import tacoSoup from '../assets/taco_soup_recipe.jpg';
-import spaghettiOlive2 from '../assets/spaghetti_with_olive_oil_2.jpg';
+import biryani from '../assets/biryani.jpg';
+import pizza from '../assets/pizza.jpg';
+import momo from '../assets/momo.jpeg';
+import lolipop from '../assets/lolipop.jpg';
 
 // Placeholder data for menu items
 const menuItems = [
@@ -11,29 +11,29 @@ const menuItems = [
     id: 1,
     name: 'Spaghetti meat frying',
     price: '500 GR',
-    description: 'Welcome to the home page of Broadway Limousines, the preferred providers of wedding cars in Sydney.',
-    image: spaghettiMeat,
+    description: 'A delicious and savory spaghetti dish with perfectly fried meat.',
+    image: biryani,
   },
   {
     id: 2,
     name: 'Spaghetti with Olive Oil',
     price: '410 GR',
-    description: 'Welcome to the home page of Broadway Limousines, the preferred providers of wedding cars in Sydney.',
-    image: spaghettiOlive,
+    description: 'Light and flavorful spaghetti tossed in olive oil and fresh herbs.',
+    image: pizza,
   },
   {
     id: 3,
     name: 'Taco Soup Recipe',
     price: '430 GR',
-    description: 'Welcome to the home page of Broadway Limousines, the preferred providers of wedding cars in Sydney.',
-    image: tacoSoup,
+    description: 'A hearty and comforting taco soup, packed with flavor and spice.',
+    image: momo,
   },
   {
     id: 4,
     name: 'Spaghetti with Olive Oil',
     price: '370 GR',
-    description: 'Welcome to the home page of Broadway Limousines, the preferred providers of wedding cars in Sydney.',
-    image: spaghettiOlive2,
+    description: 'Another delightful rendition of spaghetti with olive oil, a classic.',
+    image: lolipop,
   },
 ];
 
