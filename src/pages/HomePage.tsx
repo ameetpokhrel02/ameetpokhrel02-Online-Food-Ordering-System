@@ -108,16 +108,22 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
 
   // Auto-play effect for hero section
   useEffect(() => {
+    console.log('Setting auto-play timer for featuredIndex:', featuredIndex);
     timerRef.current = setTimeout(() => {
+      console.log('Auto-play timer fired. Calling handleNextFeatured.');
       handleNextFeatured();
     }, AUTO_PLAY_INTERVAL);
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timerRef.current) {
+        console.log('Clearing auto-play timer for featuredIndex:', featuredIndex);
+        clearTimeout(timerRef.current);
+      }
     };
     // eslint-disable-next-line
   }, [featuredIndex]);
 
   const handleNextFeatured = () => {
+    console.log('handleNextFeatured called.');
     setAnimating(true);
     setTimeout(() => {
       setFeaturedIndex((prev) => (prev + 1) % heroItems.length);
