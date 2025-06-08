@@ -15,7 +15,7 @@ import OffersSection from '../components/OffersSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 import { Product } from '../types/product';
 import { InputBase } from '@mui/material';
-import { AddShoppingCart } from '@mui/icons-material';
+import { AddShoppingCart, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -58,9 +58,23 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const [featIndex, setFeatIndex] = useState(0);
   const productsToShow = 3;
   const maxIndex = Math.max(0, allProducts.length - productsToShow);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [mainProduct, setMainProduct] = useState<Product>(allProducts[0]);
+  const [sliderRef] = useState(useRef<HTMLDivElement>(null));
+  const [mainProductIndex, setMainProductIndex] = useState(0);
+  const [mainProduct, setMainProduct] = useState<Product>(allProducts[mainProductIndex]);
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
+
+  // Auto-play for main product
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMainProductIndex((prevIndex) => (prevIndex + 1) % allProducts.length);
+    }, 4000); // Change product every 4 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Update mainProduct when mainProductIndex changes
+  useEffect(() => {
+    setMainProduct(allProducts[mainProductIndex]);
+  }, [mainProductIndex]);
 
   // Parallax effect for hero image
   useEffect(() => {
@@ -204,6 +218,42 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
               <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </Box>
 
+            {/* Previous Button */}
+            <IconButton
+              onClick={() => setMainProductIndex((prev) => (prev - 1 + allProducts.length) % allProducts.length)}
+              sx={{
+                position: 'absolute',
+                left: -50,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowBackIos />
+            </IconButton>
+
+            {/* Next Button */}
+            <IconButton
+              onClick={() => setMainProductIndex((prev) => (prev + 1) % allProducts.length)}
+              sx={{
+                position: 'absolute',
+                right: -50,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowForwardIos />
+            </IconButton>
+
             {/* Orbiting Small Product Images */}
             {orbitingProducts.map((product, index) => (
               <Box
@@ -224,6 +274,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                   // Positioning around the circle - adjust as needed
                   top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
                   left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
+                  transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
+                  '&:hover': {
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                    transform: 'scale(1.1)',
+                  },
                 }}
               >
                 <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

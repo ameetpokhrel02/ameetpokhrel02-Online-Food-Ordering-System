@@ -385,8 +385,12 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
                       top: y,
                       border: '3px solid #ffe0d9',
                       zIndex: 5,
-                      transition: 'box-shadow 0.2s, border 0.2s',
-                      '&:hover': { boxShadow: '0 8px 24px #ff3b0033', border: '3px solid #ff3b00' },
+                      transition: 'box-shadow 0.2s, border 0.2s, transform 0.2s ease-in-out',
+                      '&:hover': { 
+                        boxShadow: '0 8px 24px #ff3b0033', 
+                        border: '3px solid #ff3b00',
+                        transform: 'scale(1.1)',
+                      },
                     }}
                   >
                     <img src={products[idx].imageUrl} alt={products[idx].name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
