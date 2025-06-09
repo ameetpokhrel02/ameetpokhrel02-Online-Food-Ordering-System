@@ -136,6 +136,10 @@ const MenuPage: React.FC = () => {
           backgroundSize: 'cover',
           transform: `translateY(${parallaxOffset}px)`,
           zIndex: 0, // Ensure it's behind other content if needed
+          transition: 'transform 0.3s ease', // Add transition effect
+          '&:hover': {
+            transform: `translateY(${parallaxOffset}px) scale(1.05)`, // Scale effect on hover
+          },
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
