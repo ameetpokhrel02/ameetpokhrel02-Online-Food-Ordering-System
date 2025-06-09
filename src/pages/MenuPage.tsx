@@ -117,7 +117,7 @@ const MenuPage: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        bgcolor: '#20222f', // Dark background color from the image
+        bgcolor: 'background.default', // Using theme's default background color
         color: '#fff',
         position: 'relative',
         overflow: 'hidden',
@@ -176,7 +176,7 @@ const MenuPage: React.FC = () => {
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 8, bgcolor: '#20222f', position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="lg" sx={{ py: 8, bgcolor: 'background.default', position: 'relative', zIndex: 1 }}>
         <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ fontWeight: 700, mb: 6, color: '#ffc107' }}>
           Our Menu
         </Typography>
