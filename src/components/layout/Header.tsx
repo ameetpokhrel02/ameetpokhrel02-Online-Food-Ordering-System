@@ -6,6 +6,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useCart, CartItem } from '../../context/CartContext';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
@@ -116,7 +117,21 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
             <Box sx={{ flex: 1, overflowY: 'auto', p: 3 }}>
               {cartItems.map(item => (
                 <Paper key={item.id} elevation={1} sx={{ display: 'flex', alignItems: 'center', mb: 2, p: 2, borderRadius: 2, bgcolor: '#fff' }}>
-                  <img src={item.imageUrl} alt={item.name} style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 1, marginRight: 16 }} />
+                  <img 
+                    src={item.imageUrl} 
+                    alt={item.name} 
+                    style={{
+                      width: 64, 
+                      height: 64, 
+                      objectFit: 'cover', 
+                      borderRadius: 1, 
+                      marginRight: 16,
+                      transition: 'transform 0.3s ease-in-out',
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                      },
+                    }}
+                  />
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
                     <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
