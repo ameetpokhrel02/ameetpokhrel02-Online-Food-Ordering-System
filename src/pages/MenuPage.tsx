@@ -132,20 +132,10 @@ const MenuPage: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          background: `url(${menuBackground}) no-repeat center center fixed`,
+          background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${menuBackground}) no-repeat center center fixed`,
           backgroundSize: 'cover',
           transform: `translateY(${parallaxOffset}px)`,
           zIndex: 0, // Ensure it's behind other content if needed
-          '&::before': { // Overlay for better text readability
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.5)',
-            zIndex: 1,
-          },
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
