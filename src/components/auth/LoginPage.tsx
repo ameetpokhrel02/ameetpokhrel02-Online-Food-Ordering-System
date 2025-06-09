@@ -16,9 +16,16 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema,
-    onSubmit: (values) => {
-      // Handle login logic here and send the data to the backend
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        // Here you would typically make an API call to your backend
+        console.log('Login attempt with:', values);
+        // For now, we'll just show an alert
+        alert('Login successful!');
+      } catch (error) {
+        console.error('Login failed:', error);
+        alert('Login failed. Please try again.');
+      }
     },
   });
 
@@ -41,7 +48,22 @@ const LoginPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            sx={{ input: { color: '#fff' }, label: { color: '#fff' }, mb: 2 }}
+            sx={{ 
+              input: { color: '#fff' }, 
+              label: { color: '#fff' }, 
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.23)',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
             InputLabelProps={{ style: { color: '#fff' } }}
           />
           <TextField
@@ -56,12 +78,32 @@ const LoginPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            sx={{ input: { color: '#fff' }, label: { color: '#fff' }, mb: 1 }}
+            sx={{ 
+              input: { color: '#fff' }, 
+              label: { color: '#fff' }, 
+              mb: 1,
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.23)',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
             InputLabelProps={{ style: { color: '#fff' } }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword((s) => !s)} edge="end" tabIndex={-1}>
+                  <IconButton 
+                    onClick={() => setShowPassword((s) => !s)} 
+                    edge="end" 
+                    tabIndex={-1}
+                    sx={{ color: '#fff' }}
+                  >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
