@@ -49,9 +49,13 @@ const SignupPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
-            sx={{ 
-              input: { color: 'rgba(0, 0, 0, 0.87)' }, 
-              label: { color: 'rgba(0, 0, 0, 0.6)' }, 
+            sx={{
+              input: { color: 'rgba(0, 0, 0, 0.87)' },
+              label: { color: 'rgba(0, 0, 0, 0.6)' },
+              '& .MuiInputBase-input::placeholder': {
+                color: 'rgba(0, 0, 0, 0.6)',
+                opacity: 1,
+              },
               mb: 2,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
@@ -79,9 +83,13 @@ const SignupPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            sx={{ 
-              input: { color: 'rgba(0, 0, 0, 0.87)' }, 
-              label: { color: 'rgba(0, 0, 0, 0.6)' }, 
+            sx={{
+              input: { color: 'rgba(0, 0, 0, 0.87)' },
+              label: { color: 'rgba(0, 0, 0, 0.6)' },
+              '& .MuiInputBase-input::placeholder': {
+                color: 'rgba(0, 0, 0, 0.6)',
+                opacity: 1,
+              },
               mb: 2,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
@@ -109,9 +117,13 @@ const SignupPage = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            sx={{ 
-              input: { color: 'rgba(0, 0, 0, 0.87)' }, 
-              label: { color: 'rgba(0, 0, 0, 0.6)' }, 
+            sx={{
+              input: { color: 'rgba(0, 0, 0, 0.87)' },
+              label: { color: 'rgba(0, 0, 0, 0.6)' },
+              '& .MuiInputBase-input::placeholder': {
+                color: 'rgba(0, 0, 0, 0.6)',
+                opacity: 1,
+              },
               mb: 1,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
