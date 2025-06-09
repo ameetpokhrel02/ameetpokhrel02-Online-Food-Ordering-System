@@ -1,14 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton, Drawer, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
 import newLogo from '../../assets/logo.jpg';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Drawer from '@mui/material/Drawer';
-import { useCart } from '../../context/CartContext';
-import { CartItem } from '../../context/CartContext';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
@@ -84,54 +81,88 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
         </Box>
       </Toolbar>
       {/* Cart Drawer */}
-      <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
-        <Box sx={{ width: 340, p: 3, display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <Typography variant="h6" gutterBottom>Shopping Cart</Typography>
-          {cartItems.length === 0 ? (
-            <Typography color="text.secondary">Your cart is empty.</Typography>
-          ) : (
-            <>
-              <Box sx={{ flex: 1, overflowY: 'auto', mb: 2 }}>
-                {cartItems.map(item => (
-                  <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <img src={item.imageUrl} alt={item.name} style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 8, marginRight: 12 }} />
-                    <Box sx={{ flex: 1 }}>
-                      <Typography fontWeight={600}>{item.name}</Typography>
-                      <Typography color="text.secondary">${item.price}</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)}>
-                        <RemoveCircleOutlineIcon />
-                      </IconButton>
-                      <Typography sx={{ mx: 1 }}>{item.quantity}</Typography>
-                      <IconButton size="small" color="primary" onClick={() => addToCart(item)}>
-                        <AddCircleOutlineIcon />
-                      </IconButton>
-                    </Box>
-                    <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1 }}>
-                      ×
+      <Drawer
+        anchor="right"
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        PaperProps={{
+          sx: {
+            width: { xs: '100%', sm: 400 }, // Full width on mobile, fixed on larger screens
+            bgcolor: '#fefefe', // Light background for the cart drawer
+            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', // Subtle shadow
+            borderRadius: { xs: '0', sm: '16px 0 0 16px' }, // Rounded corner on desktop
+            display: 'flex',
+            flexDirection: 'column',
+          },
+        }}
+      >
+        <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #eee' }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
+            Shopping Cart
+          </Typography>
+          <IconButton onClick={() => setCartOpen(false)} sx={{ color: 'text.secondary' }}>
+            {/* Using a simple 'x' for now, can replace with CloseIcon */}
+            <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>&times;</span>
+          </IconButton>
+        </Box>
+        {cartItems.length === 0 ? (
+          <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6" color="text.secondary" sx={{ textAlign: 'center' }}>
+              Your cart is empty.
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <Box sx={{ flex: 1, overflowY: 'auto', p: 3 }}>
+              {cartItems.map(item => (
+                <Paper key={item.id} elevation={1} sx={{ display: 'flex', alignItems: 'center', mb: 2, p: 2, borderRadius: 2, bgcolor: '#fff' }}>
+                  <img src={item.imageUrl} alt={item.name} style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 1, marginRight: 16 }} />
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
+                    <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
+                      <RemoveCircleOutlineIcon />
+                    </IconButton>
+                    <Typography sx={{ mx: 1, fontWeight: 500 }}>{item.quantity}</Typography>
+                    <IconButton size="small" color="primary" onClick={() => addToCart(item)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
+                      <AddCircleOutlineIcon />
                     </IconButton>
                   </Box>
-                ))}
-              </Box>
-              <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
-                Total: ${getCartTotal().toFixed(2)}
+                  <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1, '&:hover': { bgcolor: 'error.light' } }}>
+                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>&times;</span>
+                  </IconButton>
+                </Paper>
+              ))}
+            </Box>
+            <Box sx={{ p: 3, borderTop: '1px solid #eee', bgcolor: '#fff' }}>
+              <Typography variant="h6" fontWeight={700} sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>Total:</span>
+                <span>${getCartTotal().toFixed(2)}</span>
               </Typography>
-              <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={clearCart}>
+              <Button
+                variant="outlined"
+                color="primary"
+                fullWidth
+                sx={{ mb: 1, borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
+                onClick={clearCart}
+              >
                 Clear Cart
               </Button>
-              <Button 
-                variant="contained" 
-                color="secondary" 
+              <Button
+                variant="contained"
+                color="primary"
                 fullWidth
-                component={Link} 
+                component={Link}
                 to="/payment"
+                sx={{ borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 4px 8px rgba(255,59,0,0.2)' }}
               >
                 Checkout
               </Button>
-            </>
-          )}
-        </Box>
+            </Box>
+          </>
+        )}
       </Drawer>
     </AppBar>
   );
