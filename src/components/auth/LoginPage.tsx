@@ -49,22 +49,22 @@ const LoginPage = () => {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
             sx={{ 
-              input: { color: '#fff' }, 
-              label: { color: '#fff' }, 
+              input: { color: 'rgba(0, 0, 0, 0.87)' }, 
+              label: { color: 'rgba(0, 0, 0, 0.6)' }, 
               mb: 2,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                  borderColor: 'rgba(255, 255, 255, 0.23)',
+                  borderColor: 'rgba(0, 0, 0, 0.23)',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 '&.Mui-focused fieldset': {
                   borderColor: 'primary.main',
                 },
               },
             }}
-            InputLabelProps={{ style: { color: '#fff' } }}
+            InputLabelProps={{ style: { color: 'rgba(0, 0, 0, 0.6)' } }}
           />
           <TextField
             fullWidth
@@ -79,22 +79,22 @@ const LoginPage = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
             sx={{ 
-              input: { color: '#fff' }, 
-              label: { color: '#fff' }, 
+              input: { color: 'rgba(0, 0, 0, 0.87)' }, 
+              label: { color: 'rgba(0, 0, 0, 0.6)' }, 
               mb: 1,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                  borderColor: 'rgba(255, 255, 255, 0.23)',
+                  borderColor: 'rgba(0, 0, 0, 0.23)',
                 },
                 '&:hover fieldset': {
-                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                  borderColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 '&.Mui-focused fieldset': {
                   borderColor: 'primary.main',
                 },
               },
             }}
-            InputLabelProps={{ style: { color: '#fff' } }}
+            InputLabelProps={{ style: { color: 'rgba(0, 0, 0, 0.6)' } }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -102,7 +102,7 @@ const LoginPage = () => {
                     onClick={() => setShowPassword((s) => !s)} 
                     edge="end" 
                     tabIndex={-1}
-                    sx={{ color: '#fff' }}
+                    sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
