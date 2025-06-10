@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton, Drawer, Paper } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton, Drawer, Paper, Slide, Fade } from '@mui/material';
 import { Link } from 'react-router-dom';
 import newLogo from '../../assets/logo.jpg';
 import InputBase from '@mui/material/InputBase';
@@ -96,6 +96,8 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
             flexDirection: 'column',
           },
         }}
+        TransitionComponent={Slide}
+        transitionDuration={{ enter: 400, exit: 200 }}
       >
         <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #eee' }}>
           <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
@@ -115,40 +117,42 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
         ) : (
           <>
             <Box sx={{ flex: 1, overflowY: 'auto', p: 3 }}>
-              {cartItems.map(item => (
-                <Paper key={item.id} elevation={1} sx={{ display: 'flex', alignItems: 'center', mb: 2, p: 2, borderRadius: 2, bgcolor: '#fff' }}>
-                  <img 
-                    src={item.imageUrl} 
-                    alt={item.name} 
-                    style={{
-                      width: 64, 
-                      height: 64, 
-                      objectFit: 'cover', 
-                      borderRadius: 1, 
-                      marginRight: 16,
-                      transition: 'transform 0.3s ease-in-out',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
-                      },
-                    }}
-                  />
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
-                    <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                      <RemoveCircleOutlineIcon />
+              {cartItems.map((item, index) => (
+                <Fade in={cartOpen} timeout={400 + index * 50} key={item.id}>
+                  <Paper elevation={1} sx={{ display: 'flex', alignItems: 'center', mb: 2, p: 2, borderRadius: 2, bgcolor: '#fff' }}>
+                    <img 
+                      src={item.imageUrl} 
+                      alt={item.name} 
+                      style={{
+                        width: 64, 
+                        height: 64, 
+                        objectFit: 'cover', 
+                        borderRadius: 1, 
+                        marginRight: 16,
+                        transition: 'transform 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                        },
+                      }}
+                    />
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
+                      <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
+                        <RemoveCircleOutlineIcon />
+                      </IconButton>
+                      <Typography sx={{ mx: 1, fontWeight: 500 }}>{item.quantity}</Typography>
+                      <IconButton size="small" color="primary" onClick={() => addToCart(item)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    </Box>
+                    <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1, '&:hover': { bgcolor: 'error.light' } }}>
+                      <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>&times;</span>
                     </IconButton>
-                    <Typography sx={{ mx: 1, fontWeight: 500 }}>{item.quantity}</Typography>
-                    <IconButton size="small" color="primary" onClick={() => addToCart(item)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                      <AddCircleOutlineIcon />
-                    </IconButton>
-                  </Box>
-                  <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1, '&:hover': { bgcolor: 'error.light' } }}>
-                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>&times;</span>
-                  </IconButton>
-                </Paper>
+                  </Paper>
+                </Fade>
               ))}
             </Box>
             <Box sx={{ p: 3, borderTop: '1px solid #eee', bgcolor: '#fff' }}>
