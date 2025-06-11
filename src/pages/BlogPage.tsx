@@ -9,6 +9,8 @@ import bakedSweetPotatoes from '../assets/buff-keema-noodles.jpg';
 import creamyAvocadoPumpkin from '../assets/momo.jpeg';
 import honeyFrenchToast from '../assets/lolipop.jpg';
 import beetrootSmoothie from '../assets/chicken.jpg';
+import technologyInFood from '../assets/technology in food.jpg';
+import technologyInFood2 from '../assets/technology in food2.jpg';
 import { BlogPost } from '../types/blog';
 
 const blogPosts: BlogPost[] = [
@@ -53,6 +55,34 @@ const blogPosts: BlogPost[] = [
     isOrganic: true,
     author: 'Maggy Dawson',
     date: 'May 13, 2019',
+  },
+  {
+    id: 5,
+    title: 'How Technology is Impacting Food',
+    imageUrl: technologyInFood,
+    category: 'TECHNOLOGY',
+    readingTime: '15 MINUTES',
+    difficulty: 'Medium',
+    author: 'AI Assistant',
+    date: 'June 10, 2024',
+    content: `
+      Technology is rapidly transforming the food industry, from farm to fork. 
+      Innovations in agricultural technology, such as precision farming and vertical farms, 
+      are increasing efficiency and sustainability in food production. 
+      Supply chain management is also being revolutionized by blockchain, ensuring transparency 
+      and traceability of food products. 
+
+      In the culinary world, AI-powered kitchen robots and smart appliances are changing 
+      how food is prepared and consumed. Online food delivery platforms, supported by 
+      advanced logistics, have made food more accessible than ever before. 
+      Furthermore, personalized nutrition through data analytics is becoming a reality, 
+      tailoring dietary recommendations to individual needs.
+
+      While these advancements offer numerous benefits, including reduced waste and 
+      improved food safety, they also raise questions about job displacement and the 
+      digital divide. The future of food will undoubtedly be shaped by how we integrate 
+      technology responsibly to address global food challenges.
+    `,
   },
 ];
 
