@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Paper, Avatar, Divider, Button } from '@mui/material';
+import { Box, Typography, Container, Paper, Avatar, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import pizza from '../assets/pizza.jpg';
 import foodDeliveryBoy from '../assets/food delivery boy.jpg';
@@ -63,55 +63,58 @@ const blogPosts: BlogPost[] = [
 const BlogPage = () => {
   const theme = useTheme();
 
-  // No hero section as per new design
+  // Hero section is removed as per new design
 
   return (
-    <Box sx={{ bgcolor: '#fff' }}> {/* Changed background to white for the whole page */}
+    <Box sx={{ bgcolor: '#fff' }}>
 
       {/* Subscribe Section */}
-      <Box sx={{ bgcolor: '#fff', py: 6, textAlign: 'center', boxShadow: 'none', borderBottom: '1px solid #eee' }}> {/* Removed shadow, added bottom border */}
+      <Box sx={{ bgcolor: '#fff', py: 8, textAlign: 'center', boxShadow: 'none', borderBottom: '1px solid #eee' }}>
         <Container maxWidth="md">
-          <Typography variant="h4" component="h2" gutterBottom fontWeight={600} color="#333" sx={{ fontFamily: 'serif', fontSize: '2.2rem' }}>
+          <Typography variant="h4" component="h2" gutterBottom sx={{ fontFamily: 'serif', fontSize: '2.2rem', fontWeight: 600, color: '#333' }}>
             Get My Free Cookbook Today!
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 3, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 4, flexWrap: 'wrap' }}>
             <input
               type="text"
               placeholder="Your Name*"
               style={{
-                padding: '12px 16px',
+                padding: '14px 20px',
                 borderRadius: '4px',
-                border: '1px solid #ccc',
+                border: '1px solid #ddd',
                 fontSize: '1rem',
-                width: '250px', // Fixed width for input fields
+                width: '220px',
                 flex: 'none',
                 minWidth: 'unset',
                 color: '#333',
+                outline: 'none',
               }}
             />
             <input
               type="email"
               placeholder="Your Email*"
               style={{
-                padding: '12px 16px',
+                padding: '14px 20px',
                 borderRadius: '4px',
-                border: '1px solid #ccc',
+                border: '1px solid #ddd',
                 fontSize: '1rem',
-                width: '250px', // Fixed width for input fields
+                width: '220px',
                 flex: 'none',
                 minWidth: 'unset',
                 color: '#333',
+                outline: 'none',
               }}
             />
             <Button variant="contained" sx={{
-              bgcolor: '#000', // Black background
-              color: '#fff', // White text
+              bgcolor: '#000',
+              color: '#fff',
               '&:hover': { bgcolor: '#333' },
               px: 4,
               py: 1.5,
               borderRadius: '4px',
               textTransform: 'uppercase',
               fontWeight: 600,
+              fontSize: '1rem',
             }}>
               Subscribe
             </Button>
@@ -121,48 +124,48 @@ const BlogPage = () => {
 
       {/* Blog Posts Grid */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom align="center" fontWeight={600} color="#333" mb={6} sx={{ fontFamily: 'serif', fontSize: '2.5rem' }}>
+        <Typography variant="h4" component="h2" gutterBottom align="center" sx={{ fontFamily: 'serif', fontSize: '2.5rem', fontWeight: 600, color: '#333' }} mb={6}>
           Latest Blog Posts
         </Typography>
         <Box sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }, // 4 columns on larger screens
+          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' },
           gap: 4,
         }}>
           {blogPosts.map((post) => (
             <Paper key={post.id} elevation={0} sx={{
-              borderRadius: 0,
+              borderRadius: '0px',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'none', // Removed transition
+              border: '1px solid #eee',
+              transition: 'none',
               '&:hover': {
-                transform: 'none', // Removed transform on hover
-                boxShadow: 'none', // Removed box shadow on hover
+                boxShadow: 'none',
+                transform: 'none',
               },
-              border: '1px solid #eee', // Subtle border
             }}>
               <Box sx={{ height: 200, overflow: 'hidden' }}>
                 <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'none' }} />
               </Box>
-              <Box sx={{ p: 2 }}> {/* Reduced padding */}
-                <Typography variant="overline" color="#777" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600 }}> {/* Adjusted color, font size, and margin */}
+              <Box sx={{ p: 2 }}>
+                <Typography variant="overline" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600, color: '#777' }}>
                   {post.category}
                 </Typography>
-                <Typography variant="h6" component="h3" fontWeight={600} gutterBottom sx={{ color: '#333', lineHeight: 1.3, fontSize: '1.2rem' }}> {/* Adjusted variant, font size, and line height */}
+                <Typography variant="h6" component="h3' gutterBottom sx={{ lineHeight: 1.3, fontSize: '1.2rem', fontWeight: 600, color: '#333' }}>
                   {post.title}
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1.5 }}> {/* Adjusted gap and margin */}
-                  <Typography variant="body2" color="#777" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.8rem' }}> {/* Adjusted color and font size */}
-                    <span style={{ color: '#ff3b00' }}>&#9200;</span> {post.readingTime}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 0 }}>
+                  <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.8rem', color: '#777' }}>
+                    <span style={{ color: '#777' }}>&#9200;</span> {post.readingTime}
                   </Typography>
-                  <Typography variant="body2" color="#777" sx={{ fontSize: '0.8rem' }}>{post.difficulty}</Typography> {/* Adjusted color and font size */}
+                  <Typography variant="body2" sx={{ fontSize: '0.8rem', color: '#777' }}>{post.difficulty}</Typography>
                   {post.isPopular && (
-                    <Typography variant="body2" sx={{ bgcolor: '#fef0d2', color: '#e0a800', px: 0.8, py: 0.3, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
+                    <Typography variant="body2" sx={{ bgcolor: '#fef0d2', color: '#e0a800', px: 0.8, py: 0.3, borderRadius: '4px', fontWeight: 600, fontSize: '0.7rem' }}>
                       POPULAR
                     </Typography>
                   )}
                   {post.isOrganic && (
-                    <Typography variant="body2" sx={{ bgcolor: '#dff0d8', color: '#5cb85c', px: 0.8, py: 0.3, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
+                    <Typography variant="body2" sx={{ bgcolor: '#dff0d8', color: '#5cb85c', px: 0.8, py: 0.3, borderRadius: '4px', fontWeight: 600, fontSize: '0.7rem' }}>
                       100% ORGANIC
                     </Typography>
                   )}
