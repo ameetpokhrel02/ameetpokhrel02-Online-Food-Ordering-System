@@ -182,6 +182,69 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
+      {/* Hero Section */}
+      <Box sx={{
+        position: 'relative',
+        height: { xs: 300, md: 500 },
+        backgroundImage: `url(${heroSlides[currentSlide].image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: `center ${50 + parallax}px`,
+        borderRadius: 4,
+        boxShadow: 3,
+        mb: 8,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        color: 'white',
+        overflow: 'hidden',
+        transition: 'background-image 0.5s ease-in-out',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7))',
+          borderRadius: 4,
+        },
+      }}>
+        <Typography variant="h2" component="h1" sx={{ zIndex: 1, fontWeight: 700, textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+          {heroSlides[currentSlide].name}
+        </Typography>
+        <IconButton
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          sx={{
+            position: 'absolute',
+            left: 16,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 2,
+            color: 'white',
+            bgcolor: 'rgba(0,0,0,0.5)',
+            '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
+          }}
+        >
+          <ArrowBackIos />
+        </IconButton>
+        <IconButton
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+          sx={{
+            position: 'absolute',
+            right: 16,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 2,
+            color: 'white',
+            bgcolor: 'rgba(0,0,0,0.5)',
+            '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
+          }}
+        >
+          <ArrowForwardIos />
+        </IconButton>
+      </Box>
+
       {/* Main Product Display with Orbiting Items */}
       <Box sx={{
         flex: 1,
