@@ -55,58 +55,21 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
   return (
     <Box>
       {/* Our Top Menu Section */}
-      <Box sx={{
-        bgcolor: '#fff8e1', // Light creamy background, matching website theme
-        py: 8,
-        textAlign: 'center',
-        color: '#333', // Darker text for contrast
-      }}>
-        <Container>
-          <Typography variant="h3" component="h1" gutterBottom sx={{ color: '#ff3b00' }}>
-            Our Top Menu
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 4 }}>
-            Sample text. Click to select the text box. Click again or double click to start editing the text.
-          </Typography>
-          <Button
-            variant="outlined"
-            sx={{
-              color: '#ff3b00', // Orange text color
-              borderColor: '#ff3b00', // Orange border color
-              borderRadius: 2,
-              px: 4,
-              '&:hover': { borderColor: '#c1452b', bgcolor: 'rgba(255,59,0,0.1)' } // Darker orange border and subtle orange background on hover
-            }}
-            onClick={() => setShowFullMenu(true)}
-          >
-            View Menu
-          </Button>
-
-          {/* Top Menu Items */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, mt: 6 }}>
-             {topMenuItems.map(item => (
-                <GalleryMenuItem key={item.id} item={item} onViewDetailsClick={handleViewDetailsClick} />
-             ))}
-          </Box>
-        </Container>
-      </Box>
-
+      
       {/* Full Gallery Menu (conditionally displayed) */}
-      {showFullMenu && (
-        <Container sx={{ py: 8 }}>
-          <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6 }}>
-            All Menu Items
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
-            {filteredGalleryItems.map((item: Product) => (
-              <Box key={item.id} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' }, maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' } }}>
-                {/* Using ProductCard for now, will replace with GalleryMenuItem if needed for different style */}
-                <ProductCard product={item} />
-              </Box>
-            ))}
-          </Box>
-        </Container>
-      )}
+      <Container sx={{ py: 8 }}>
+        <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6 }}>
+          All Menu Items
+        </Typography>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+          {filteredGalleryItems.map((item: Product) => (
+            <Box key={item.id} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' }, maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' } }}>
+              {/* Using ProductCard for now, will replace with GalleryMenuItem if needed for different style */}
+              <ProductCard product={item} />
+            </Box>
+          ))}
+        </Box>
+      </Container>
       <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
     </Box>
   );
