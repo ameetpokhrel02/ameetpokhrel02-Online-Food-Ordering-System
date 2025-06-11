@@ -265,6 +265,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 color: 'primary.main',
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
               }}
             >
               <ArrowBackIos />
@@ -282,6 +283,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 color: 'primary.main',
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
               }}
             >
               <ArrowForwardIos />
@@ -300,20 +302,18 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                   overflow: 'hidden',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   cursor: 'pointer',
-                  bgcolor: '#fff',
+                  bgcolor: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'all 0.3s ease-in-out',
-                  '&:hover': { transform: 'scale(1.1)', boxShadow: '0 6px 16px rgba(0,0,0,0.15)' },
-                  ...
-                  (() => {
-                    const angle = (index / NUM_ORBITING_ITEMS) * 2 * Math.PI;
-                    const radius = 150; // Adjust as needed
-                    const x = radius * Math.cos(angle);
-                    const y = radius * Math.sin(angle);
-                    return { transform: `translate(${x}px, ${y}px)` };
-                  })(),
+                  // Positioning around the circle - adjust as needed
+                  top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
+                  left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
+                  transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
+                  '&:hover': {
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                    transform: 'scale(1.1)',
+                  },
                 }}
               >
                 <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
