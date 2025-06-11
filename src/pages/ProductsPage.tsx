@@ -486,132 +486,166 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
       <OffersSection />
       {/* New Order Section */}
       <Box sx={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        py: 8,
-        px: 2,
-        bgcolor: '#fefbf9',
-        borderRadius: 4,
-        overflow: 'hidden',
-        minHeight: 400,
-        mt: 8,
-        backgroundImage: `url(${vegetableBag})`,
-        backgroundSize: { xs: '100% auto', md: '80% auto' },
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: { xs: 'bottom center', md: 'calc(100% + 50px) center' },
+        bgcolor: '#e0eaf4', // Light blue-grey background for the entire section area
+        py: { xs: 10, md: 15 }, // Vertical padding for the outer box
+        mt: 8, // Margin top to separate from previous section
+        position: 'relative', // For absolute positioning of address bar
+        pb: 15, // Padding bottom to accommodate the overlapping address bar
+        borderRadius: 4, // Match overall section border radius if any
+        overflow: 'hidden' // Important for background image containment
       }}>
-        {/* Decorative elements */}
         <Box sx={{
-          position: 'absolute',
-          top: 30,
-          left: '15%',
-          width: 30,
-          height: 30,
-          bgcolor: '#f44336',
-          transform: 'rotate(45deg)',
-          opacity: 0.8,
-          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
-        }} />
-         <Box sx={{
-          position: 'absolute',
-          top: '20%',
-          right: '30%',
-          width: 20,
-          height: 20,
-          bgcolor: '#f44336',
-          transform: 'rotate(45deg)',
-          opacity: 0.8,
-          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
-        }} />
-         <Box sx={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '35%',
-          width: 15,
-          height: 15,
-          bgcolor: '#f44336',
-          transform: 'rotate(45deg)',
-          opacity: 0.8,
-          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
-        }} />
-        <Box sx={{
-          position: 'absolute',
-          top: '20%',
-          left: '5%',
-          width: 50,
-          height: 50,
-          borderRadius: '50%',
-          bgcolor: '#ffc107',
-          opacity: 0.8,
-        }} />
-        <Box sx={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '5%',
-          width: 25,
-          height: 25,
-          borderRadius: '50%',
-          bgcolor: '#f44336',
-          opacity: 0.8,
-        }} />
+          position: 'relative',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: { xs: 8, md: 12 },
+          px: { xs: 2, md: 4 },
+          bgcolor: '#fff', // White background for the inner card-like section
+          borderRadius: 4,
+          boxShadow: 3,
+          overflow: 'hidden',
+          minHeight: 400,
+          maxWidth: 1200,
+          mx: 'auto',
+        }}>
+          {/* Decorative elements */}
+          <Box sx={{
+            position: 'absolute',
+            top: 30,
+            left: '15%',
+            width: 30,
+            height: 30,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+           <Box sx={{
+            position: 'absolute',
+            top: '20%',
+            right: '30%',
+            width: 20,
+            height: 20,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+           <Box sx={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '35%',
+            width: 15,
+            height: 15,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+          <Box sx={{
+            position: 'absolute',
+            top: '20%',
+            left: '5%',
+            width: 50,
+            height: 50,
+            borderRadius: '50%',
+            bgcolor: '#ffc107',
+            opacity: 0.8,
+          }} />
+          <Box sx={{
+            position: 'absolute',
+            bottom: '10%',
+            right: '5%',
+            width: 25,
+            height: 25,
+            borderRadius: '50%',
+            bgcolor: '#f44336',
+            opacity: 0.8,
+          }} />
 
-        <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
-          {/* Left Content */}
-          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mb: { xs: 4, md: 0 }, pr: { md: 4 } }}>
-            <Typography variant="overline" sx={{ color: '#f44336', fontWeight: 600, letterSpacing: 1.5, display: 'block', mb: 1 }}>
-              ONLINE FOOD DELIVERY
-            </Typography>
-            <Typography variant="h2" component="h2" sx={{ fontSize: { xs: '3rem', md: '4.5rem' }, fontWeight: 900, lineHeight: 1.1, mb: 2 }}>
-              <Box component="span" sx={{ color: '#333' }}>Don't Strave</Box><br />
-              <Box component="span" sx={{ color: '#f44336' }}>Just Order</Box>
-            </Typography>
-            <Box sx={{ borderLeft: '4px solid #f44336', pl: 2, mb: 4, maxWidth: 400, mx: { xs: 'auto', md: 0 } }}>
-              <Typography variant="body1" sx={{ color: '#666' }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+          <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
+            {/* Left Content */}
+            <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mb: { xs: 4, md: 0 }, pr: { md: 4 } }}>
+              <Typography variant="overline" sx={{ color: '#f44336', fontWeight: 600, letterSpacing: 1.5, display: 'block', mb: 1 }}>
+                ONLINE FOOD DELIVERY
               </Typography>
+              <Typography variant="h2" component="h2" sx={{ fontSize: { xs: '3rem', md: '4.5rem' }, fontWeight: 900, lineHeight: 1.1, mb: 2 }}>
+                <Box component="span" sx={{ color: '#333' }}>Don't Strave</Box><br />
+                <Box component="span" sx={{ color: '#f44336' }}>Just Order</Box>
+              </Typography>
+              <Box sx={{ borderLeft: '4px solid #f44336', pl: 2, mb: 4, maxWidth: 400, mx: { xs: 'auto', md: 0 } }}>
+                <Typography variant="body1" sx={{ color: '#666' }}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#f44336',
+                    color: '#fff',
+                    '&:hover': { bgcolor: '#d32f2f' },
+                    px: 4,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                  }}
+                >
+                  Order Now <Box component="span" sx={{ ml: 1 }}>&gt;</Box>
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: '#ddd',
+                    color: '#666',
+                    '&:hover': { borderColor: '#f44336', color: '#f44336' },
+                    px: 4,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                  }}
+                >
+                  Know more
+                </Button>
+              </Box>
             </Box>
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: '#f44336',
-                  color: '#fff',
-                  '&:hover': { bgcolor: '#d32f2f' },
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                }}
-              >
-                Order Now <Box component="span" sx={{ ml: 1 }}>&gt;</Box>
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: '#ddd',
-                  color: '#666',
-                  '&:hover': { borderColor: '#f44336', color: '#f44336' },
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                }}
-              >
-                Know more
-              </Button>
-            </Box>
-          </Box>
-          {/* Right Image (handled by background image on Box) */}
-        </Container>
+            {/* Right Image will be outside this container */}
+          </Container>
+        </Box>
+
+        {/* Main Vegetable Image (positioned relative to outer Box) */}
+        <Box sx={{
+          position: 'absolute',
+          bottom: 0, // Aligned to the bottom of the outer blue-grey box
+          right: 0, // Aligned to the right of the outer blue-grey box
+          width: { xs: '100%', md: '50%' }, // Adjust width as needed for responsiveness
+          height: { xs: 'auto', md: '100%' }, // Adjust height as needed
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          pr: { xs: 0, md: 5 }, // Add padding to the right for spacing from edge
+          pb: { xs: 0, md: 5 }, // Add padding to the bottom for spacing from edge
+          pointerEvents: 'none', // Ensure text/buttons are clickable
+          zIndex: 0, // Keep it behind the content
+        }}>
+          <img src={vegetableBag} alt="Vegetables in bag" style={{
+            width: 'auto',
+            height: '100%',
+            maxHeight: '600px', // Increased max height
+            objectFit: 'contain',
+            transform: 'translateX(0%)', // Revert transform to adjust position via right/bottom
+            filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.3))',
+          }} />
+        </Box>
 
         {/* Address Input Section */}
         <Box sx={{
           position: 'absolute',
-          bottom: -80,
+          bottom: 0,
           left: '50%',
           transform: 'translateX(-50%)',
           width: { xs: '90%', sm: '80%', md: '70%' },
@@ -624,6 +658,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: 2,
+          zIndex: 2,
         }}>
           <LocationOn sx={{ color: '#f44336', fontSize: 28, ml: 1 }} />
           <TextField
