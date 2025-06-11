@@ -11,6 +11,7 @@ import LoginPage from './components/auth/LoginPage';
 import SignupPage from './components/auth/SignupPage';
 import PaymentPage from './pages/PaymentPage';
 import MenuPage from './pages/MenuPage';
+import BlogPage from './pages/BlogPage';
 
 // Import Layout components
 import Header from './components/layout/Header';
@@ -111,6 +112,7 @@ function AppRoutes({ search, setSearch, isLoggedIn, setIsLoggedIn }: AppRoutesPr
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/menu" element={<MenuPage />} />
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
       <SubscribeSection />
       <Footer />

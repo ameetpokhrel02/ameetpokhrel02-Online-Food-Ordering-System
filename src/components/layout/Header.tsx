@@ -56,6 +56,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
           <MuiLink component={Link} to="/menu" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Menu</MuiLink>
           <MuiLink component={Link} to="/gallery" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Gallery</MuiLink>
           <MuiLink component={Link} to="/contact" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Contact</MuiLink>
+          <MuiLink component={Link} to="/blog" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Blog</MuiLink>
           {/* Global Search Bar */}
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', bgcolor: '#f5f5f5', borderRadius: 2, px: 1, ml: 2 }}>
             <SearchIcon color="action" />
