@@ -3,7 +3,7 @@ import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, 
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ProductCard from '../components/ProductCard';
 import food1 from '../assets/food1.avif';
-import food2 from '../assets/food 2.jpg';
+import food2 from '../assets/food2.jpg';
 import imagePng from '../assets/image.png';
 import galleryPng from '../assets/gallery.png';
 import biryani from '../assets/biryani.jpg';
@@ -178,12 +178,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const handleOrbitingProductClick = (product: Product) => {
     const newIndex = allProducts.findIndex(p => p.id === product.id);
     if (newIndex !== -1) {
-      // Determine slide direction based on new index relative to current index
-      if (newIndex > mainProductIndex || (newIndex === 0 && mainProductIndex === allProducts.length - 1)) {
-        setSlideDirection('right');
-      } else {
-        setSlideDirection('left');
-      }
       setMainProductIndex(newIndex);
     }
   };
