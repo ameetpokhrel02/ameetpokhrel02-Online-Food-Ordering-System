@@ -362,20 +362,107 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         </Box>
       </Box>
 
-      {/* Product Grid */}
-      <Box sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fill, minmax(280px, 1fr))' },
-        gap: 3,
-        pb: 8,
-      }}>
-        {products.map((product, index) => (
-          <Fade in={visibleCards.includes(index)} key={product.id}>
-            <Box data-idx={index} ref={(el: HTMLDivElement | null) => { productRefs.current[index] = el; }}>
-              <ProductCard product={product} />
-            </Box>
-          </Fade>
-        ))}
+      <Box sx={{ display: 'flex', gap: 4 }}>
+        {/* Sidebar: Search + Categories */}
+        <Box sx={{
+          minWidth: 260,
+          maxWidth: 300,
+          bgcolor: '#fff',
+          borderRadius: 4,
+          p: 3,
+          mr: 2,
+          boxShadow: 2,
+          display: { xs: 'none', md: 'flex' }, // Hide on mobile, show on desktop
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          height: 'fit-content',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            transform: 'translateY(-5px)',
+            boxShadow: 4,
+          },
+        }}>
+          {/* Search Bar */}
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            mb: 4, 
+            bgcolor: '#f5f5f5', 
+            borderRadius: 3, 
+            px: 2, 
+            py: 1,
+            transition: 'all 0.3s ease-in-out',
+            '&:focus-within': {
+              transform: 'scale(1.02)',
+              boxShadow: 1,
+            },
+          }}>
+            <input
+              type="text"
+              placeholder="Search Item"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                outline: 'none',
+                color: '#222',
+                fontSize: 18,
+                flex: 1,
+              }}
+            />
+            <span style={{ color: '#888', fontSize: 22, marginLeft: 8 }}>&#128269;</span>
+          </Box>
+          <Typography variant="h5" sx={{ color: '#222', fontWeight: 700, mb: 2, fontFamily: 'cursive, Nunito, sans-serif' }}>
+            Category:
+          </Typography>
+          <Divider sx={{ bgcolor: '#eee', mb: 2 }} />
+          {categories.map((cat) => (
+            <Button
+              key={cat}
+              variant="text"
+              color="inherit"
+              sx={{
+                justifyContent: 'flex-start',
+                color: filter === cat ? '#ff3b00' : '#222',
+                fontWeight: filter === cat ? 700 : 400,
+                fontSize: 18,
+                borderRadius: 2,
+                mb: 1,
+                textTransform: 'none',
+                pl: 0,
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': { 
+                  color: '#ff3b00', 
+                  background: 'rgba(255,59,0,0.07)',
+                  transform: 'translateX(5px)',
+                },
+              }}
+              onClick={() => handleFilterChange(cat)}
+              fullWidth
+            >
+              {cat}
+            </Button>
+          ))}
+        </Box>
+
+        {/* Product Grid */}
+        <Box sx={{ flex: 1 }}>
+          <Box sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
+            gap: 4,
+            pb: 8,
+          }}>
+            {products.map((product, index) => (
+              <Fade in={visibleCards.includes(index)} key={product.id}>
+                <Box data-idx={index} ref={(el: HTMLDivElement | null) => { productRefs.current[index] = el; }}>
+                  <ProductCard product={product} />
+                </Box>
+              </Fade>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       <OffersSection />
