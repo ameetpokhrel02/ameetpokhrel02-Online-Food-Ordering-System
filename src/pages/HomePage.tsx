@@ -26,6 +26,10 @@ import { ArrowBackIos, ArrowForwardIos, LocationOn } from '@mui/icons-material';
 import { Product } from '../types/product'; // Import the shared Product interface
 import vegetableBag from '../assets/vegetable.jpg'; // Added vegetableBag import
 import TextField from '@mui/material/TextField'; // Added TextField import
+import Dialog from '@mui/material/Dialog'; // Added Dialog import
+import DialogContent from '@mui/material/DialogContent'; // Added DialogContent import
+import DialogTitle from '@mui/material/DialogTitle'; // Added DialogTitle import
+import CloseIcon from '@mui/icons-material/Close'; // Added CloseIcon import
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -102,6 +106,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
   const [featuredIndex, setFeaturedIndex] = useState(0); // Start with the first item
   const [animating, setAnimating] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [openMap, setOpenMap] = useState(false); // State to control map dialog visibility
 
   // Get the featured product from heroItems instead of products
   const featuredProduct = heroItems[featuredIndex];
@@ -571,9 +576,9 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         {/* Main Vegetable Image (positioned relative to outermost Box) */}
         <Box sx={{
           position: 'absolute',
-          bottom: -100, // Adjusted to move it further down
-          right: -250, // Increased negative right to push it more outside
-          width: { xs: '100%', md: '800px' }, // Increased width to make it even larger
+          bottom: -20, // Adjusted from -100
+          right: -100, // Adjusted from -250
+          width: { xs: '100%', md: '600px' }, // Adjusted from 800px
           height: 'auto',
           display: 'flex',
           justifyContent: 'flex-end',
@@ -584,7 +589,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           <img src={vegetableBag} alt="Vegetables in bag" style={{
             width: '100%',
             height: 'auto',
-            maxHeight: '750px', // Increased max height to ensure full visibility
+            maxHeight: '550px', // Adjusted from 750px
             objectFit: 'contain',
             filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.3))',
           }} />
@@ -654,6 +659,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
               fontWeight: 600,
               minWidth: 100,
             }}
+            onClick={() => setOpenMap(true)} // Open map on click
           >
             Pick-up
           </Button>
@@ -661,6 +667,28 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
 
       </Box>
       <FaqSection />
+
+      {/* Kathmandu Map Dialog */}
+      <Dialog open={openMap} onClose={() => setOpenMap(false)} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          Select your location in Kathmandu
+          <IconButton onClick={() => setOpenMap(false)}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ p: 0, height: 400, width: '100%' }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.277028169824!2d85.31846985!3d27.7052955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19875f280a9d%3A0xc47b952f1e68787c!2sKathmandu!5e0!3m2!1sen!2snp!4v1678901234567!5m2!1sen!2snp"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Kathmandu Map"
+          ></iframe>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
