@@ -63,8 +63,12 @@ const blogPosts: BlogPost[] = [
 const BlogPage = () => {
   const theme = useTheme();
 
-  // Assuming the first blog post is the featured one
-  const featuredPost = blogPosts[0];
+  const [currentHeroSlide, setCurrentHeroSlide] = React.useState(0);
+  const featuredPost = blogPosts[currentHeroSlide];
+
+  const handleHeroSlideChange = (index: number) => {
+    setCurrentHeroSlide(index);
+  };
 
   return (
     <Box sx={{ bgcolor: '#f7f7f7' }}>
@@ -84,24 +88,63 @@ const BlogPage = () => {
           content: '""',
           position: 'absolute',
           inset: 0,
-          bgcolor: 'rgba(0,0,0,0.4)',
+          bgcolor: 'rgba(0,0,0,0.2)',
         },
       }}>
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, textAlign: { xs: 'center', md: 'left' } }}>
-          <Typography variant="subtitle1" color="#fff" sx={{ mb: 1, textTransform: 'uppercase', letterSpacing: 2 }}>
-            {featuredPost.category}
-          </Typography>
-          <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '2.5rem', md: '4rem' } }}>
-            {featuredPost.title}
-          </Typography>
-          <Typography variant="body1" sx={{ maxWidth: 600, mx: { xs: 'auto', md: 0 } }}>
-            {featuredPost.description}
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-            <Avatar src={blogAuthor} sx={{ width: 40, height: 40, mr: 2 }} />
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{featuredPost.author}</Typography>
-              <Typography variant="caption" color="text.secondary">{featuredPost.date}</Typography>
+        <Container maxWidth="lg" sx={{
+          position: 'relative',
+          zIndex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          height: '100%',
+          p: { xs: 2, md: 0 },
+        }}>
+          {/* Left: Numbered Navigation */}
+          <Box sx={{
+            display: { xs: 'none', md: 'flex' },
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            mr: { md: 8, lg: 12 },
+            gap: 2,
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: '1.2rem',
+            fontWeight: 500,
+          }}>
+            {blogPosts.slice(0, 3).map((_, index) => (
+              <Typography 
+                key={index}
+                variant="body1"
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'color 0.3s',
+                  color: currentHeroSlide === index ? '#fff' : 'rgba(255,255,255,0.7)',
+                  textDecoration: currentHeroSlide === index ? 'underline' : 'none',
+                  '&:hover': { color: '#fff' },
+                }}
+                onClick={() => handleHeroSlideChange(index)}
+              >
+                {`0${index + 1}`}
+              </Typography>
+            ))}
+          </Box>
+
+          {/* Right: Content for Featured Post */}
+          <Box sx={{ flex: 1, maxWidth: { xs: '100%', md: 600 } }}>
+            <Typography variant="subtitle1" color="#fff" sx={{ mb: 1, textTransform: 'uppercase', letterSpacing: 2 }}>
+              {featuredPost.category}
+            </Typography>
+            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '2.5rem', md: '4rem' }, fontFamily: 'serif' }}>
+              {featuredPost.title}
+            </Typography>
+            <Typography variant="body1" sx={{ maxWidth: 600, mx: { xs: 'auto', md: 0 }, color: 'rgba(255,255,255,0.9)' }}>
+              {featuredPost.description}
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Avatar src={blogAuthor} sx={{ width: 40, height: 40, mr: 2, border: '1px solid #fff' }} />
+              <Box>
+                <Typography variant="subtitle2" fontWeight={600} color="#fff">{featuredPost.author}</Typography>
+                <Typography variant="caption" color="rgba(255,255,255,0.7)">{featuredPost.date}</Typography>
+              </Box>
             </Box>
           </Box>
         </Container>
