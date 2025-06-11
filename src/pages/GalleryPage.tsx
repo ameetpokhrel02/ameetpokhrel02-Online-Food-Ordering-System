@@ -55,6 +55,54 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
   return (
     <Box>
       {/* Our Top Menu Section */}
+      {!showFullMenu && (
+        <Box sx={{
+          position: 'relative',
+          height: { xs: 'auto', md: '500px' },
+          py: { xs: 4, md: 0 },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+          textAlign: 'center',
+          backgroundImage: `url(${galleryPng})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            bgcolor: 'rgba(0,0,0,0.5)',
+          },
+        }}>
+          <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+            <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
+              Our Top Menu Section
+            </Typography>
+            <Typography variant="h6" component="p" sx={{ mb: 4 }}>
+              Discover our chef's most popular and highly-rated dishes.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 3, mb: 4 }}>
+              {topMenuItems.map((item: Product) => (
+                <GalleryMenuItem key={item.id} item={item} onViewDetailsClick={handleViewDetailsClick} />
+              ))}
+            </Box>
+            <Button
+              variant="contained"
+              sx={{
+                bgcolor: '#ff5722',
+                '&:hover': { bgcolor: '#e64a19' },
+                fontSize: '1.1rem',
+                px: 4,
+                py: 1.5,
+              }}
+              onClick={handleViewDetailsClick}
+            >
+              View Full Menu
+            </Button>
+          </Container>
+        </Box>
+      )}
       
       {/* Full Gallery Menu (conditionally displayed) */}
       <Container sx={{ py: 8 }}>
