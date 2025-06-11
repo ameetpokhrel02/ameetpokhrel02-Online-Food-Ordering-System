@@ -184,148 +184,146 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   return (
     <Container sx={{ py: 8 }}>
       {/* Main Product Display with Orbiting Items */}
-      <Slide in={true} direction="left" key={mainProductIndex} timeout={700}>
+      <Box sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        minHeight: 500,
+        bgcolor: '#fefefe', // Light background for this section as in the image
+        borderRadius: 4,
+        boxShadow: 3,
+        p: 4,
+        overflow: 'hidden',
+      }}>
+        {/* Left side: Main Product Details */}
+        <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mr: { xs: 0, md: 4 }, zIndex: 2 }}>
+          <Typography variant="h4" sx={{ color: '#ffc107', fontWeight: 700, mb: 1 }}>
+            ${mainProduct?.price}
+          </Typography>
+          <Typography variant="h3" component="h2" sx={{ fontWeight: 700, mb: 2 }}>
+            {mainProduct?.name}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 350, mx: { xs: 'auto', md: 'unset' } }}>
+            {mainProduct?.description}
+          </Typography>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            size="large" 
+            startIcon={<AddShoppingCart />}
+            onClick={handleAddToCartMainProduct}
+          >
+            Add to Cart
+          </Button>
+        </Box>
+
+        {/* Right side: Orbiting Images and Main Image */}
         <Box sx={{
           flex: 1,
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          alignItems: 'center',
           justifyContent: 'center',
+          alignItems: 'center',
           position: 'relative',
-          minHeight: 500,
-          bgcolor: '#fefefe', // Light background for this section as in the image
-          borderRadius: 4,
-          boxShadow: 3,
-          p: 4,
-          overflow: 'hidden',
+          height: '100%',
+          minHeight: { xs: 300, md: 'auto' },
+          zIndex: 1,
         }}>
-          {/* Left side: Main Product Details */}
-          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mr: { xs: 0, md: 4 }, zIndex: 2 }}>
-            <Typography variant="h4" sx={{ color: '#ffc107', fontWeight: 700, mb: 1 }}>
-              ${mainProduct?.price}
-            </Typography>
-            <Typography variant="h3" component="h2" sx={{ fontWeight: 700, mb: 2 }}>
-              {mainProduct?.name}
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 350, mx: { xs: 'auto', md: 'unset' } }}>
-              {mainProduct?.description}
-            </Typography>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              size="large" 
-              startIcon={<AddShoppingCart />}
-              onClick={handleAddToCartMainProduct}
-            >
-              Add to Cart
-            </Button>
-          </Box>
-
-          {/* Right side: Orbiting Images and Main Image */}
+          {/* Animated path for orbiting items */}
           <Box sx={{
-            flex: 1,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            border: '1px dashed #ccc',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative',
-            height: '100%',
-            minHeight: { xs: 300, md: 'auto' },
-            zIndex: 1,
-          }}>
-            {/* Animated path for orbiting items */}
-            <Box sx={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              border: '1px dashed #ccc',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }} ref={mainProductImageContainerRef}>
-              {/* Main Product Image (Central) */}
-              <Slide in={true} direction="up" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={700}>
-                <Box sx={{
-                  width: 220,
-                  height: 220,
+          }} ref={mainProductImageContainerRef}>
+            {/* Main Product Image (Central) */}
+            <Slide in={true} direction="left" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={700}>
+              <Box sx={{
+                width: 220,
+                height: 220,
+                borderRadius: '50%',
+                overflow: 'hidden',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+              }}>
+                <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            </Slide>
+
+            {/* Previous Button */}
+            <IconButton
+              onClick={() => setMainProductIndex((prev) => (prev - 1 + allProducts.length) % allProducts.length)}
+              sx={{
+                position: 'absolute',
+                left: -50,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowBackIos />
+            </IconButton>
+
+            {/* Next Button */}
+            <IconButton
+              onClick={() => setMainProductIndex((prev) => (prev + 1) % allProducts.length)}
+              sx={{
+                position: 'absolute',
+                right: -50,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 5,
+                color: 'primary.main',
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              }}
+            >
+              <ArrowForwardIos />
+            </IconButton>
+
+            {/* Orbiting Products */}
+            {orbitingProducts.map((product, index) => (
+              <Box
+                key={product.id}
+                onClick={() => handleOrbitingProductClick(product)}
+                sx={{
+                  position: 'absolute',
+                  width: 80,
+                  height: 80,
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                }}>
-                  <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </Box>
-              </Slide>
-
-              {/* Previous Button */}
-              <IconButton
-                onClick={() => setMainProductIndex((prev) => (prev - 1 + allProducts.length) % allProducts.length)}
-                sx={{
-                  position: 'absolute',
-                  left: -50,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 5,
-                  color: 'primary.main',
-                  bgcolor: 'rgba(255,255,255,0.7)',
-                  '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  cursor: 'pointer',
+                  bgcolor: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // Positioning around the circle - adjust as needed
+                  top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
+                  left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
+                  transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
+                  '&:hover': {
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                    transform: 'scale(1.1)',
+                  },
                 }}
               >
-                <ArrowBackIos />
-              </IconButton>
-
-              {/* Next Button */}
-              <IconButton
-                onClick={() => setMainProductIndex((prev) => (prev + 1) % allProducts.length)}
-                sx={{
-                  position: 'absolute',
-                  right: -50,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 5,
-                  color: 'primary.main',
-                  bgcolor: 'rgba(255,255,255,0.7)',
-                  '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-                }}
-              >
-                <ArrowForwardIos />
-              </IconButton>
-
-              {/* Orbiting Products */}
-              {orbitingProducts.map((product, index) => (
-                <Box
-                  key={product.id}
-                  onClick={() => handleOrbitingProductClick(product)}
-                  sx={{
-                    position: 'absolute',
-                    width: 80,
-                    height: 80,
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                    cursor: 'pointer',
-                    bgcolor: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    // Positioning around the circle - adjust as needed
-                    top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
-                    left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / NUM_ORBITING_ITEMS)}px - 40px)`,
-                    transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
-                    '&:hover': {
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                      transform: 'scale(1.1)',
-                    },
-                  }}
-                >
-                  <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </Box>
-              ))}
-            </Box>
+                <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            ))}
           </Box>
         </Box>
-      </Slide>
+      </Box>
 
       {/* Product Listing Section */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4, flexWrap: 'wrap', gap: 2 }}>
