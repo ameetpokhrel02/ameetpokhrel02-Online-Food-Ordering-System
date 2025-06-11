@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent, Fade } from '@mui/material';
+import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent, Fade, Slide } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ProductCard from '../components/ProductCard';
 import food1 from '../assets/food1.avif';
@@ -65,6 +65,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
   const [orbitingStartIndex, setOrbitingStartIndex] = useState(0);
   const NUM_ORBITING_ITEMS = 5;
+  const mainProductImageContainerRef = useRef<HTMLDivElement>(null);
 
   // Access cart functions
   const { addToCart } = useCart();
@@ -182,69 +183,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* Hero Section */}
-      <Box sx={{
-        position: 'relative',
-        height: { xs: 300, md: 500 },
-        backgroundImage: `url(${heroSlides[currentSlide].image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: `center ${50 + parallax}px`,
-        borderRadius: 4,
-        boxShadow: 3,
-        mb: 8,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        color: 'white',
-        overflow: 'hidden',
-        transition: 'background-image 0.5s ease-in-out',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7))',
-          borderRadius: 4,
-        },
-      }}>
-        <Typography variant="h2" component="h1" sx={{ zIndex: 1, fontWeight: 700, textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-          {heroSlides[currentSlide].name}
-        </Typography>
-        <IconButton
-          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
-          sx={{
-            position: 'absolute',
-            left: 16,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            color: 'white',
-            bgcolor: 'rgba(0,0,0,0.5)',
-            '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
-          }}
-        >
-          <ArrowBackIos />
-        </IconButton>
-        <IconButton
-          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
-          sx={{
-            position: 'absolute',
-            right: 16,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            color: 'white',
-            bgcolor: 'rgba(0,0,0,0.5)',
-            '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' },
-          }}
-        >
-          <ArrowForwardIos />
-        </IconButton>
-      </Box>
-
       {/* Main Product Display with Orbiting Items */}
       <Box sx={{
         flex: 1,
@@ -303,18 +241,19 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }} ref={mainProductImageContainerRef}>
             {/* Main Product Image (Central) */}
-            <Box sx={{
-              width: 220,
-              height: 220,
-              borderRadius: '50%',
-              overflow: 'hidden',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-              transition: 'all 0.5s ease-in-out',
-            }}>
-              <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Box>
+            <Slide in={true} direction="left" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={700}>
+              <Box sx={{
+                width: 220,
+                height: 220,
+                borderRadius: '50%',
+                overflow: 'hidden',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+              }}>
+                <img src={mainProduct?.imageUrl} alt={mainProduct?.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </Box>
+            </Slide>
 
             {/* Previous Button */}
             <IconButton
