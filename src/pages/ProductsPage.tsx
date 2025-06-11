@@ -178,6 +178,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const handleOrbitingProductClick = (product: Product) => {
     const newIndex = allProducts.findIndex(p => p.id === product.id);
     if (newIndex !== -1) {
+      // Determine slide direction based on new index relative to current index
+      if (newIndex > mainProductIndex || (newIndex === 0 && mainProductIndex === allProducts.length - 1)) {
+        setSlideDirection('right');
+      } else {
+        setSlideDirection('left');
+      }
       setMainProductIndex(newIndex);
     }
   };
