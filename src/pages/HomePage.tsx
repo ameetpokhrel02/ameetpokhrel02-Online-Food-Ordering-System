@@ -434,15 +434,6 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         </Box>
       </Container>
 
-      {/* --- OFFERS SECTION --- */}
-      <OffersSection />
-
-      {/* --- DELIVERY SECTION --- */}
-      <FoodDeliverySection />
-
-      {/* --- FAQ SECTION --- */}
-      <FaqSection />
-
       {/* New Order Section */}
       <Box sx={{
         bgcolor: '#e0eaf4', // Light blue-grey background for the entire section area
@@ -669,6 +660,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
         </Box>
 
       </Box>
+      <FaqSection />
     </Box>
   );
 };
