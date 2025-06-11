@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography, Container, Paper, Avatar, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import pizza from 'assets/pizza.jpg'; // Corrected path to directly use assets/
-import foodDeliveryBoy from 'assets/food delivery boy.jpg'; // Corrected path
-import vegetable from 'assets/vegetable.jpg'; // Corrected path
-import blogAuthor from 'assets/amit.jpg'; // Corrected path
+import pizza from '../assets/pizza.jpg';
+import foodDeliveryBoy from '../assets/food delivery boy.jpg';
+import vegetable from '../assets/vegetable.jpg';
+import blogAuthor from '../assets/amit.jpg';
 
 const BlogPage = () => {
   const theme = useTheme();
