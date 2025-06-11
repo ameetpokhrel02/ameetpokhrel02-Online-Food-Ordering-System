@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography, Container, Paper, Avatar, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import robotChef from '../assets/robot_chef.jpg'; // Assuming you have an image like this
-import smartphoneFood from '../assets/smartphone_food.jpg'; // Assuming you have an image like this
-import healthyEating from '../assets/healthy_eating.jpg'; // Assuming you have an image like this
-import blogAuthor from '../assets/amit.jpg'; // Using Amit's image as a placeholder for author
+import pizza from '../../assets/pizza.jpg'; // Replaced robot_chef.jpg
+import foodDeliveryBoy from '../../assets/food delivery boy.jpg'; // Replaced smartphone_food.jpg
+import vegetable from '../../assets/vegetable.jpg'; // Replaced healthy_eating.jpg
+import blogAuthor from '../../assets/amit.jpg'; // Corrected path for blogAuthor
 
 const BlogPage = () => {
   const theme = useTheme();
@@ -15,7 +15,7 @@ const BlogPage = () => {
         {/* Blog Post Hero Section */}
         <Box sx={{ position: 'relative', height: { xs: 250, sm: 350, md: 450 }, overflow: 'hidden' }}>
           <img 
-            src={robotChef} // Use a relevant asset here
+            src={pizza} // Use the new imported image
             alt="Technology in Food" 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           />
@@ -63,7 +63,7 @@ const BlogPage = () => {
           </Typography>
           <Box sx={{ my: 4, display: 'flex', justifyContent: 'center' }}>
             <img 
-              src={smartphoneFood} // Use a relevant asset here
+              src={foodDeliveryBoy} // Use the new imported image
               alt="Food Delivery App" 
               style={{ maxWidth: '100%', height: 'auto', borderRadius: 16, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} 
             />
@@ -80,7 +80,7 @@ const BlogPage = () => {
           </Typography>
           <Box sx={{ my: 4, display: 'flex', justifyContent: 'center' }}>
             <img 
-              src={healthyEating} // Use a relevant asset here
+              src={vegetable} // Use the new imported image
               alt="Healthy Eating Tech" 
               style={{ maxWidth: '100%', height: 'auto', borderRadius: 16, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} 
             />
