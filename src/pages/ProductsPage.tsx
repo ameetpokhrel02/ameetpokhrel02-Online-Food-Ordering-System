@@ -15,8 +15,9 @@ import OffersSection from '../components/OffersSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
 import { Product } from '../types/product';
 import { InputBase } from '@mui/material';
-import { AddShoppingCart, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { AddShoppingCart, ArrowBackIos, ArrowForwardIos, LocationOn } from '@mui/icons-material';
 import { useCart } from '../context/CartContext';
+import vegetableBag from '../assets/vegetable.jpg';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -79,7 +80,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         setSlideDirection('right'); // Moving to next, so slide from right
         return newIndex;
       });
-    }, 2500); // Change product every 2.5 seconds
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
@@ -93,10 +94,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
     const orbitInterval = setInterval(() => {
       setOrbitingStartIndex((prevIndex) => {
         const potentialOrbitingProducts = allProducts.filter(p => p.id !== mainProduct.id);
-        if (potentialOrbitingProducts.length === 0) return 0; // Handle empty array
+        if (potentialOrbitingProducts.length === 0) return 0;
         return (prevIndex + 1) % potentialOrbitingProducts.length;
       });
-    }, 2000); // Orbiting items change every 2 seconds
+    }, 2000);
     return () => clearInterval(orbitInterval);
   }, [allProducts, mainProduct]);
 
@@ -483,7 +484,197 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
       </Box>
 
       <OffersSection />
-      <FoodDeliverySection />
+      {/* New Order Section */}
+      <Box sx={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        py: 8,
+        px: 2,
+        bgcolor: '#fefbf9',
+        borderRadius: 4,
+        overflow: 'hidden',
+        minHeight: 400,
+        mt: 8, // Margin top to separate from previous section
+        backgroundImage: `url(${vegetableBag})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right center',
+      }}>
+        {/* Decorative elements */}
+        <Box sx={{
+          position: 'absolute',
+          top: 30,
+          left: '15%',
+          width: 30,
+          height: 30,
+          bgcolor: '#f44336',
+          transform: 'rotate(45deg)',
+          opacity: 0.8,
+          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+        }} />
+         <Box sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '30%',
+          width: 20,
+          height: 20,
+          bgcolor: '#f44336',
+          transform: 'rotate(45deg)',
+          opacity: 0.8,
+          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+        }} />
+         <Box sx={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '35%',
+          width: 15,
+          height: 15,
+          bgcolor: '#f44336',
+          transform: 'rotate(45deg)',
+          opacity: 0.8,
+          '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+        }} />
+        <Box sx={{
+          position: 'absolute',
+          top: '20%',
+          left: '5%',
+          width: 50,
+          height: 50,
+          borderRadius: '50%',
+          bgcolor: '#ffc107',
+          opacity: 0.8,
+        }} />
+        <Box sx={{
+          position: 'absolute',
+          bottom: '10%',
+          right: '5%',
+          width: 25,
+          height: 25,
+          borderRadius: '50%',
+          bgcolor: '#f44336',
+          opacity: 0.8,
+        }} />
+
+        <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
+          {/* Left Content */}
+          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mb: { xs: 4, md: 0 }, pr: { md: 4 } }}>
+            <Typography variant="overline" sx={{ color: '#f44336', fontWeight: 600, letterSpacing: 1.5, display: 'block', mb: 1 }}>
+              ONLINE FOOD DELIVERY
+            </Typography>
+            <Typography variant="h2" component="h2" sx={{ fontSize: { xs: '3rem', md: '4.5rem' }, fontWeight: 900, lineHeight: 1.1, mb: 2 }}>
+              <Box component="span" sx={{ color: '#333' }}>Don't Strave</Box><br />
+              <Box component="span" sx={{ color: '#f44336' }}>Just Order</Box>
+            </Typography>
+            <Box sx={{ borderLeft: '4px solid #f44336', pl: 2, mb: 4, maxWidth: 400, mx: { xs: 'auto', md: 0 } }}>
+              <Typography variant="body1" sx={{ color: '#666' }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: '#f44336',
+                  color: '#fff',
+                  '&:hover': { bgcolor: '#d32f2f' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                }}
+              >
+                Order Now <Box component="span" sx={{ ml: 1 }}>&gt;</Box>
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: '#ddd',
+                  color: '#666',
+                  '&:hover': { borderColor: '#f44336', color: '#f44336' },
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                }}
+              >
+                Know more
+              </Button>
+            </Box>
+          </Box>
+          {/* Right Image (handled by background image on Box) */}
+        </Container>
+
+        {/* Address Input Section */}
+        <Box sx={{
+          position: 'absolute',
+          bottom: -50, // Position below the main section, adjust as needed
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: { xs: '90%', sm: '80%', md: '70%' },
+          maxWidth: 900,
+          bgcolor: '#fff',
+          borderRadius: 4,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+          p: 2,
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 2,
+        }}>
+          <LocationOn sx={{ color: '#f44336', fontSize: 28, ml: 1 }} />
+          <input
+            type="text"
+            placeholder="Enter your full address..."
+            style={{
+              border: 'none',
+              outline: 'none',
+              flex: 1,
+              padding: '10px 0',
+              fontSize: '1rem',
+              color: '#333',
+              '&::placeholder': { color: '#999' },
+            }}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: '#f44336',
+              color: '#fff',
+              '&:hover': { bgcolor: '#d32f2f' },
+              px: 3,
+              py: 1.2,
+              borderRadius: 2,
+              fontWeight: 600,
+              minWidth: 100,
+            }}
+          >
+            Delivery
+          </Button>
+          <Typography variant="body2" sx={{ mx: 1, color: '#999' }}>
+            or
+          </Typography>
+          <Button
+            variant="outlined"
+            sx={{
+              borderColor: '#ddd',
+              color: '#666',
+              '&:hover': { borderColor: '#f44336', color: '#f44336' },
+              px: 3,
+              py: 1.2,
+              borderRadius: 2,
+              fontWeight: 600,
+              minWidth: 100,
+            }}
+          >
+            Pick-up
+          </Button>
+        </Box>
+
+      </Container>
     </Container>
   );
 };
