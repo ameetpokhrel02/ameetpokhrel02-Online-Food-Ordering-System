@@ -11,6 +11,7 @@ import honeyFrenchToast from '../assets/lolipop.jpg';
 import beetrootSmoothie from '../assets/chicken.jpg';
 import technologyInFood from '../assets/technology in food.jpg';
 import technologyInFood2 from '../assets/technology in food2.jpg';
+import foodTechno from '../assets/food techno.jpg';
 import { BlogPost } from '../types/blog';
 import { ArrowBack } from '@mui/icons-material';
 
@@ -74,6 +75,25 @@ const blogPosts: BlogPost[] = [
       { type: 'image', src: technologyInFood2, alt: 'Technology in food 2' },
       { type: 'paragraph', text: 'Furthermore, personalized nutrition through data analytics is becoming a reality, tailoring dietary recommendations to individual needs.' },
       { type: 'paragraph', text: 'While these advancements offer numerous benefits, including reduced waste and improved food safety, they also raise questions about job displacement and the digital divide. The future of food will undoubtedly be shaped by how we integrate technology responsibly to address global food challenges.' },
+      { type: 'image', src: technologyInFood2, alt: 'Technology in food 2 additional' },
+    ],
+  },
+  {
+    id: 6,
+    title: 'How AI is Revolutionizing Food Creation',
+    imageUrl: foodTechno,
+    category: 'TECHNOLOGY',
+    readingTime: '12 MINUTES',
+    difficulty: 'Medium',
+    author: 'AI Assistant',
+    date: 'June 15, 2024',
+    content: [
+      { type: 'paragraph', text: 'Artificial Intelligence is transforming the way we create, prepare, and experience food. From recipe development to automated cooking systems, AI is becoming an integral part of the culinary world.' },
+      { type: 'image', src: foodTechno, alt: 'AI in Food Technology' },
+      { type: 'paragraph', text: 'One of the most exciting developments is AI-powered recipe creation. Advanced algorithms can analyze thousands of recipes, understand flavor combinations, and generate new, innovative dishes that maintain perfect balance and taste. These AI chefs can consider dietary restrictions, nutritional requirements, and even cultural preferences to create personalized recipes.' },
+      { type: 'paragraph', text: 'Smart kitchen appliances equipped with AI are making professional-level cooking accessible to everyone. These devices can monitor cooking temperatures, adjust cooking times, and even suggest modifications based on the ingredients available. Some advanced systems can even learn from your preferences and adapt recipes to your taste.' },
+      { type: 'paragraph', text: 'Food safety and quality control have also been enhanced through AI. Computer vision systems can detect defects in produce, monitor food freshness, and ensure consistent quality across production lines. This technology helps reduce food waste and ensures that only the best quality products reach consumers.' },
+      { type: 'paragraph', text: 'The future of AI in food creation looks even more promising. We\'re seeing the development of fully automated restaurants where AI systems handle everything from order taking to food preparation. These innovations are not just about automation; they\'re about creating better, more consistent, and more personalized food experiences for everyone.' },
     ],
   },
 ];
