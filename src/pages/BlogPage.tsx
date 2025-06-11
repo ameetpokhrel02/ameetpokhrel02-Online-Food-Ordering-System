@@ -98,6 +98,7 @@ const BlogPage = () => {
           alignItems: 'center',
           height: '100%',
           p: { xs: 2, md: 0 },
+          py: { xs: 4, md: 0 },
         }}>
           {/* Left: Numbered Navigation */}
           <Box sx={{
@@ -107,7 +108,7 @@ const BlogPage = () => {
             mr: { md: 8, lg: 12 },
             gap: 2,
             color: 'rgba(255,255,255,0.7)',
-            fontSize: '1.2rem',
+            fontSize: '1.5rem',
             fontWeight: 500,
           }}>
             {blogPosts.slice(0, 3).map((_, index) => (
@@ -120,6 +121,7 @@ const BlogPage = () => {
                   color: currentHeroSlide === index ? '#fff' : 'rgba(255,255,255,0.7)',
                   textDecoration: currentHeroSlide === index ? 'underline' : 'none',
                   '&:hover': { color: '#fff' },
+                  fontSize: 'inherit',
                 }}
                 onClick={() => handleHeroSlideChange(index)}
               >
@@ -130,10 +132,10 @@ const BlogPage = () => {
 
           {/* Right: Content for Featured Post */}
           <Box sx={{ flex: 1, maxWidth: { xs: '100%', md: 600 } }}>
-            <Typography variant="subtitle1" color="#fff" sx={{ mb: 1, textTransform: 'uppercase', letterSpacing: 2 }}>
+            <Typography variant="subtitle1" color="#fff" sx={{ mb: 1, textTransform: 'uppercase', letterSpacing: 3, bgcolor: 'rgba(0,0,0,0.4)', px: 1, py: 0.5, borderRadius: 1, display: 'inline-block' }}>
               {featuredPost.category}
             </Typography>
-            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '2.5rem', md: '4rem' }, fontFamily: 'serif' }}>
+            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '2.8rem', md: '4.5rem' }, fontFamily: 'Georgia, serif', lineHeight: 1.1 }}>
               {featuredPost.title}
             </Typography>
             <Typography variant="body1" sx={{ maxWidth: 600, mx: { xs: 'auto', md: 0 }, color: 'rgba(255,255,255,0.9)' }}>
