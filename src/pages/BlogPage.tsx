@@ -22,7 +22,6 @@ const blogPosts: BlogPost[] = [
     isPopular: true,
     author: 'Maggy Dawson',
     date: 'May 13, 2019',
-    // description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
     id: 2,
@@ -33,7 +32,6 @@ const blogPosts: BlogPost[] = [
     difficulty: 'Super Easy',
     author: 'Maggy Dawson',
     date: 'May 13, 2019',
-    // description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
     id: 3,
@@ -44,7 +42,6 @@ const blogPosts: BlogPost[] = [
     difficulty: 'Super Easy',
     author: 'Maggy Dawson',
     date: 'May 13, 2019',
-    // description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
     id: 4,
@@ -56,7 +53,6 @@ const blogPosts: BlogPost[] = [
     isOrganic: true,
     author: 'Maggy Dawson',
     date: 'May 13, 2019',
-    // description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
 ];
 
@@ -88,6 +84,7 @@ const BlogPage = () => {
                 minWidth: 'unset',
                 color: '#333',
                 outline: 'none',
+                '&::placeholder': { color: '#aaa' },
               }}
             />
             <input
@@ -103,6 +100,7 @@ const BlogPage = () => {
                 minWidth: 'unset',
                 color: '#333',
                 outline: 'none',
+                '&::placeholder': { color: '#aaa' },
               }}
             />
             <Button variant="contained" sx={{
@@ -165,7 +163,7 @@ const BlogPage = () => {
                 </Box>
               </Box>
               <Box sx={{ p: 2 }}>
-                <Typography variant="overline" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600, color: '#777' }}>
+                <Typography variant="overline" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600, color: '#666' }}>
                   {post.category}
                 </Typography>
                 <Typography variant="h6" component="h3" gutterBottom sx={{ lineHeight: 1.3, fontSize: '1.2rem', fontWeight: 600, color: '#333' }}>
@@ -173,7 +171,7 @@ const BlogPage = () => {
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 0 }}>
                   <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.8rem', color: '#777' }}>
-                    <span style={{ color: '#777' }}>&#9200;</span> {post.readingTime}
+                    <span style={{ color: '#444' }}>&#9200;</span> {post.readingTime}
                   </Typography>
                   <Typography variant="body2" sx={{ fontSize: '0.8rem', color: '#777' }}>{post.difficulty}</Typography>
                   {post.isPopular && (
