@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, CircularProgress, Box } from '@mui/material';
 // Import placeholder pages
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -102,18 +102,24 @@ function AppRoutes({ search, setSearch, isLoggedIn, setIsLoggedIn }: AppRoutesPr
   return (
     <>
       <Header onSearch={setSearch} />
-      <Routes>
-        <Route path="/" element={<HomePage search={search} setSearch={setSearch} />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/products" element={<ProductsPage search={search} setSearch={setSearch} />} />
-        <Route path="/gallery" element={<GalleryPage search={search} setSearch={setSearch} />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/menu" element={<MenuPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-      </Routes>
+      <Suspense fallback={
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </Box>
+      }>
+        <Routes>
+          <Route path="/" element={<HomePage search={search} setSearch={setSearch} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/products" element={<ProductsPage search={search} setSearch={setSearch} />} />
+          <Route path="/gallery" element={<GalleryPage search={search} setSearch={setSearch} />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+        </Routes>
+      </Suspense>
       <SubscribeSection />
       <Footer />
       <LoginSignupModal open={modalOpen} onClose={handleCloseModal} onLogin={handleLogin} onSignup={handleSignup} />

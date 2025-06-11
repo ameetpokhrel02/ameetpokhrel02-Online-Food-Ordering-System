@@ -1,18 +1,32 @@
-import React from 'react';
-import { Box, Typography, Button, TextField, Divider, IconButton, InputAdornment, Link as MuiLink } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Button, TextField, Divider, IconButton, InputAdornment, Link as MuiLink, Alert, CircularProgress } from '@mui/material';
 import { Visibility, VisibilityOff, Google, GitHub, Facebook } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import AuthLayout from './AuthLayout';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const validationSchema = yup.object({
   email: yup.string().email('Enter a valid email').required('Email is required'),
   password: yup.string().min(6, 'Password should be at least 6 characters').required('Password is required'),
 });
 
+interface FormErrors {
+  email?: string;
+  password?: string;
+}
+
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema,
@@ -29,13 +43,73 @@ const LoginPage = () => {
     },
   });
 
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError('');
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Handle successful login
+      navigate('/');
+    } catch (error) {
+      setSubmitError('Login failed. Please check your credentials and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <AuthLayout>
       <Box sx={{ width: '100%', maxWidth: 340 }}>
         <Typography variant="h4" align="center" fontWeight={700} color="#fff" gutterBottom sx={{ mb: 3 }}>
           Login
         </Typography>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          {submitError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {submitError}
+            </Alert>
+          )}
           <TextField
             fullWidth
             margin="normal"
@@ -43,11 +117,11 @@ const LoginPage = () => {
             name="email"
             type="email"
             autoComplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
+            value={formData.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            disabled={isLoading}
             sx={{
               input: { color: 'rgba(0, 0, 0, 0.87)' },
               label: { color: 'rgba(0, 0, 0, 0.6)' },
@@ -77,11 +151,11 @@ const LoginPage = () => {
             name="password"
             type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            value={formData.password}
+            onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
+            disabled={isLoading}
             sx={{
               input: { color: 'rgba(0, 0, 0, 0.87)' },
               label: { color: 'rgba(0, 0, 0, 0.6)' },
@@ -130,8 +204,9 @@ const LoginPage = () => {
             color="primary"
             size="large"
             sx={{ py: 1.2, fontWeight: 700, fontSize: 18, borderRadius: 2, mb: 2 }}
+            disabled={isLoading}
           >
-            Sign in
+            {isLoading ? <CircularProgress size={24} /> : 'Login'}
           </Button>
         </form>
         <Divider sx={{ my: 2, color: '#fff' }}>or continue with</Divider>
