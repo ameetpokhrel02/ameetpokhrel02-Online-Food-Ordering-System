@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent } from '@mui/material';
+import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent, Fade } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ProductCard from '../components/ProductCard';
 import food1 from '../assets/food1.avif';
@@ -16,6 +16,7 @@ import FoodDeliverySection from '../components/FoodDeliverySection';
 import { Product } from '../types/product';
 import { InputBase } from '@mui/material';
 import { AddShoppingCart, ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { useCart } from '../context/CartContext';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -64,6 +65,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
   const [orbitingStartIndex, setOrbitingStartIndex] = useState(0);
   const NUM_ORBITING_ITEMS = 5;
+
+  // Access cart functions
+  const { addToCart } = useCart();
 
   // Auto-play for main product
   useEffect(() => {
@@ -169,6 +173,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
     setMainProduct(product);
   };
 
+  const handleAddToCartMainProduct = () => {
+    if (mainProduct) {
+      console.log('Adding to cart:', mainProduct);
+      addToCart(mainProduct);
+    }
+  };
+
   return (
     <Container sx={{ py: 8 }}>
       {/* Main Product Display with Orbiting Items */}
@@ -197,8 +208,14 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 350, mx: { xs: 'auto', md: 'unset' } }}>
             {mainProduct?.description}
           </Typography>
-          <Button variant="contained" color="primary" size="large" startIcon={<AddShoppingCart />}>
-            Add to Card
+          <Button 
+            variant="contained" 
+            color="primary" 
+            size="large" 
+            startIcon={<AddShoppingCart />}
+            onClick={handleAddToCartMainProduct}
+          >
+            Add to Cart
           </Button>
         </Box>
 
@@ -248,7 +265,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 color: 'primary.main',
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
               }}
             >
               <ArrowBackIos />
@@ -266,13 +282,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 color: 'primary.main',
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
               }}
             >
               <ArrowForwardIos />
             </IconButton>
 
-            {/* Orbiting Small Product Images */}
+            {/* Orbiting Products */}
             {orbitingProducts.map((product, index) => (
               <Box
                 key={product.id}
@@ -285,18 +300,20 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                   overflow: 'hidden',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   cursor: 'pointer',
-                  bgcolor: 'white',
+                  bgcolor: '#fff',
                   display: 'flex',
-                  justifyContent: 'center',
                   alignItems: 'center',
-                  // Positioning around the circle - adjust as needed
-                  top: `calc(50% + ${180 * Math.sin((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
-                  left: `calc(50% + ${180 * Math.cos((2 * Math.PI * index) / orbitingProducts.length)}px - 40px)`,
-                  transition: 'box-shadow 0.2s, transform 0.2s ease-in-out',
-                  '&:hover': {
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                    transform: 'scale(1.1)',
-                  },
+                  justifyContent: 'center',
+                  transition: 'all 0.3s ease-in-out',
+                  '&:hover': { transform: 'scale(1.1)', boxShadow: '0 6px 16px rgba(0,0,0,0.15)' },
+                  ...
+                  (() => {
+                    const angle = (index / NUM_ORBITING_ITEMS) * 2 * Math.PI;
+                    const radius = 150; // Adjust as needed
+                    const x = radius * Math.cos(angle);
+                    const y = radius * Math.sin(angle);
+                    return { transform: `translate(${x}px, ${y}px)` };
+                  })(),
                 }}
               >
                 <img src={product.imageUrl} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -345,122 +362,23 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', gap: 4 }}>
-        {/* Sidebar: Search + Categories */}
-        <Box sx={{
-          minWidth: 260,
-          maxWidth: 300,
-          bgcolor: '#fff',
-          borderRadius: 4,
-          p: 3,
-          mr: 2,
-          boxShadow: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          height: 'fit-content',
-          transition: 'all 0.3s ease-in-out',
-          '&:hover': {
-            transform: 'translateY(-5px)',
-            boxShadow: 4,
-          },
-        }}>
-          {/* Search Bar */}
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            mb: 4, 
-            bgcolor: '#f5f5f5', 
-            borderRadius: 3, 
-            px: 2, 
-            py: 1,
-            transition: 'all 0.3s ease-in-out',
-            '&:focus-within': {
-              transform: 'scale(1.02)',
-              boxShadow: 1,
-            },
-          }}>
-            <input
-              type="text"
-              placeholder="Search Item"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                outline: 'none',
-                color: '#222',
-                fontSize: 18,
-                flex: 1,
-              }}
-            />
-            <span style={{ color: '#888', fontSize: 22, marginLeft: 8 }}>&#128269;</span>
-          </Box>
-          <Typography variant="h5" sx={{ color: '#222', fontWeight: 700, mb: 2, fontFamily: 'cursive, Nunito, sans-serif' }}>
-            Category:
-          </Typography>
-          <Divider sx={{ bgcolor: '#eee', mb: 2 }} />
-          {categories.map((cat) => (
-            <Button
-              key={cat}
-              variant="text"
-              color="inherit"
-              sx={{
-                justifyContent: 'flex-start',
-                color: filter === cat ? '#ff3b00' : '#222',
-                fontWeight: filter === cat ? 700 : 400,
-                fontSize: 18,
-                borderRadius: 2,
-                mb: 1,
-                textTransform: 'none',
-                pl: 0,
-                transition: 'all 0.3s ease-in-out',
-                '&:hover': { 
-                  color: '#ff3b00', 
-                  background: 'rgba(255,59,0,0.07)',
-                  transform: 'translateX(5px)',
-                },
-              }}
-              onClick={() => handleFilterChange(cat)}
-              fullWidth
-            >
-              {cat}
-            </Button>
-          ))}
-        </Box>
-
-        {/* Product Grid */}
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
-            gap: 4,
-          }}>
-            {products.map((product, idx) => (
-              <Box 
-                key={product.id} 
-                ref={(el: HTMLDivElement | null) => { productRefs.current[idx] = el; }} 
-                data-idx={idx} 
-                sx={{ 
-                  opacity: visibleCards.includes(idx) ? 1 : 0, 
-                  transform: visibleCards.includes(idx) ? 'none' : 'translateY(40px)', 
-                  transition: 'all 0.7s cubic-bezier(.4,2,.3,1)',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  },
-                }}
-              >
-                <ProductCard product={product} />
-              </Box>
-            ))}
-          </Box>
-        </Box>
+      {/* Product Grid */}
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fill, minmax(280px, 1fr))' },
+        gap: 3,
+        pb: 8,
+      }}>
+        {products.map((product, index) => (
+          <Fade in={visibleCards.includes(index)} key={product.id}>
+            <Box data-idx={index} ref={(el: HTMLDivElement | null) => { productRefs.current[index] = el; }}>
+              <ProductCard product={product} />
+            </Box>
+          </Fade>
+        ))}
       </Box>
 
-      {/* Offers Section */}
       <OffersSection />
-
-      {/* Food Delivery Section */}
       <FoodDeliverySection />
     </Container>
   );
