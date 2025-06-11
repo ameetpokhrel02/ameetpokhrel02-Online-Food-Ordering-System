@@ -63,99 +63,15 @@ const blogPosts: BlogPost[] = [
 const BlogPage = () => {
   const theme = useTheme();
 
-  const [currentHeroSlide, setCurrentHeroSlide] = React.useState(0);
-  const featuredPost = blogPosts[currentHeroSlide];
-
-  const handleHeroSlideChange = (index: number) => {
-    setCurrentHeroSlide(index);
-  };
+  // No hero section as per new design
 
   return (
-    <Box sx={{ bgcolor: '#f7f7f7' }}>
-      {/* Hero Section */}
-      <Box sx={{
-        position: 'relative',
-        height: { xs: 400, md: 600 },
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#fff',
-        overflow: 'hidden',
-        backgroundImage: `url(${featuredPost.imageUrl})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          bgcolor: 'rgba(0,0,0,0.2)',
-        },
-      }}>
-        <Container maxWidth="lg" sx={{
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          height: '100%',
-          p: { xs: 2, md: 0 },
-          py: { xs: 4, md: 0 },
-        }}>
-          {/* Left: Numbered Navigation */}
-          <Box sx={{
-            display: { xs: 'none', md: 'flex' },
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            mr: { md: 8, lg: 12 },
-            gap: 2,
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: '1.5rem',
-            fontWeight: 500,
-          }}>
-            {blogPosts.slice(0, 3).map((_, index) => (
-              <Typography 
-                key={index}
-                variant="body1"
-                sx={{
-                  cursor: 'pointer',
-                  transition: 'color 0.3s',
-                  color: currentHeroSlide === index ? '#fff' : 'rgba(255,255,255,0.7)',
-                  textDecoration: currentHeroSlide === index ? 'underline' : 'none',
-                  '&:hover': { color: '#fff' },
-                  fontSize: 'inherit',
-                }}
-                onClick={() => handleHeroSlideChange(index)}
-              >
-                {`0${index + 1}`}
-              </Typography>
-            ))}
-          </Box>
-
-          {/* Right: Content for Featured Post */}
-          <Box sx={{ flex: 1, maxWidth: { xs: '100%', md: 600 } }}>
-            <Typography variant="subtitle1" color="#fff" sx={{ mb: 1, textTransform: 'uppercase', letterSpacing: 3, bgcolor: 'rgba(0,0,0,0.4)', px: 1, py: 0.5, borderRadius: 1, display: 'inline-block' }}>
-              {featuredPost.category}
-            </Typography>
-            <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '2.8rem', md: '4.5rem' }, fontFamily: 'Georgia, serif', lineHeight: 1.1 }}>
-              {featuredPost.title}
-            </Typography>
-            <Typography variant="body1" sx={{ maxWidth: 600, mx: { xs: 'auto', md: 0 }, color: 'rgba(255,255,255,0.9)' }}>
-              {featuredPost.description}
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', mt: 3, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <Avatar src={blogAuthor} sx={{ width: 40, height: 40, mr: 2, border: '1px solid #fff' }} />
-              <Box>
-                <Typography variant="subtitle2" fontWeight={600} color="#fff">{featuredPost.author}</Typography>
-                <Typography variant="caption" color="rgba(255,255,255,0.7)">{featuredPost.date}</Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+    <Box sx={{ bgcolor: '#fff' }}> {/* Changed background to white for the whole page */}
 
       {/* Subscribe Section */}
-      <Box sx={{ bgcolor: '#fff', py: 6, textAlign: 'center', boxShadow: '0 -4px 12px rgba(0,0,0,0.05)' }}>
+      <Box sx={{ bgcolor: '#fff', py: 6, textAlign: 'center', boxShadow: 'none', borderBottom: '1px solid #eee' }}> {/* Removed shadow, added bottom border */}
         <Container maxWidth="md">
-          <Typography variant="h4" component="h2" gutterBottom fontWeight={600} color="#333">
+          <Typography variant="h4" component="h2" gutterBottom fontWeight={600} color="#333" sx={{ fontFamily: 'serif', fontSize: '2.2rem' }}>
             Get My Free Cookbook Today!
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 3, flexWrap: 'wrap' }}>
@@ -164,12 +80,13 @@ const BlogPage = () => {
               placeholder="Your Name*"
               style={{
                 padding: '12px 16px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
                 fontSize: '1rem',
-                width: { xs: '100%', sm: 'auto' },
-                flex: 1,
-                minWidth: 200,
+                width: '250px', // Fixed width for input fields
+                flex: 'none',
+                minWidth: 'unset',
+                color: '#333',
               }}
             />
             <input
@@ -177,15 +94,25 @@ const BlogPage = () => {
               placeholder="Your Email*"
               style={{
                 padding: '12px 16px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
                 fontSize: '1rem',
-                width: { xs: '100%', sm: 'auto' },
-                flex: 1,
-                minWidth: 200,
+                width: '250px', // Fixed width for input fields
+                flex: 'none',
+                minWidth: 'unset',
+                color: '#333',
               }}
             />
-            <Button variant="contained" sx={{ bgcolor: '#333', color: '#fff', '&:hover': { bgcolor: '#555' }, px: 4, py: 1.5, borderRadius: '8px', textTransform: 'uppercase', fontWeight: 600 }}>
+            <Button variant="contained" sx={{
+              bgcolor: '#000', // Black background
+              color: '#fff', // White text
+              '&:hover': { bgcolor: '#333' },
+              px: 4,
+              py: 1.5,
+              borderRadius: '4px',
+              textTransform: 'uppercase',
+              fontWeight: 600,
+            }}>
               Subscribe
             </Button>
           </Box>
@@ -194,54 +121,52 @@ const BlogPage = () => {
 
       {/* Blog Posts Grid */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h4" component="h2" gutterBottom align="center" fontWeight={600} color="#333" mb={6}>
+        <Typography variant="h4" component="h2" gutterBottom align="center" fontWeight={600} color="#333" mb={6} sx={{ fontFamily: 'serif', fontSize: '2.5rem' }}>
           Latest Blog Posts
         </Typography>
         <Box sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
+          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }, // 4 columns on larger screens
           gap: 4,
         }}>
           {blogPosts.map((post) => (
-            <Paper key={post.id} elevation={2} sx={{
-              borderRadius: 4,
+            <Paper key={post.id} elevation={0} sx={{
+              borderRadius: 0,
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+              transition: 'none', // Removed transition
               '&:hover': {
-                transform: 'translateY(-10px)',
-                boxShadow: '0 12px 24px rgba(0,0,0,0.1)',
+                transform: 'none', // Removed transform on hover
+                boxShadow: 'none', // Removed box shadow on hover
               },
+              border: '1px solid #eee', // Subtle border
             }}>
               <Box sx={{ height: 200, overflow: 'hidden' }}>
-                <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease-in-out', '&:hover': { transform: 'scale(1.05)' } }} />
+                <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'none' }} />
               </Box>
-              <Box sx={{ p: 3 }}>
-                <Typography variant="overline" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+              <Box sx={{ p: 2 }}> {/* Reduced padding */}
+                <Typography variant="overline" color="#777" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600 }}> {/* Adjusted color, font size, and margin */}
                   {post.category}
                 </Typography>
-                <Typography variant="h5" component="h3" fontWeight={600} gutterBottom sx={{ color: '#333' }}>
+                <Typography variant="h6" component="h3" fontWeight={600} gutterBottom sx={{ color: '#333', lineHeight: 1.3, fontSize: '1.2rem' }}> {/* Adjusted variant, font size, and line height */}
                   {post.title}
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1.5 }}> {/* Adjusted gap and margin */}
+                  <Typography variant="body2" color="#777" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.8rem' }}> {/* Adjusted color and font size */}
                     <span style={{ color: '#ff3b00' }}>&#9200;</span> {post.readingTime}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">{post.difficulty}</Typography>
+                  <Typography variant="body2" color="#777" sx={{ fontSize: '0.8rem' }}>{post.difficulty}</Typography> {/* Adjusted color and font size */}
                   {post.isPopular && (
-                    <Typography variant="body2" sx={{ bgcolor: '#ffc107', color: '#333', px: 1, py: 0.5, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
+                    <Typography variant="body2" sx={{ bgcolor: '#fef0d2', color: '#e0a800', px: 0.8, py: 0.3, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
                       POPULAR
                     </Typography>
                   )}
                   {post.isOrganic && (
-                    <Typography variant="body2" sx={{ bgcolor: '#a8e063', color: '#333', px: 1, py: 0.5, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
+                    <Typography variant="body2" sx={{ bgcolor: '#dff0d8', color: '#5cb85c', px: 0.8, py: 0.3, borderRadius: 1, fontWeight: 600, fontSize: '0.7rem' }}>
                       100% ORGANIC
                     </Typography>
                   )}
                 </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {post.description}
-                </Typography>
               </Box>
             </Paper>
           ))}
