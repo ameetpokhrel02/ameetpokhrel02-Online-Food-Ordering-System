@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Paper, Typography, Fade } from '@mui/material';
 import foodLogo from '../../assets/image.png';
 import food1 from '../../assets/food1.avif';
-import food2 from '../../assets/food 2.jpg';
+import food2 from '../../assets/food2.jpg';
 import biryani from '../../assets/biryani.jpg';
 import lolipop from '../../assets/lolipop.jpg';
 import pizza from '../../assets/pizza.jpg';

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CheckCircleOutline as CheckCircleOutlineIcon } from '@mui/icons-material'; // Placeholder icon
 import ProductCard from '../components/ProductCard'; // Assuming ProductCard is used here too
 import food1 from '../assets/food1.avif';
-import food2 from '../assets/food 2.jpg';
+import food2 from '../assets/food2.jpg';
 import imagePng from '../assets/image.png';
 import galleryPng from '../assets/gallery.png';
 import deliveryGif from '../assets/delivery.gif';

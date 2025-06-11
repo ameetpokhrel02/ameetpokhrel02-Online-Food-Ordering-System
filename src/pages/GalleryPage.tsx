@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Typography, Container, Box, Button } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 import food1 from '../assets/food1.avif';
-import food2 from '../assets/food 2.jpg';
+import food2 from '../assets/food2.jpg';
 import imagePng from '../assets/image.png';
 import galleryPng from '../assets/gallery.png';
 import biryani from '../assets/biryani.jpg';
