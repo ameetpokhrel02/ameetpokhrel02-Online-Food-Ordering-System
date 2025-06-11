@@ -18,6 +18,10 @@ import { InputBase } from '@mui/material';
 import { AddShoppingCart, ArrowBackIos, ArrowForwardIos, LocationOn } from '@mui/icons-material';
 import { useCart } from '../context/CartContext';
 import vegetableBag from '../assets/vegetable.jpg';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
 const allProducts: Product[] = [
   { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
@@ -68,6 +72,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const NUM_ORBITING_ITEMS = 5;
   const mainProductImageContainerRef = useRef<HTMLDivElement>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+  const [openMap, setOpenMap] = useState(false);
 
   // Access cart functions
   const { addToCart } = useCart();
@@ -483,7 +488,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         </Box>
       </Box>
 
-      <OffersSection />
       {/* New Order Section */}
       <Box sx={{
         bgcolor: '#e0eaf4', // Light blue-grey background for the entire section area
@@ -621,9 +625,9 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         {/* Main Vegetable Image (positioned relative to outermost Box) */}
         <Box sx={{
           position: 'absolute',
-          bottom: -100, // Adjusted to move it further down
-          right: -250, // Increased negative right to push it more outside
-          width: { xs: '100%', md: '800px' }, // Increased width to make it even larger
+          bottom: -20, // Adjusted from -100
+          right: -100, // Adjusted from -250
+          width: { xs: '100%', md: '600px' }, // Adjusted from 800px
           height: 'auto',
           display: 'flex',
           justifyContent: 'flex-end',
@@ -634,7 +638,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           <img src={vegetableBag} alt="Vegetables in bag" style={{
             width: '100%',
             height: 'auto',
-            maxHeight: '750px', // Increased max height to ensure full visibility
+            maxHeight: '550px', // Adjusted from 750px
             objectFit: 'contain',
             filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.3))',
           }} />
@@ -686,6 +690,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
               fontWeight: 600,
               minWidth: 100,
             }}
+            onClick={() => setOpenMap(true)} // Open map on click
           >
             Delivery
           </Button>
@@ -710,6 +715,29 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         </Box>
 
       </Box>
+      <OffersSection />
+
+      {/* Kathmandu Map Dialog */}
+      <Dialog open={openMap} onClose={() => setOpenMap(false)} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          Select your location in Kathmandu
+          <IconButton onClick={() => setOpenMap(false)}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ p: 0, height: 400, width: '100%' }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14129.277028169824!2d85.31846985!3d27.7052955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19875f280a9d%3A0xc47b952f1e68787c!2sKathmandu!5e0!3m2!1sen!2snp!4v1678901234567!5m2!1sen!2snp"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Kathmandu Map"
+          ></iframe>
+        </DialogContent>
+      </Dialog>
       <FoodDeliverySection />
     </Container>
   );

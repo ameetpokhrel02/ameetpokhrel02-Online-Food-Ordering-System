@@ -641,6 +641,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
               fontWeight: 600,
               minWidth: 100,
             }}
+            onClick={() => setOpenMap(true)} // Open map on click
           >
             Delivery
           </Button>
@@ -659,7 +660,6 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
               fontWeight: 600,
               minWidth: 100,
             }}
-            onClick={() => setOpenMap(true)} // Open map on click
           >
             Pick-up
           </Button>
@@ -682,7 +682,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
             width="100%"
             height="100%"
             style={{ border: 0 }}
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Kathmandu Map"
