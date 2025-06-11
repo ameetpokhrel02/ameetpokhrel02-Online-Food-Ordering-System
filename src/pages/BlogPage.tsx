@@ -165,7 +165,7 @@ const BlogPage = () => {
                 </Box>
               </Box>
               <Box sx={{ p: 2 }}>
-                <Typography variant="overline" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600, color: '#777' }}>
+                <Typography variant="overline" sx={{ display: 'block', mb: 0.5, fontSize: '0.75rem', fontWeight: 600, color: '#666' }}>
                   {post.category}
                 </Typography>
                 <Typography variant="h6" component="h3" gutterBottom sx={{ lineHeight: 1.3, fontSize: '1.2rem', fontWeight: 600, color: '#333' }}>
