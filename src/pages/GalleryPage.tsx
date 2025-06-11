@@ -105,19 +105,21 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
       )}
       
       {/* Full Gallery Menu (conditionally displayed) */}
-      <Container sx={{ py: 8 }}>
-        <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6 }}>
-          All Menu Items
-        </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
-          {filteredGalleryItems.map((item: Product) => (
-            <Box key={item.id} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' }, maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' } }}>
-              {/* Using ProductCard for now, will replace with GalleryMenuItem if needed for different style */}
-              <ProductCard product={item} />
-            </Box>
-          ))}
-        </Box>
-      </Container>
+      {showFullMenu && (
+        <Container sx={{ py: 8 }}>
+          <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 6 }}>
+            All Menu Items
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+            {filteredGalleryItems.map((item: Product) => (
+              <Box key={item.id} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 16px)', md: '1 1 calc(25% - 18px)' }, maxWidth: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 18px)' } }}>
+                {/* Using ProductCard for now, will replace with GalleryMenuItem if needed for different style */}
+                <ProductCard product={item} />
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      )}
       <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
     </Box>
   );
