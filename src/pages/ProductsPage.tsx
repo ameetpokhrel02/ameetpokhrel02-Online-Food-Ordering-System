@@ -496,11 +496,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         borderRadius: 4,
         overflow: 'hidden',
         minHeight: 400,
-        mt: 8, // Margin top to separate from previous section
+        mt: 8,
         backgroundImage: `url(${vegetableBag})`,
-        backgroundSize: 'contain',
+        backgroundSize: { xs: '100% auto', md: '80% auto' },
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'right center',
+        backgroundPosition: { xs: 'bottom center', md: 'calc(100% + 50px) center' },
       }}>
         {/* Decorative elements */}
         <Box sx={{
@@ -611,7 +611,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         {/* Address Input Section */}
         <Box sx={{
           position: 'absolute',
-          bottom: -50, // Position below the main section, adjust as needed
+          bottom: -80,
           left: '50%',
           transform: 'translateX(-50%)',
           width: { xs: '90%', sm: '80%', md: '70%' },
