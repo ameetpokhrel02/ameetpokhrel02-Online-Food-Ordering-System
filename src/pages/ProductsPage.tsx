@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent, Fade, Slide } from '@mui/material';
+import { Box, Typography, Container, FormControl, InputLabel, Select, MenuItem, Drawer, IconButton, Divider, Button, SelectChangeEvent, Fade, Slide, TextField } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ProductCard from '../components/ProductCard';
 import food1 from '../assets/food1.avif';
@@ -626,17 +626,19 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           gap: 2,
         }}>
           <LocationOn sx={{ color: '#f44336', fontSize: 28, ml: 1 }} />
-          <input
-            type="text"
+          <TextField
+            variant="standard"
             placeholder="Enter your full address..."
-            style={{
-              border: 'none',
-              outline: 'none',
+            sx={{
               flex: 1,
-              padding: '10px 0',
-              fontSize: '1rem',
-              color: '#333',
-              '&::placeholder': { color: '#999' },
+              '.MuiInputBase-input': { padding: '10px 0', fontSize: '1rem', color: '#333' },
+              '.MuiInputBase-input::placeholder': { color: '#999', opacity: 1 },
+              '& .MuiInputBase-root:before': { borderBottom: 'none' },
+              '& .MuiInputBase-root:after': { borderBottom: 'none' },
+              '&:hover .MuiInputBase-root:before': { borderBottom: 'none !important' },
+            }}
+            InputProps={{
+              disableUnderline: true,
             }}
           />
           <Button
@@ -674,7 +676,8 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           </Button>
         </Box>
 
-      </Container>
+      </Box>
+      <FoodDeliverySection />
     </Container>
   );
 };
