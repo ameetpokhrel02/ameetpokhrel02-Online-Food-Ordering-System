@@ -12,6 +12,9 @@ import beetrootSmoothie from '../assets/chicken.jpg';
 import technologyInFood from '../assets/technology in food.jpg';
 import technologyInFood2 from '../assets/technology in food2.jpg';
 import foodTechno from '../assets/food techno.jpg';
+import aiFarming from '../assets/ai farming.jpg';
+import framAi from '../assets/fram ai.jpg';
+import aiVideo from '../assets/ai vide.mp4';
 import { BlogPost } from '../types/blog';
 import { ArrowBack } from '@mui/icons-material';
 
@@ -96,6 +99,48 @@ const blogPosts: BlogPost[] = [
       { type: 'paragraph', text: 'The future of AI in food creation looks even more promising. We\'re seeing the development of fully automated restaurants where AI systems handle everything from order taking to food preparation. These innovations are not just about automation; they\'re about creating better, more consistent, and more personalized food experiences for everyone.' },
     ],
   },
+  {
+    id: 7,
+    title: 'The Future of Farming: AI-Powered Agriculture',
+    imageUrl: aiFarming,
+    category: 'TECHNOLOGY',
+    readingTime: '15 MINUTES',
+    difficulty: 'Medium',
+    author: 'AI Assistant',
+    date: 'June 20, 2024',
+    content: [
+      { type: 'paragraph', text: 'Artificial Intelligence is revolutionizing agriculture, making farming more efficient, sustainable, and productive than ever before. From precision farming to automated harvesting, AI is transforming every aspect of modern agriculture.' },
+      { type: 'image', src: aiFarming, alt: 'AI in Modern Farming' },
+      { type: 'paragraph', text: 'One of the most significant impacts of AI in farming is precision agriculture. Using sensors, drones, and machine learning algorithms, farmers can now monitor crop health, soil conditions, and weather patterns in real-time. This data-driven approach allows for precise application of water, fertilizers, and pesticides, reducing waste and environmental impact while maximizing yields.' },
+      { type: 'paragraph', text: 'Automated farming equipment, guided by AI, is another game-changing development. Smart tractors and harvesters can operate autonomously, following optimized routes and performing tasks with incredible precision. These machines can work around the clock, increasing productivity while reducing labor costs.' },
+      { type: 'image', src: framAi, alt: 'AI-Powered Farm Equipment' },
+      { type: 'paragraph', text: 'Predictive analytics powered by AI is helping farmers make better decisions. By analyzing historical data and current conditions, AI systems can predict crop yields, identify potential disease outbreaks, and suggest optimal planting and harvesting times. This foresight helps farmers plan better and reduce risks.' },
+      { type: 'paragraph', text: 'Vertical farming and controlled environment agriculture are also benefiting from AI integration. Automated systems can monitor and adjust lighting, temperature, humidity, and nutrient levels to create optimal growing conditions. This technology is particularly valuable in urban areas where space is limited and in regions with challenging climates.' },
+      { type: 'paragraph', text: 'The future of AI in farming looks even more promising. We\'re seeing the development of robotic systems that can perform delicate tasks like fruit picking, and AI-powered systems that can identify and remove weeds without harming crops. These innovations are making farming more sustainable and efficient while helping to feed a growing global population.' },
+    ],
+  },
+  {
+    id: 8,
+    title: 'From Farm to Kitchen: How AI is Revolutionizing Food Production',
+    imageUrl: foodTechno,
+    category: 'TECHNOLOGY',
+    readingTime: '20 MINUTES',
+    difficulty: 'Medium',
+    author: 'AI Assistant',
+    date: 'June 25, 2024',
+    content: [
+      { type: 'paragraph', text: 'The integration of Artificial Intelligence in both farming and food preparation is creating a seamless, efficient, and sustainable food production chain. From the moment seeds are planted to when dishes are served, AI is transforming every step of the process.' },
+      { type: 'image', src: foodTechno, alt: 'AI in Food Production' },
+      { type: 'paragraph', text: 'In modern farming, AI-powered systems are revolutionizing traditional agricultural practices. Smart sensors embedded in soil monitor moisture levels, nutrient content, and pH balance in real-time. Drones equipped with advanced imaging technology scan fields to detect early signs of disease or pest infestation, allowing farmers to take preventive measures before crops are affected. Machine learning algorithms analyze weather patterns and historical data to predict optimal planting and harvesting times, maximizing yield while minimizing resource usage.' },
+      { type: 'paragraph', text: 'The impact of AI extends beyond the fields. In food processing facilities, computer vision systems ensure consistent quality by detecting defects and sorting produce with incredible accuracy. Automated systems can process thousands of items per hour, reducing waste and maintaining high standards. AI-powered logistics optimize delivery routes, ensuring fresh produce reaches markets and restaurants at peak quality.' },
+      { type: 'paragraph', text: 'In professional kitchens, AI is becoming an indispensable tool for chefs and food makers. Smart kitchen appliances can now monitor cooking temperatures, adjust cooking times, and even suggest modifications based on ingredient availability. Recipe management systems powered by AI can analyze thousands of recipes, understand flavor combinations, and help chefs create innovative dishes while maintaining perfect balance and taste.' },
+      { type: 'paragraph', text: 'One of the most exciting developments is the emergence of AI-powered cooking assistants. These systems can analyze a chef\'s cooking style, learn from their preferences, and suggest improvements or variations to recipes. They can also help with inventory management, predicting ingredient needs based on historical usage patterns and upcoming menu items.' },
+      { type: 'paragraph', text: 'Food safety has been significantly enhanced through AI integration. Smart sensors in storage areas monitor temperature and humidity levels, alerting staff to potential issues before they affect food quality. AI systems can track the entire journey of ingredients from farm to plate, ensuring transparency and traceability in the food supply chain.' },
+      { type: 'paragraph', text: 'The benefits of AI in food production extend to sustainability and resource management. Smart irrigation systems use AI to optimize water usage, reducing waste while maintaining crop health. In kitchens, AI can help reduce food waste by predicting demand and optimizing portion sizes. Energy management systems can adjust cooking equipment usage based on real-time demand, reducing energy consumption.' },
+      { type: 'paragraph', text: 'Looking to the future, we\'re seeing the development of fully automated vertical farms that use AI to create optimal growing conditions. These facilities can produce food year-round in urban areas, reducing transportation costs and environmental impact. In professional kitchens, we\'re moving toward fully automated cooking systems that can prepare complex dishes with minimal human intervention.' },
+      { type: 'paragraph', text: 'The integration of AI in food production is not just about automation; it\'s about creating a more efficient, sustainable, and innovative food system. By combining the precision of AI with human expertise, we\'re creating a future where food is produced more efficiently, with less waste, and with greater attention to quality and sustainability. This technological revolution is not just changing how we grow and prepare food; it\'s transforming our entire relationship with what we eat.' },
+    ],
+  },
 ];
 
 const BlogPage = () => {
@@ -106,10 +151,83 @@ const BlogPage = () => {
     setSelectedPost(post);
   };
 
-  // Hero section is removed as per new design
-
   return (
     <Box sx={{ bgcolor: '#fff' }}>
+      {/* Hero Section with Video */}
+      <Box sx={{ position: 'relative', height: '80vh', overflow: 'hidden' }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        >
+          <source src={aiVideo} type="video/mp4" />
+        </video>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bgcolor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: '#fff',
+            textAlign: 'center',
+            px: 2
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: '2.5rem', md: '4rem' },
+              fontWeight: 700,
+              mb: 2,
+              fontFamily: 'serif'
+            }}
+          >
+            Technology & Food Blog
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              fontSize: { xs: '1.2rem', md: '1.5rem' },
+              maxWidth: '800px',
+              mb: 4
+            }}
+          >
+            Exploring the intersection of technology, AI, and the future of food
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: '#fff',
+              color: '#000',
+              '&:hover': {
+                bgcolor: '#f0f0f0'
+              },
+              px: 4,
+              py: 1.5,
+              fontSize: '1.1rem',
+              textTransform: 'none'
+            }}
+          >
+            Read Latest Articles
+          </Button>
+        </Box>
+      </Box>
+
       {selectedPost ? (
         <Container maxWidth="md" sx={{ py: 8 }}>
           <Button 
