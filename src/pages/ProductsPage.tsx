@@ -66,6 +66,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   const [orbitingStartIndex, setOrbitingStartIndex] = useState(0);
   const NUM_ORBITING_ITEMS = 5;
   const mainProductImageContainerRef = useRef<HTMLDivElement>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
 
   // Access cart functions
   const { addToCart } = useCart();
@@ -73,7 +74,11 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   // Auto-play for main product
   useEffect(() => {
     const interval = setInterval(() => {
-      setMainProductIndex((prevIndex) => (prevIndex + 1) % allProducts.length);
+      setMainProductIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % allProducts.length;
+        setSlideDirection('right'); // Moving to next, so slide from right
+        return newIndex;
+      });
     }, 2500); // Change product every 2.5 seconds
     return () => clearInterval(interval);
   }, []);
@@ -171,7 +176,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
   }, [featIndex, productsToShow]);
 
   const handleOrbitingProductClick = (product: Product) => {
-    setMainProduct(product);
+    const newIndex = allProducts.findIndex(p => p.id === product.id);
+    if (newIndex !== -1) {
+      setMainProductIndex(newIndex);
+    }
   };
 
   const handleAddToCartMainProduct = () => {
@@ -244,7 +252,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             overflow: 'hidden',
           }} ref={mainProductImageContainerRef}>
             {/* Main Product Image (Central) */}
-            <Slide in={true} direction="right" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={1000}>
+            <Slide in={true} direction={slideDirection} key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={1000}>
               <Box sx={{
                 width: 220,
                 height: 220,
@@ -258,7 +266,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
             {/* Previous Button */}
             <IconButton
-              onClick={() => setMainProductIndex((prev) => (prev - 1 + allProducts.length) % allProducts.length)}
+              onClick={() => {
+                setMainProductIndex((prev) => {
+                  const newIndex = (prev - 1 + allProducts.length) % allProducts.length;
+                  setSlideDirection('left'); // Moving to previous, so slide from left
+                  return newIndex;
+                });
+              }}
               sx={{
                 position: 'absolute',
                 left: -50,
@@ -276,7 +290,13 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
 
             {/* Next Button */}
             <IconButton
-              onClick={() => setMainProductIndex((prev) => (prev + 1) % allProducts.length)}
+              onClick={() => {
+                setMainProductIndex((prev) => {
+                  const newIndex = (prev + 1) % allProducts.length;
+                  setSlideDirection('right'); // Moving to next, so slide from right
+                  return newIndex;
+                });
+              }}
               sx={{
                 position: 'absolute',
                 right: -50,
