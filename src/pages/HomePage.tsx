@@ -22,8 +22,10 @@ import girlcarryingvegetables from '../assets/girlcarryingvegetables.jpg';
 import OffersSection from '../components/OffersSection';
 import FaqSection from '../components/FaqSection';
 import FoodDeliverySection from '../components/FoodDeliverySection';
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import { ArrowBackIos, ArrowForwardIos, LocationOn } from '@mui/icons-material';
 import { Product } from '../types/product'; // Import the shared Product interface
+import vegetableBag from '../assets/vegetable.jpg'; // Added vegetableBag import
+import TextField from '@mui/material/TextField'; // Added TextField import
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -440,6 +442,233 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
 
       {/* --- FAQ SECTION --- */}
       <FaqSection />
+
+      {/* New Order Section */}
+      <Box sx={{
+        bgcolor: '#e0eaf4', // Light blue-grey background for the entire section area
+        py: { xs: 10, md: 15 }, // Vertical padding for the outer box
+        mt: 8, // Margin top to separate from previous section
+        position: 'relative', // For absolute positioning of address bar and image
+        pb: 15, // Padding bottom to accommodate the overlapping address bar
+        borderRadius: 4, // Match overall section border radius if any
+        overflow: 'hidden' // Keep overflow hidden for outer box to contain decorative elements and main image
+      }}>
+        {/* Main Content Box (White Card) */}
+        <Box sx={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: { xs: 8, md: 12 },
+          px: { xs: 2, md: 4 },
+          bgcolor: '#fff', // White background for the inner card-like section
+          borderRadius: 4,
+          boxShadow: 3,
+          overflow: 'visible', // Allow content to overflow (specifically the image if needed)
+          minHeight: 400,
+          maxWidth: 1000, // Adjusted maxWidth for inner white card
+          mx: 'auto',
+        }}>
+          {/* Decorative elements (relative to this white box) */}
+          <Box sx={{
+            position: 'absolute',
+            top: 30,
+            left: '15%',
+            width: 30,
+            height: 30,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+           <Box sx={{
+            position: 'absolute',
+            top: '20%',
+            right: '30%',
+            width: 20,
+            height: 20,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+           <Box sx={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '35%',
+            width: 15,
+            height: 15,
+            bgcolor: '#f44336',
+            transform: 'rotate(45deg)',
+            opacity: 0.8,
+            '&::before': { content: '""' , position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%) rotate(90deg)', width: '100%', height: '100%', bgcolor: '#f44336' },
+          }} />
+          <Box sx={{
+            position: 'absolute',
+            top: '20%',
+            left: '5%',
+            width: 50,
+            height: 50,
+            borderRadius: '50%',
+            bgcolor: '#ffc107',
+            opacity: 0.8,
+          }} />
+          <Box sx={{
+            position: 'absolute',
+            bottom: '10%',
+            right: '5%',
+            width: 25,
+            height: 25,
+            borderRadius: '50%',
+            bgcolor: '#f44336',
+            opacity: 0.8,
+          }} />
+
+          <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
+            {/* Left Content */}
+            <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, mb: { xs: 4, md: 0 }, pr: { md: 4 } }}>
+              <Typography variant="overline" sx={{ color: '#f44336', fontWeight: 600, letterSpacing: 1.5, display: 'block', mb: 1 }}>
+                ONLINE FOOD DELIVERY
+              </Typography>
+              <Typography variant="h2" component="h2" sx={{ fontSize: { xs: '3rem', md: '4.5rem' }, fontWeight: 900, lineHeight: 1.1, mb: 2 }}>
+                <Box component="span" sx={{ color: '#333' }}>Don't Strave</Box><br />
+                <Box component="span" sx={{ color: '#f44336' }}>Just Order</Box>
+              </Typography>
+              <Box sx={{ borderLeft: '4px solid #f44336', pl: 2, mb: 4, maxWidth: 400, mx: { xs: 'auto', md: 0 } }}>
+                <Typography variant="body1" sx={{ color: '#666' }}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#f44336',
+                    color: '#fff',
+                    '&:hover': { bgcolor: '#d32f2f' },
+                    px: 4,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                  }}
+                >
+                  Order Now <Box component="span" sx={{ ml: 1 }}>&gt;</Box>
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: '#ddd',
+                    color: '#666',
+                    '&:hover': { borderColor: '#f44336', color: '#f44336' },
+                    px: 4,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                  }}
+                >
+                  Know more
+                </Button>
+              </Box>
+            </Box>
+            {/* Right side is empty within this container, image is outside */}
+          </Container>
+        </Box>
+
+        {/* Main Vegetable Image (positioned relative to outermost Box) */}
+        <Box sx={{
+          position: 'absolute',
+          bottom: -100, // Adjusted to move it further down
+          right: -250, // Increased negative right to push it more outside
+          width: { xs: '100%', md: '800px' }, // Increased width to make it even larger
+          height: 'auto',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          pointerEvents: 'none', // Ensure text/buttons are clickable
+          zIndex: 0, // Keep it behind the content
+        }}>
+          <img src={vegetableBag} alt="Vegetables in bag" style={{
+            width: '100%',
+            height: 'auto',
+            maxHeight: '750px', // Increased max height to ensure full visibility
+            objectFit: 'contain',
+            filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.3))',
+          }} />
+        </Box>
+
+        {/* Address Input Section (positioned relative to outermost Box) */}
+        <Box sx={{
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: { xs: '90%', sm: '80%', md: '70%' },
+          maxWidth: 900,
+          bgcolor: '#fff',
+          borderRadius: 4,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+          p: 2,
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 2,
+          zIndex: 2, // Ensure it's above the main content box and image
+        }}>
+          <LocationOn sx={{ color: '#f44336', fontSize: 28, ml: 1 }} />
+          <TextField
+            variant="standard"
+            placeholder="Enter your full address..."
+            sx={{
+              flex: 1,
+              '.MuiInputBase-input': { padding: '10px 0', fontSize: '1rem', color: '#333' },
+              '.MuiInputBase-input::placeholder': { color: '#999', opacity: 1 },
+              '& .MuiInputBase-root:before': { borderBottom: 'none' },
+              '& .MuiInputBase-root:after': { borderBottom: 'none' },
+              '&:hover .MuiInputBase-root:before': { borderBottom: 'none !important' },
+            }}
+            InputProps={{
+              disableUnderline: true,
+            }}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: '#f44336',
+              color: '#fff',
+              '&:hover': { bgcolor: '#d32f2f' },
+              px: 3,
+              py: 1.2,
+              borderRadius: 2,
+              fontWeight: 600,
+              minWidth: 100,
+            }}
+          >
+            Delivery
+          </Button>
+          <Typography variant="body2" sx={{ mx: 1, color: '#999' }}>
+            or
+          </Typography>
+          <Button
+            variant="outlined"
+            sx={{
+              borderColor: '#ddd',
+              color: '#666',
+              '&:hover': { borderColor: '#f44336', color: '#f44336' },
+              px: 3,
+              py: 1.2,
+              borderRadius: 2,
+              fontWeight: 600,
+              minWidth: 100,
+            }}
+          >
+            Pick-up
+          </Button>
+        </Box>
+
+      </Box>
     </Box>
   );
 };

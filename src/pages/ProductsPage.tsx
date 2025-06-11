@@ -489,11 +489,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
         bgcolor: '#e0eaf4', // Light blue-grey background for the entire section area
         py: { xs: 10, md: 15 }, // Vertical padding for the outer box
         mt: 8, // Margin top to separate from previous section
-        position: 'relative', // For absolute positioning of address bar
+        position: 'relative', // For absolute positioning of address bar and image
         pb: 15, // Padding bottom to accommodate the overlapping address bar
         borderRadius: 4, // Match overall section border radius if any
-        overflow: 'hidden' // Important for background image containment
+        overflow: 'hidden' // Keep overflow hidden for outer box to contain decorative elements and main image
       }}>
+        {/* Main Content Box (White Card) */}
         <Box sx={{
           position: 'relative',
           display: 'flex',
@@ -505,12 +506,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           bgcolor: '#fff', // White background for the inner card-like section
           borderRadius: 4,
           boxShadow: 3,
-          overflow: 'hidden',
+          overflow: 'visible', // Allow content to overflow (specifically the image if needed)
           minHeight: 400,
-          maxWidth: 1200,
+          maxWidth: 1000, // Adjusted maxWidth for inner white card
           mx: 'auto',
         }}>
-          {/* Decorative elements */}
+          {/* Decorative elements (relative to this white box) */}
           <Box sx={{
             position: 'absolute',
             top: 30,
@@ -613,36 +614,33 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
                 </Button>
               </Box>
             </Box>
-            {/* Right Image will be outside this container */}
+            {/* Right side is empty within this container, image is outside */}
           </Container>
         </Box>
 
-        {/* Main Vegetable Image (positioned relative to outer Box) */}
+        {/* Main Vegetable Image (positioned relative to outermost Box) */}
         <Box sx={{
           position: 'absolute',
-          bottom: 0, // Aligned to the bottom of the outer blue-grey box
-          right: 0, // Aligned to the right of the outer blue-grey box
-          width: { xs: '100%', md: '50%' }, // Adjust width as needed for responsiveness
-          height: { xs: 'auto', md: '100%' }, // Adjust height as needed
+          bottom: -100, // Adjusted to move it further down
+          right: -250, // Increased negative right to push it more outside
+          width: { xs: '100%', md: '800px' }, // Increased width to make it even larger
+          height: 'auto',
           display: 'flex',
           justifyContent: 'flex-end',
           alignItems: 'flex-end',
-          pr: { xs: 0, md: 5 }, // Add padding to the right for spacing from edge
-          pb: { xs: 0, md: 5 }, // Add padding to the bottom for spacing from edge
           pointerEvents: 'none', // Ensure text/buttons are clickable
           zIndex: 0, // Keep it behind the content
         }}>
           <img src={vegetableBag} alt="Vegetables in bag" style={{
-            width: 'auto',
-            height: '100%',
-            maxHeight: '600px', // Increased max height
+            width: '100%',
+            height: 'auto',
+            maxHeight: '750px', // Increased max height to ensure full visibility
             objectFit: 'contain',
-            transform: 'translateX(0%)', // Revert transform to adjust position via right/bottom
             filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.3))',
           }} />
         </Box>
 
-        {/* Address Input Section */}
+        {/* Address Input Section (positioned relative to outermost Box) */}
         <Box sx={{
           position: 'absolute',
           bottom: 0,
@@ -658,7 +656,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: 2,
-          zIndex: 2,
+          zIndex: 2, // Ensure it's above the main content box and image
         }}>
           <LocationOn sx={{ color: '#f44336', fontSize: 28, ml: 1 }} />
           <TextField
