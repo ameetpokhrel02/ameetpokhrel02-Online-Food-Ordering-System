@@ -244,7 +244,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ search, setSearch }) => {
             overflow: 'hidden',
           }} ref={mainProductImageContainerRef}>
             {/* Main Product Image (Central) */}
-            <Slide in={true} direction="left" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={1000}>
+            <Slide in={true} direction="right" key={mainProductIndex} container={mainProductImageContainerRef.current} timeout={1000}>
               <Box sx={{
                 width: 220,
                 height: 220,
