@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <CardMedia
           component="img"
           height="200"
-          image={product.image}
+          image={product.imageUrl}
           alt={product.name}
           sx={{ objectFit: 'cover' }}
           onError={(e) => {
