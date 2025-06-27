@@ -26,17 +26,6 @@ import { useAppDispatch } from '../hooks/useAppDispatch';
 import { setSearch } from '../store/slices/uiSlice';
 import { Link } from 'react-router-dom';
 
-const allProducts: Product[] = [
-  { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, category: 'Pizza', description: 'A delicious pizza made with the freshest ingredients.' },
-  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, category: 'Burger', description: 'Juicy burger with all the fixings.' },
-  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, category: 'Special', description: 'Our chef\'s special creation, a must-try!' },
-  { id: 4, name: 'Yummy Dessert', price: '45.75', imageUrl: galleryPng, category: 'Dessert', description: 'Indulge in this sweet and delightful dessert.' },
-  { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, category: 'Rice', description: 'Aromatic and flavorful classic biryani.' },
-  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, category: 'Starter', description: 'Crispy and juicy chicken lollipops.' },
-  { id: 7, name: 'Cheese Pizza', price: '21.99', imageUrl: pizza, category: 'Pizza', description: 'Extra cheesy pizza for cheese lovers.' },
-  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, category: 'Dumpling', description: 'Soft and tender steamed momos with spicy sauce.' },
-];
-
 const categories = ['All', 'Pizza', 'Burger', 'Special', 'Dessert', 'Rice', 'Starter', 'Dumpling'];
 
 interface ProductsPageProps {}
@@ -61,9 +50,10 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
   const [mainProductIndex, setMainProductIndex] = useState(0);
-  const [mainProduct, setMainProduct] = useState<Product>(allProducts[mainProductIndex]);
+  const [mainProduct, setMainProduct] = useState<Product | null>(null);
   const [orbitingProducts, setOrbitingProducts] = useState<Product[]>([]);
   const [orbitingStartIndex, setOrbitingStartIndex] = useState(0);
+  const [products, setProducts] = useState<Product[]>([]);
   const NUM_ORBITING_ITEMS = 5;
   const mainProductImageContainerRef = useRef<HTMLDivElement>(null);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
@@ -72,37 +62,41 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
   const [openMap, setOpenMap] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMainProductIndex((prevIndex) => {
-        const newIndex = (prevIndex + 1) % allProducts.length;
-        setSlideDirection('right');
-        return newIndex;
+    fetch('http://localhost:8000/api/products/')
+      .then(res => res.json())
+      .then(data => {
+        // Convert image to imageUrl for compatibility
+        const formatted = data.map((p: any) => ({
+          ...p,
+          imageUrl: p.image, // API returns 'image', frontend expects 'imageUrl'
+        }));
+        setProducts(formatted);
+        setMainProduct(formatted[0] || null);
       });
-    }, 2500);
-    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    setMainProduct(allProducts[mainProductIndex]);
-  }, [mainProductIndex]);
+    if (products.length > 0) {
+      setMainProduct(products[mainProductIndex]);
+    }
+  }, [mainProductIndex, products]);
 
   useEffect(() => {
     const orbitInterval = setInterval(() => {
       setOrbitingStartIndex((prevIndex) => {
-        const potentialOrbitingProducts = allProducts.filter(p => p.id !== mainProduct.id);
+        const potentialOrbitingProducts = products.filter(p => mainProduct && p.id !== mainProduct.id);
         if (potentialOrbitingProducts.length === 0) return 0;
         return (prevIndex + 1) % potentialOrbitingProducts.length;
       });
     }, 2000);
     return () => clearInterval(orbitInterval);
-  }, [allProducts, mainProduct]);
+  }, [products, mainProduct]);
 
   useEffect(() => {
-    if (mainProduct) {
-      const potentialOrbitingProducts = allProducts.filter(p => p.id !== mainProduct.id);
+    if (mainProduct && products.length > 0) {
+      const potentialOrbitingProducts = products.filter(p => p.id !== mainProduct.id);
       const visibleOrbitingProducts: Product[] = [];
       const itemsToSlice = Math.min(NUM_ORBITING_ITEMS, potentialOrbitingProducts.length);
-
       for (let i = 0; i < itemsToSlice; i++) {
         const index = (orbitingStartIndex + i) % potentialOrbitingProducts.length;
         if (potentialOrbitingProducts[index]) {
@@ -111,7 +105,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
       }
       setOrbitingProducts(visibleOrbitingProducts);
     }
-  }, [mainProduct, orbitingStartIndex, allProducts]);
+  }, [mainProduct, orbitingStartIndex, products]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -119,10 +113,10 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
     return () => clearInterval(interval);
   }, []);
 
-  let products = allProducts.filter(p => filter === 'All' || p.category === filter);
-  if (sort === 'price-asc') products = [...products].sort((a, b) => Number(a.price) - Number(b.price));
-  if (sort === 'price-desc') products = [...products].sort((a, b) => Number(b.price) - Number(a.price));
-  products = products.filter(product =>
+  let productsToDisplay = products.filter(p => filter === 'All' || p.category === filter);
+  if (sort === 'price-asc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(a.price) - Number(b.price));
+  if (sort === 'price-desc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(b.price) - Number(a.price));
+  productsToDisplay = productsToDisplay.filter(product =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -142,13 +136,13 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
       if (ref) observer.observe(ref);
     });
     return () => observer.disconnect();
-  }, [products]);
+  }, [productsToDisplay]);
 
   const handleSortChange = (e: SelectChangeEvent) => setSort(e.target.value as string);
   const handleFilterChange = (cat: string) => { setFilter(cat); setDrawerOpen(false); };
 
   const handleOrbitingProductClick = (product: Product) => {
-    const newIndex = allProducts.findIndex(p => p.id === product.id);
+    const newIndex = products.findIndex(p => p.id === product.id);
     if (newIndex !== -1) {
       setMainProductIndex(newIndex);
       const direction = newIndex > mainProductIndex ? 'right' : 'left';
@@ -196,13 +190,13 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
 
         <Box sx={{ flex: 1, pr: { md: 4 }, textAlign: { xs: 'center', md: 'left' }, zIndex: 2 }}>
           <Typography variant="h2" component="h1" sx={{ fontWeight: 700, color: 'primary.main', mb: 2 }}>
-            {mainProduct.name}
+            {mainProduct?.name}
           </Typography>
           <Typography variant="h4" component="p" sx={{ color: 'text.secondary', mb: 3 }}>
-            {mainProduct.description}
+            {mainProduct?.description}
           </Typography>
           <Typography variant="h3" component="p" sx={{ fontWeight: 700, color: 'secondary.main', mb: 4 }}>
-            ${Number(mainProduct.price).toFixed(2)}
+            ${Number(mainProduct?.price).toFixed(2)}
           </Typography>
           <Button variant="contained" color="primary" size="large" sx={{ py: 1.5, px: 4, fontSize: '1.1rem', mr: 2 }} onClick={handleAddToCartMainProduct}>
             <AddShoppingCart sx={{ mr: 1 }} /> Add to Cart
@@ -216,8 +210,8 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
           <Slide direction={slideDirection} in={true} timeout={700} container={mainProductImageContainerRef.current}>
             <Box
               component="img"
-              src={mainProduct.imageUrl}
-              alt={mainProduct.name}
+              src={mainProduct?.imageUrl}
+              alt={mainProduct?.name}
               sx={{
                 width: { xs: 250, sm: 350, md: 400 },
                 height: { xs: 250, sm: 350, md: 400 },
@@ -251,7 +245,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
                   overflow: 'hidden',
                   boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
                   cursor: 'pointer',
-                  border: mainProduct.id === product.id ? '3px solid' : 'none',
+                  border: mainProduct?.id === product.id ? '3px solid' : 'none',
                   borderColor: 'primary.main',
                   transition: 'all 0.3s ease-in-out',
                   '&:hover': {
@@ -330,8 +324,8 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
         </IconButton>
       </Box>
       <Box display="grid" gridTemplateColumns={{ xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap={4}>
-        {products.length > 0 ? (
-          products.map((product, index) => (
+        {productsToDisplay.length > 0 ? (
+          productsToDisplay.map((product, index) => (
             <Slide
               key={product.id}
               direction="up"
