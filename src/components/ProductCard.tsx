@@ -1,199 +1,135 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, IconButton, Paper, Fade } from '@mui/material';
-import { Favorite, FavoriteBorder, AddShoppingCart } from '@mui/icons-material';
+import { Card, CardMedia, CardContent, Typography, Button, Box, IconButton } from '@mui/material';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types/product';
+import { ShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
-
-  // Truncate description for display, safely handle undefined description
-  const truncatedDescription = product.description 
-    ? (product.description.length > 50 
-      ? product.description.substring(0, 50) + '...' 
-      : product.description)
-    : ''; // Provide a default empty string if description is undefined
-
   const { addToCart } = useCart();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleAddToCart = () => {
     addToCart(product);
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 2000);
   };
 
-  const handleReadMoreClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    // Implement logic to show full description, maybe in a modal or new page
-    console.log('Read More clicked for:', product.name);
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
   };
 
   return (
-    <Paper
-      elevation={3}
+    <Card
       sx={{
         position: 'relative',
-        overflow: 'hidden',
-        borderRadius: 4,
-        cursor: 'pointer',
-        height: 480,
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.4s cubic-bezier(.4,2,.3,1)',
+        transition: 'transform 0.3s ease-in-out',
         '&:hover': {
-          transform: 'translateY(-8px)',
-          boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+          transform: 'translateY(-5px)',
         },
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      role="article"
+      aria-label={`Product: ${product.name}`}
     >
-      {/* Product Image Container */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          height: 280,
-          overflow: 'hidden',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '30%',
-            background: 'linear-gradient(to top, rgba(0,0,0,0.3), transparent)',
-            zIndex: 1,
-          },
-        }}
-      >
-        <img
-          src={product.imageUrl}
+      <Box sx={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height="200"
+          image={product.image}
           alt={product.name}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
+          sx={{ objectFit: 'cover' }}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/fallback-image.jpg';
           }}
         />
-        {/* Favorite Button */}
         <IconButton
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsFavorite(!isFavorite);
-          }}
+          onClick={toggleFavorite}
           sx={{
             position: 'absolute',
-            top: 12,
-            right: 12,
-            bgcolor: 'rgba(255,255,255,0.9)',
-            width: 40,
-            height: 40,
-            zIndex: 2,
-            '&:hover': { 
-              bgcolor: 'rgba(255,255,255,1)',
-              transform: 'scale(1.1)',
-            },
-            transition: 'all 0.3s',
+            top: 8,
+            right: 8,
+            bgcolor: 'rgba(255, 255, 255, 0.8)',
+            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' },
           }}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
-          {isFavorite ? (
-            <Favorite sx={{ color: '#ff3b00', fontSize: 24 }} />
-          ) : (
-            <FavoriteBorder sx={{ fontSize: 24 }} />
-          )}
+          {isFavorite ? <Favorite color="error" /> : <FavoriteBorder />}
         </IconButton>
       </Box>
 
-      {/* Product Info */}
-      <Box
-        sx={{
-          p: 2,
-          flexGrow: 1,
-          bgcolor: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box>
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="h2"
+          sx={{
+            fontWeight: 600,
+            fontSize: '1.1rem',
+            lineHeight: 1.3,
+          }}
+        >
+          {product.name}
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            mb: 2,
+            flexGrow: 1,
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}
+        >
+          {product.description}
+        </Typography>
+
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography
             variant="h6"
-            sx={{
-              fontWeight: 600,
-              mb: 0.5,
-              fontSize: '1.1rem',
-            }}
-          >
-            {product.name}
-          </Typography>
-          {/* Conditionally render description and Read More button */}
-          {product.description && (
-            <>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ mb: 1 }}
-              >
-                {truncatedDescription}
-              </Typography>
-              {/* Safely check description length before rendering Read More button */}
-              {product.description && product.description.length > 50 && (
-                 <Button 
-                  size="small"
-                  onClick={handleReadMoreClick}
-                  sx={{
-                    textTransform: 'none',
-                    p: 0,
-                    justifyContent: 'flex-start'
-                  }}
-                >
-                  Read More
-                </Button>
-              )}
-            </>
-          )}
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'primary.main',
-              fontWeight: 700,
-              fontSize: '1rem',
-              mt: 1,
-            }}
+            color="primary"
+            sx={{ fontWeight: 700 }}
           >
             ${product.price}
           </Typography>
-        </Box>
 
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<AddShoppingCart />}
-          onClick={handleAddToCart}
-          sx={{
-            borderRadius: 8,
-            px: 3,
-            py: 1,
-            fontSize: '1rem',
-            background: isAdded ? '#4caf50' : '#ff3b00',
-            '&:hover': {
-              background: isAdded ? '#4caf50' : '#c1452b',
-              transform: 'scale(1.05)',
-            },
-            transition: 'all 0.3s',
-            mt: 2,
-          }}
-        >
-          {isAdded ? 'Added!' : 'Add to Cart'}
-        </Button>
-      </Box>
-    </Paper>
+          <Button
+            variant="contained"
+            startIcon={<ShoppingCart />}
+            onClick={handleAddToCart}
+            sx={{
+              bgcolor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              },
+            }}
+            aria-label={`Add ${product.name} to cart`}
+          >
+            Add to Cart
+          </Button>
+        </Box>
+      </CardContent>
+
+      {/* Accessibility Announcement */}
+      <div
+        role="status"
+        aria-live="polite"
+        style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: 0 }}
+      >
+        {isHovered ? `Product details: ${product.name}, Price: $${product.price}` : ''}
+      </div>
+    </Card>
   );
 };
 

@@ -9,14 +9,17 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useCart, CartItem } from '../../context/CartContext';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { setSearch } from '../../store/slices/uiSlice';
 
-const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
-  const [search, setSearch] = React.useState('');
+const Header = () => {
+  const dispatch = useAppDispatch();
+  const { search } = useAppSelector((state) => state.ui);
   const [cartOpen, setCartOpen] = React.useState(false);
   const { cartItems, removeFromCart, clearCart, addToCart, decreaseQuantity } = useCart();
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    if (onSearch) onSearch(e.target.value);
+    dispatch(setSearch(e.target.value));
   };
   const cartCount = cartItems.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
   const getCartTotal = () => {
@@ -26,7 +29,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
     <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
       <Toolbar sx={{
         flexWrap: 'wrap',
-        py: { xs: 1, md: 0 }, // Adjust padding based on screen size
+        py: { xs: 1, md: 0 },
         px: { xs: 2, md: 3 },
       }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
@@ -57,7 +60,6 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
           <MuiLink component={Link} to="/gallery" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Gallery</MuiLink>
           <MuiLink component={Link} to="/contact" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Contact</MuiLink>
           <MuiLink component={Link} to="/blog" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Blog</MuiLink>
-          {/* Global Search Bar */}
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', bgcolor: '#f5f5f5', borderRadius: 2, px: 1, ml: 2 }}>
             <SearchIcon color="action" />
             <InputBase
@@ -68,7 +70,6 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Box>
-          {/* Cart Icon with Badge */}
           <IconButton color="primary" onClick={() => setCartOpen(true)} sx={{ ml: 2 }}>
             <Badge badgeContent={cartCount} color="secondary">
               <ShoppingCartIcon fontSize="large" />
@@ -82,17 +83,16 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
           </Button>
         </Box>
       </Toolbar>
-      {/* Cart Drawer */}
       <Drawer
         anchor="right"
         open={cartOpen}
         onClose={() => setCartOpen(false)}
         PaperProps={{
           sx: {
-            width: { xs: '100%', sm: 400 }, // Full width on mobile, fixed on larger screens
-            bgcolor: '#fefefe', // Light background for the cart drawer
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', // Subtle shadow
-            borderRadius: { xs: '0', sm: '16px 0 0 16px' }, // Rounded corner on desktop
+            width: { xs: '100%', sm: 400 },
+            bgcolor: '#fefefe',
+            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+            borderRadius: { xs: '0', sm: '16px 0 0 16px' },
             display: 'flex',
             flexDirection: 'column',
           },
@@ -105,7 +105,6 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
             Shopping Cart
           </Typography>
           <IconButton onClick={() => setCartOpen(false)} sx={{ color: 'text.secondary' }}>
-            {/* Using a simple 'x' for now, can replace with CloseIcon */}
             <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>&times;</span>
           </IconButton>
         </Box>

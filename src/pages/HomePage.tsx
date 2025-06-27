@@ -30,6 +30,9 @@ import Dialog from '@mui/material/Dialog'; // Added Dialog import
 import DialogContent from '@mui/material/DialogContent'; // Added DialogContent import
 import DialogTitle from '@mui/material/DialogTitle'; // Added DialogTitle import
 import CloseIcon from '@mui/icons-material/Close'; // Added CloseIcon import
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { setSearch } from '../store/slices/uiSlice';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -81,11 +84,12 @@ const heroItems = [
 const AUTO_PLAY_INTERVAL = 4000;
 
 interface HomePageProps {
-  search: string;
-  setSearch: (query: string) => void;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
+const HomePage: React.FC<HomePageProps> = () => {
+  const dispatch = useAppDispatch();
+  const { search } = useAppSelector((state) => state.ui);
+
   const products: Product[] = [
     { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, description: 'A delicious pizza made with the freshest ingredients.' },
     { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, description: 'Juicy burger with all the fixings.' },
@@ -431,7 +435,7 @@ const HomePage: React.FC<HomePageProps> = ({ search, setSearch }) => {
           gap: 4,
           mt: 4,
         }}>
-          {products.map((product: Product) => (
+          {filteredProducts.map((product: Product) => (
             <Box key={product.id}>
               <ProductCard product={product} />
             </Box>
