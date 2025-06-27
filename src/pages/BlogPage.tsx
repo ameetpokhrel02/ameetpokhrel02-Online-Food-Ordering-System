@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Container, Paper, Avatar, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import pizza from '../assets/pizza.jpg';
@@ -18,134 +18,23 @@ import aiVideo from '../assets/ai vide.mp4';
 import { BlogPost } from '../types/blog';
 import { ArrowBack } from '@mui/icons-material';
 
-const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: 'Baked sweet potatoes with creamy avocado & pumpkin',
-    imageUrl: bakedSweetPotatoes,
-    category: 'TIPS & TRICKS',
-    readingTime: '30 MINUTES',
-    difficulty: 'Super Easy',
-    isPopular: true,
-    author: 'Maggy Dawson',
-    date: 'May 13, 2019',
-  },
-  {
-    id: 2,
-    title: 'Baked sweet potatoes with creamy avocado & pumpkin',
-    imageUrl: creamyAvocadoPumpkin,
-    category: 'TIPS & TRICKS',
-    readingTime: '30 MINUTES',
-    difficulty: 'Super Easy',
-    author: 'Maggy Dawson',
-    date: 'May 13, 2019',
-  },
-  {
-    id: 3,
-    title: 'Baked sweet potatoes with creamy avocado & pumpkin',
-    imageUrl: honeyFrenchToast,
-    category: 'TIPS & TRICKS',
-    readingTime: '30 MINUTES',
-    difficulty: 'Super Easy',
-    author: 'Maggy Dawson',
-    date: 'May 13, 2019',
-  },
-  {
-    id: 4,
-    title: 'Baked sweet potatoes with creamy avocado & pumpkin',
-    imageUrl: beetrootSmoothie,
-    category: 'TIPS & TRICKS',
-    readingTime: '30 MINUTES',
-    difficulty: 'Super Easy',
-    isOrganic: true,
-    author: 'Maggy Dawson',
-    date: 'May 13, 2019',
-  },
-  {
-    id: 5,
-    title: 'How Technology is Impacting Food',
-    imageUrl: technologyInFood,
-    category: 'TECHNOLOGY',
-    readingTime: '15 MINUTES',
-    difficulty: 'Medium',
-    author: 'AI Assistant',
-    date: 'June 10, 2024',
-    content: [
-      { type: 'paragraph', text: 'Technology is rapidly transforming the food industry, from farm to fork. Innovations in agricultural technology, such as precision farming and vertical farms, are increasing efficiency and sustainability in food production.' },
-      { type: 'image', src: technologyInFood, alt: 'Technology in food' },
-      { type: 'paragraph', text: 'Supply chain management is also being revolutionized by blockchain, ensuring transparency and traceability of food products.' },
-      { type: 'paragraph', text: 'In the culinary world, AI-powered kitchen robots and smart appliances are changing how food is prepared and consumed. Online food delivery platforms, supported by advanced logistics, have made food more accessible than ever before.' },
-      { type: 'image', src: technologyInFood2, alt: 'Technology in food 2' },
-      { type: 'paragraph', text: 'Furthermore, personalized nutrition through data analytics is becoming a reality, tailoring dietary recommendations to individual needs.' },
-      { type: 'paragraph', text: 'While these advancements offer numerous benefits, including reduced waste and improved food safety, they also raise questions about job displacement and the digital divide. The future of food will undoubtedly be shaped by how we integrate technology responsibly to address global food challenges.' },
-      { type: 'image', src: technologyInFood2, alt: 'Technology in food 2 additional' },
-    ],
-  },
-  {
-    id: 6,
-    title: 'How AI is Revolutionizing Food Creation',
-    imageUrl: foodTechno,
-    category: 'TECHNOLOGY',
-    readingTime: '12 MINUTES',
-    difficulty: 'Medium',
-    author: 'AI Assistant',
-    date: 'June 15, 2024',
-    content: [
-      { type: 'paragraph', text: 'Artificial Intelligence is transforming the way we create, prepare, and experience food. From recipe development to automated cooking systems, AI is becoming an integral part of the culinary world.' },
-      { type: 'image', src: foodTechno, alt: 'AI in Food Technology' },
-      { type: 'paragraph', text: 'One of the most exciting developments is AI-powered recipe creation. Advanced algorithms can analyze thousands of recipes, understand flavor combinations, and generate new, innovative dishes that maintain perfect balance and taste. These AI chefs can consider dietary restrictions, nutritional requirements, and even cultural preferences to create personalized recipes.' },
-      { type: 'paragraph', text: 'Smart kitchen appliances equipped with AI are making professional-level cooking accessible to everyone. These devices can monitor cooking temperatures, adjust cooking times, and even suggest modifications based on the ingredients available. Some advanced systems can even learn from your preferences and adapt recipes to your taste.' },
-      { type: 'paragraph', text: 'Food safety and quality control have also been enhanced through AI. Computer vision systems can detect defects in produce, monitor food freshness, and ensure consistent quality across production lines. This technology helps reduce food waste and ensures that only the best quality products reach consumers.' },
-      { type: 'paragraph', text: 'The future of AI in food creation looks even more promising. We\'re seeing the development of fully automated restaurants where AI systems handle everything from order taking to food preparation. These innovations are not just about automation; they\'re about creating better, more consistent, and more personalized food experiences for everyone.' },
-    ],
-  },
-  {
-    id: 7,
-    title: 'The Future of Farming: AI-Powered Agriculture',
-    imageUrl: aiFarming,
-    category: 'TECHNOLOGY',
-    readingTime: '15 MINUTES',
-    difficulty: 'Medium',
-    author: 'AI Assistant',
-    date: 'June 20, 2024',
-    content: [
-      { type: 'paragraph', text: 'Artificial Intelligence is revolutionizing agriculture, making farming more efficient, sustainable, and productive than ever before. From precision farming to automated harvesting, AI is transforming every aspect of modern agriculture.' },
-      { type: 'image', src: aiFarming, alt: 'AI in Modern Farming' },
-      { type: 'paragraph', text: 'One of the most significant impacts of AI in farming is precision agriculture. Using sensors, drones, and machine learning algorithms, farmers can now monitor crop health, soil conditions, and weather patterns in real-time. This data-driven approach allows for precise application of water, fertilizers, and pesticides, reducing waste and environmental impact while maximizing yields.' },
-      { type: 'paragraph', text: 'Automated farming equipment, guided by AI, is another game-changing development. Smart tractors and harvesters can operate autonomously, following optimized routes and performing tasks with incredible precision. These machines can work around the clock, increasing productivity while reducing labor costs.' },
-      { type: 'image', src: framAi, alt: 'AI-Powered Farm Equipment' },
-      { type: 'paragraph', text: 'Predictive analytics powered by AI is helping farmers make better decisions. By analyzing historical data and current conditions, AI systems can predict crop yields, identify potential disease outbreaks, and suggest optimal planting and harvesting times. This foresight helps farmers plan better and reduce risks.' },
-      { type: 'paragraph', text: 'Vertical farming and controlled environment agriculture are also benefiting from AI integration. Automated systems can monitor and adjust lighting, temperature, humidity, and nutrient levels to create optimal growing conditions. This technology is particularly valuable in urban areas where space is limited and in regions with challenging climates.' },
-      { type: 'paragraph', text: 'The future of AI in farming looks even more promising. We\'re seeing the development of robotic systems that can perform delicate tasks like fruit picking, and AI-powered systems that can identify and remove weeds without harming crops. These innovations are making farming more sustainable and efficient while helping to feed a growing global population.' },
-    ],
-  },
-  {
-    id: 8,
-    title: 'From Farm to Kitchen: How AI is Revolutionizing Food Production',
-    imageUrl: foodTechno,
-    category: 'TECHNOLOGY',
-    readingTime: '20 MINUTES',
-    difficulty: 'Medium',
-    author: 'AI Assistant',
-    date: 'June 25, 2024',
-    content: [
-      { type: 'paragraph', text: 'The integration of Artificial Intelligence in both farming and food preparation is creating a seamless, efficient, and sustainable food production chain. From the moment seeds are planted to when dishes are served, AI is transforming every step of the process.' },
-      { type: 'image', src: foodTechno, alt: 'AI in Food Production' },
-      { type: 'paragraph', text: 'In modern farming, AI-powered systems are revolutionizing traditional agricultural practices. Smart sensors embedded in soil monitor moisture levels, nutrient content, and pH balance in real-time. Drones equipped with advanced imaging technology scan fields to detect early signs of disease or pest infestation, allowing farmers to take preventive measures before crops are affected. Machine learning algorithms analyze weather patterns and historical data to predict optimal planting and harvesting times, maximizing yield while minimizing resource usage.' },
-      { type: 'paragraph', text: 'The impact of AI extends beyond the fields. In food processing facilities, computer vision systems ensure consistent quality by detecting defects and sorting produce with incredible accuracy. Automated systems can process thousands of items per hour, reducing waste and maintaining high standards. AI-powered logistics optimize delivery routes, ensuring fresh produce reaches markets and restaurants at peak quality.' },
-      { type: 'paragraph', text: 'In professional kitchens, AI is becoming an indispensable tool for chefs and food makers. Smart kitchen appliances can now monitor cooking temperatures, adjust cooking times, and even suggest modifications based on ingredient availability. Recipe management systems powered by AI can analyze thousands of recipes, understand flavor combinations, and help chefs create innovative dishes while maintaining perfect balance and taste.' },
-      { type: 'paragraph', text: 'One of the most exciting developments is the emergence of AI-powered cooking assistants. These systems can analyze a chef\'s cooking style, learn from their preferences, and suggest improvements or variations to recipes. They can also help with inventory management, predicting ingredient needs based on historical usage patterns and upcoming menu items.' },
-      { type: 'paragraph', text: 'Food safety has been significantly enhanced through AI integration. Smart sensors in storage areas monitor temperature and humidity levels, alerting staff to potential issues before they affect food quality. AI systems can track the entire journey of ingredients from farm to plate, ensuring transparency and traceability in the food supply chain.' },
-      { type: 'paragraph', text: 'The benefits of AI in food production extend to sustainability and resource management. Smart irrigation systems use AI to optimize water usage, reducing waste while maintaining crop health. In kitchens, AI can help reduce food waste by predicting demand and optimizing portion sizes. Energy management systems can adjust cooking equipment usage based on real-time demand, reducing energy consumption.' },
-      { type: 'paragraph', text: 'Looking to the future, we\'re seeing the development of fully automated vertical farms that use AI to create optimal growing conditions. These facilities can produce food year-round in urban areas, reducing transportation costs and environmental impact. In professional kitchens, we\'re moving toward fully automated cooking systems that can prepare complex dishes with minimal human intervention.' },
-      { type: 'paragraph', text: 'The integration of AI in food production is not just about automation; it\'s about creating a more efficient, sustainable, and innovative food system. By combining the precision of AI with human expertise, we\'re creating a future where food is produced more efficiently, with less waste, and with greater attention to quality and sustainability. This technological revolution is not just changing how we grow and prepare food; it\'s transforming our entire relationship with what we eat.' },
-    ],
-  },
-];
-
 const BlogPage = () => {
   const theme = useTheme();
   const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/blogs/')
+      .then(res => res.json())
+      .then(data => {
+        // Convert image to imageUrl for compatibility
+        const formatted = data.map((b: any) => ({
+          ...b,
+          imageUrl: b.image, // API returns 'image', frontend expects 'imageUrl'
+        }));
+        setBlogs(formatted);
+      });
+  }, []);
 
   const handlePostClick = (post: BlogPost) => {
     setSelectedPost(post);
@@ -346,7 +235,7 @@ const BlogPage = () => {
               gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' },
               gap: 4,
             }}>
-              {blogPosts.map((post) => (
+              {blogs.map((post) => (
                 <Paper key={post.id} elevation={0} sx={{
                   borderRadius: '0px',
                   overflow: 'hidden',
