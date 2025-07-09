@@ -21,7 +21,6 @@ const GalleryMenuItem: React.FC<GalleryMenuItemProps> = ({ item, onViewDetailsCl
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    addToCart(item);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
   };

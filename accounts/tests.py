@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .models import Product, Blog
 
-# Create your test here.
+# Create your tests here.
 
 class ProductModelTest(TestCase):
     def test_create_product(self):

@@ -120,7 +120,8 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
           </Box>
         </Container>
       )}
-      <FoodDeliverySection sx={{ bgcolor: '#fff' }} />
+      {/* Food Delivery Section */}
+      <FoodDeliverySection />
     </Box>
   );
 }
