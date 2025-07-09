@@ -121,7 +121,9 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
     return () => clearInterval(interval);
   }, []);
 
-  let productsToDisplay = products.filter(p => filter === 'All' || p.category === filter);
+  let productsToDisplay = products.filter(p =>
+    filter === 'All' || (p.category && p.category.toLowerCase() === filter.toLowerCase())
+  );
   if (sort === 'price-asc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(a.price) - Number(b.price));
   if (sort === 'price-desc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(b.price) - Number(a.price));
   productsToDisplay = productsToDisplay.filter(product =>
@@ -362,6 +364,11 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
           </Typography>
         )}
       </Box>
+      {products.length === 0 && (
+        <Typography variant="h6" color="error" sx={{ textAlign: 'center', mt: 4 }}>
+          No products available. Please check your server or try again later.
+        </Typography>
+      )}
 
       <OffersSection />
       <FoodDeliverySection />
