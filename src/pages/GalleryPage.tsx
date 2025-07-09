@@ -33,11 +33,11 @@ const allGalleryItems: Product[] = [
 ];
 
 interface GalleryPageProps {
-  search: string;
-  setSearch: (query: string) => void;
+  search?: string;
+  setSearch?: (query: string) => void;
 }
 
-const GalleryPage: React.FC<GalleryPageProps> = ({ search, setSearch }) => {
+const GalleryPage: React.FC<GalleryPageProps> = ({ search = '', setSearch = () => {} }) => {
   const [showFullMenu, setShowFullMenu] = useState(false);
 
   // Filter products by global search (applied to full menu when visible)

@@ -22,17 +22,25 @@ const BlogPage = () => {
   const theme = useTheme();
   const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/api/blogs/')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
       .then(data => {
-        // Convert image to imageUrl for compatibility
         const formatted = data.map((b: any) => ({
           ...b,
-          imageUrl: b.image, // API returns 'image', frontend expects 'imageUrl'
+          imageUrl: b.image,
         }));
         setBlogs(formatted);
+        setError(null);
+      })
+      .catch(err => {
+        setError('Failed to load blog posts. Please try again later.');
+        setBlogs([]);
       });
   }, []);
 
@@ -230,6 +238,11 @@ const BlogPage = () => {
             <Typography variant="h4" component="h2" gutterBottom align="center" sx={{ fontFamily: 'serif', fontSize: '2.5rem', fontWeight: 600, color: '#333' }} mb={6}>
               Latest Blog Posts
             </Typography>
+            {error && (
+              <Box sx={{ p: 4, textAlign: 'center', color: 'red' }}>
+                <Typography variant="h6">{error}</Typography>
+              </Box>
+            )}
             <Box sx={{
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' },

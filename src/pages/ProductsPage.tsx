@@ -149,7 +149,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
   useEffect(() => {
     if (productsToDisplay.length > 0) {
       setMainProduct(productsToDisplay[0]);
-      setMainProductIndex(products.findIndex(p => p.id === productsToDisplay[0].id));
+      setMainProductIndex(0);
     } else {
       setMainProduct(null);
       setMainProductIndex(0);

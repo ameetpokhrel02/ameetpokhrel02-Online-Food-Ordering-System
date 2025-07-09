@@ -20,6 +20,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (product: Product) => {
+    if (!product || typeof product.id !== 'number' || isNaN(Number(product.price))) {
+      console.warn('Invalid product passed to addToCart:', product);
+      return;
+    }
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
       if (existingItem) {
@@ -73,8 +77,4 @@ export const useCart = () => {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-};
-
-export interface CartItem extends Product {
-  quantity: number;
-} 
+}; 
