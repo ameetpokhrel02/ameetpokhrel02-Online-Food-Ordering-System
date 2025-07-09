@@ -28,7 +28,7 @@ const Footer = () => {
               BiteBazaar
             </Typography>
             <Typography variant="body2" color="text.secondary" paragraph>
-              Kathmandu, Nepal
+              Bagmati, Nepal
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Phone: +977-9847226995
