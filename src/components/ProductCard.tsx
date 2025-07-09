@@ -42,8 +42,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <CardMedia
           component="img"
           height="200"
-          image={product.imageUrl}
-          alt={product.name}
+          image={product.imageUrl || '/fallback-image.jpg'}
+          alt={product.name || 'Product'}
           sx={{ objectFit: 'cover' }}
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             color="primary"
             sx={{ fontWeight: 700 }}
           >
-            ${product.price}
+            ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : '0.00'}
           </Typography>
 
           <Button

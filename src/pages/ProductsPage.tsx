@@ -63,15 +63,23 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
 
   useEffect(() => {
     fetch('http://localhost:8000/api/products/')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
       .then(data => {
-        // Convert image to imageUrl for compatibility
-        const formatted = data.map((p: any) => ({
+        const formatted = Array.isArray(data) ? data.map((p: any) => ({
           ...p,
-          imageUrl: p.image, // API returns 'image', frontend expects 'imageUrl'
-        }));
+          imageUrl: p.image,
+        })) : [];
         setProducts(formatted);
         setMainProduct(formatted[0] || null);
+      })
+      .catch(err => {
+        setProducts([]);
+        setMainProduct(null);
+        // Optionally set an error state to show a user-friendly message
+        console.error('Failed to fetch products:', err);
       });
   }, []);
 
@@ -117,7 +125,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
   if (sort === 'price-asc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(a.price) - Number(b.price));
   if (sort === 'price-desc') productsToDisplay = [...productsToDisplay].sort((a, b) => Number(b.price) - Number(a.price));
   productsToDisplay = productsToDisplay.filter(product =>
-    product.name.toLowerCase().includes(search.toLowerCase())
+    typeof product.name === 'string' && product.name.toLowerCase().includes(search.toLowerCase())
   );
 
   useEffect(() => {
@@ -196,7 +204,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
             {mainProduct?.description}
           </Typography>
           <Typography variant="h3" component="p" sx={{ fontWeight: 700, color: 'secondary.main', mb: 4 }}>
-            ${Number(mainProduct?.price).toFixed(2)}
+            ${typeof mainProduct?.price === 'number' ? Number(mainProduct.price).toFixed(2) : '0.00'}
           </Typography>
           <Button variant="contained" color="primary" size="large" sx={{ py: 1.5, px: 4, fontSize: '1.1rem', mr: 2 }} onClick={handleAddToCartMainProduct}>
             <AddShoppingCart sx={{ mr: 1 }} /> Add to Cart
@@ -210,7 +218,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
           <Slide direction={slideDirection} in={true} timeout={700} container={mainProductImageContainerRef.current}>
             <Box
               component="img"
-              src={mainProduct?.imageUrl}
+              src={mainProduct?.imageUrl || imagePng} // Use fallback image if imageUrl is missing
               alt={mainProduct?.name}
               sx={{
                 width: { xs: 250, sm: 350, md: 400 },
@@ -255,7 +263,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
                 }}
               >
                 <img
-                  src={product.imageUrl}
+                  src={product.imageUrl || imagePng} // Use fallback image if imageUrl is missing
                   alt={product.name}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
