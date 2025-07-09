@@ -146,6 +146,17 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
     return () => observer.disconnect();
   }, [productsToDisplay]);
 
+  useEffect(() => {
+    if (productsToDisplay.length > 0) {
+      setMainProduct(productsToDisplay[0]);
+      setMainProductIndex(products.findIndex(p => p.id === productsToDisplay[0].id));
+    } else {
+      setMainProduct(null);
+      setMainProductIndex(0);
+    }
+    // eslint-disable-next-line
+  }, [filter, search, sort, products]);
+
   const handleSortChange = (e: SelectChangeEvent) => setSort(e.target.value as string);
   const handleFilterChange = (cat: string) => { setFilter(cat); setDrawerOpen(false); };
 
