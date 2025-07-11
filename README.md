@@ -10,6 +10,8 @@ image.png
 <img width="1842" height="915" alt="image" src="https://github.com/user-attachments/assets/96cc5392-a0de-4b32-8122-c83c82dbb1c1" />
 # F&Q
 <img width="1801" height="715" alt="image" src="https://github.com/user-attachments/assets/104760c2-fc04-49b3-8202-2da29a6a3974" />
+# Footer
+<img width="1814" height="930" alt="image" src="https://github.com/user-attachments/assets/e46fccb7-24a8-4c40-a6c9-1523eb39c1d3" />
 
 
 
