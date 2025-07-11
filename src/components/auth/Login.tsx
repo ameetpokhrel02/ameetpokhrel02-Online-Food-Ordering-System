@@ -38,7 +38,8 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       console.log('Form submitted:', values);
-      // Add your login logic here
+      // Add your login loigic here
+      // For example, you can dispatch a login action or call an API
     },
   });
 
