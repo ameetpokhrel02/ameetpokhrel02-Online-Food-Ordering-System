@@ -4,9 +4,9 @@ A modern, responsive e-commerce web application inspired by the [Yummy template]
 image.png
 # HomePage
 <img width="1840" height="957" alt="image" src="https://github.com/user-attachments/assets/309f0fa9-0b58-4fa5-a762-f96d9534422d" />
-# Featured Products
+# FeaturedProducts
 <img width="1838" height="892" alt="image" src="https://github.com/user-attachments/assets/b08b2b49-3b9c-4e92-b13f-20e67c52b7b6" />
-# Delivery Pickup Location
+# DeliveryPickupLocation
 <img width="1842" height="915" alt="image" src="https://github.com/user-attachments/assets/96cc5392-a0de-4b32-8122-c83c82dbb1c1" />
 
 
