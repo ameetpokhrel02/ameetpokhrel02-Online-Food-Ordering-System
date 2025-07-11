@@ -8,6 +8,9 @@ image.png
 <img width="1838" height="892" alt="image" src="https://github.com/user-attachments/assets/b08b2b49-3b9c-4e92-b13f-20e67c52b7b6" />
 # DeliveryPickupLocation
 <img width="1842" height="915" alt="image" src="https://github.com/user-attachments/assets/96cc5392-a0de-4b32-8122-c83c82dbb1c1" />
+# F&Q
+<img width="1801" height="715" alt="image" src="https://github.com/user-attachments/assets/104760c2-fc04-49b3-8202-2da29a6a3974" />
+
 
 
 
