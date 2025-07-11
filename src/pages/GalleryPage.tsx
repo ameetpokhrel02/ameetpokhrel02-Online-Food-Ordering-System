@@ -54,7 +54,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search = '', setSearch = () =
 
   return (
     <Box>
-      {/* Our Top Menu Section */}
+      {/* Our Top Menu Sections */}
       {!showFullMenu && (
         <Box sx={{
           position: 'relative',
