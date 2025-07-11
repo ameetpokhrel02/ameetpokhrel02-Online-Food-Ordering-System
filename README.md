@@ -2,6 +2,19 @@
 
 A modern, responsive e-commerce web application inspired by the [Yummy template](https://themewagon.github.io/yummy-red/). Built with React, TypeScript, Material-UI, and Formik/Yup for robust UI, validation, and state management. Features a beautiful landing page, product catalog, gallery, authentication, shopping cart, and more.
 image.png
+# HomePage
+<img width="1840" height="957" alt="image" src="https://github.com/user-attachments/assets/309f0fa9-0b58-4fa5-a762-f96d9534422d" />
+# FeaturedProducts
+<img width="1838" height="892" alt="image" src="https://github.com/user-attachments/assets/b08b2b49-3b9c-4e92-b13f-20e67c52b7b6" />
+# DeliveryPickupLocation
+<img width="1842" height="915" alt="image" src="https://github.com/user-attachments/assets/96cc5392-a0de-4b32-8122-c83c82dbb1c1" />
+# F&Q
+<img width="1801" height="715" alt="image" src="https://github.com/user-attachments/assets/104760c2-fc04-49b3-8202-2da29a6a3974" />
+# Footer
+<img width="1814" height="930" alt="image" src="https://github.com/user-attachments/assets/e46fccb7-24a8-4c40-a6c9-1523eb39c1d3" />
+
+
+
 
 ## Features
 
