@@ -45,7 +45,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ search = '', setSearch = () =
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Select top 3 items for the featured section
+  // Select top 3 items for the featured sections
   const topMenuItems = allGalleryItems.slice(0, 3);
 
   const handleViewDetailsClick = () => {
