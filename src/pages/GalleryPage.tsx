@@ -40,7 +40,7 @@ interface GalleryPageProps {
 const GalleryPage: React.FC<GalleryPageProps> = ({ search = '', setSearch = () => {} }) => {
   const [showFullMenu, setShowFullMenu] = useState(false);
 
-  // Filter products by global search (applied to full menu when visibles.)
+  // Filter products by global search (applied to full menu when visible.)
   const filteredGalleryItems = allGalleryItems.filter(item =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
