@@ -1,5 +1,5 @@
 #  Login query basic logs for backen querys
-#  This file contains views for handling product and blog listings, user signup, and login functionality
+#  This file contains views for handling products and blog listings, user signup, and login functionality
 from django.contrib.auth import authenticate
 from rest_framework import generics, status
 from rest_framework.response import Response
