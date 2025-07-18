@@ -54,26 +54,96 @@ image.png
    npm run build
    ```
 
-## Folder Structure
+
+## Project Structure
 
 ```
 reactapp/
-├── public/                # Static assets (favicon, manifest, images)
-├── src/
-│   ├── assets/            # App images and media
-│   │   ├── components/
-│   │   │   ├── auth/          # Auth pages and layouts
-│   │   │   ├── layout/        # Header, Footer, SubscribeSection, etc.
-│   │   │   └── ...            # Reusable UI components
-│   │   ├── context/           # CartContext for global cart state
-│   │   ├── pages/             # Main pages: Home, About, Products, Gallery, Contact
-│   │   ├── App.tsx            # Main app and routing
-│   │   ├── theme.ts           # Custom Material-UI theme
-│   │   └── index.tsx          # App entry point
-│   ├── package.json           # Project metadata and dependencies
-│   ├── tsconfig.json          # TypeScript configuration
-│   └── README.md              # Project documentation
+├── accounts/                # Django app: user model, authentication, API views
+│   ├── models.py            # CustomUser, Product, Blog models
+│   ├── serializers.py       # DRF serializers for Product, Blog, User
+│   ├── views.py             # Product/Blog APIs, Signup & Login APIs
+│   └── ...
+├── core/                    # Django project settings, URLs
+├── db.sqlite3               # SQLite database
+├── manage.py                # Django management script
+├── public/                  # React static assets (favicon, manifest, images)
+├── src/                     # React frontend source code
+│   ├── assets/              # App images and media
+│   ├── components/          # UI components (auth, layout, etc.)
+│   ├── context/             # CartContext for global cart state
+│   ├── hooks/               # Custom React hooks
+│   ├── pages/               # Main pages: Home, About, Products, Gallery, Contact
+│   ├── store/               # Redux slices for auth, cart, UI
+│   ├── theme.ts             # Custom Material-UI theme
+│   ├── types/               # TypeScript types
+│   ├── utils/               # Utility functions
+│   ├── App.tsx              # Main app and routing
+│   └── index.tsx            # App entry point
+├── package.json             # React project metadata and dependencies
+├── tsconfig.json            # TypeScript configuration
+├── venv/                    # Python virtual environment
+└── README.md                # Project documentation
 ```
+
+## Backend (Django REST API)
+
+- **CustomUser**: Extends Django's AbstractUser with roles (customer/admin).
+- **Product & Blog**: Models and API endpoints for products and blog posts.
+- **Authentication**: JWT-based login and signup endpoints using DRF and SimpleJWT.
+
+### Key API Endpoints
+
+- `POST /api/signup/` — Register a new user (username, email, password, role)
+- `POST /api/login/` — Obtain JWT access/refresh tokens (username, password)
+- `GET /api/products/` — List products
+- `GET /api/blogs/` — List blog posts
+
+> **Note:** Install backend dependencies with `pip install djangorestframework djangorestframework-simplejwt`.
+
+## Getting Started
+
+### Backend (Django)
+
+1. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate  # On Windows
+   # or
+   source venv/bin/activate  # On Mac/Linux
+   ```
+2. **Install dependencies:**
+   ```bash
+   pip install django djangorestframework djangorestframework-simplejwt
+   ```
+3. **Apply migrations:**
+   ```bash
+   python manage.py migrate
+   ```
+4. **Run the backend server:**
+   ```bash
+   python manage.py runserver
+   ```
+
+### Frontend (React)
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Start the development server:**
+   ```bash
+   npm start
+   ```
+   The app will run at [http://localhost:3000](http://localhost:3000).
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## Usage
+...existing code...
 
 ## Usage
 - **Browse Products:** Use the Products or Home page to view and filter products. Add items to your cart.
