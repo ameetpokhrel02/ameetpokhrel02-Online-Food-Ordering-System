@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import deliveryGif from '../assets/delivery.gif';
-import foodDeliveryAnimation from '../assets/Food-delivery-animation.gif';
 
 const TextareaAutosize = styled(MuiTextareaAutosize)(({ theme }) => ({
   width: '100%',
