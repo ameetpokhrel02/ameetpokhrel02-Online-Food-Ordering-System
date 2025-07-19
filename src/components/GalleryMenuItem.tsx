@@ -17,7 +17,6 @@ const GalleryMenuItem: React.FC<GalleryMenuItemProps> = ({ item, onViewDetailsCl
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

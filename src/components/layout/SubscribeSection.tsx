@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, useTheme, Container } from '@mui/material';
+import { Box, Typography, TextField, Button } from '@mui/material';
 import food1 from '../../assets/food1.avif';
 
 const SubscribeSection: React.FC = () => {
-  const theme = useTheme();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
