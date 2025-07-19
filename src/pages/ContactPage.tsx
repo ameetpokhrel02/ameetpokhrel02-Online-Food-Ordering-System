@@ -27,6 +27,8 @@ const validationSchema = yup.object({
 });
 
 const ContactPage = () => {
+  const [submitStatus, setSubmitStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -35,9 +37,27 @@ const ContactPage = () => {
       message: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      alert('Message sent (simulated).');
+    onSubmit: async (values, { resetForm }) => {
+      setSubmitStatus('idle');
+      setSubmitError(null);
+      try {
+        const response = await fetch('/api/contact/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        });
+        if (response.ok) {
+          setSubmitStatus('success');
+          resetForm();
+        } else {
+          const data = await response.json();
+          setSubmitStatus('error');
+          setSubmitError(data?.message || 'Failed to send message.');
+        }
+      } catch (err) {
+        setSubmitStatus('error');
+        setSubmitError('Failed to send message. Please try again.');
+      }
     },
   });
 
@@ -174,9 +194,19 @@ const ContactPage = () => {
                 </Typography>
               )}
 
-              <Button color="primary" variant="contained" size="large" fullWidth type="submit" sx={{ borderRadius: 3, fontWeight: 700, fontSize: 18, py: 1.5, mt: 1 }}>
-                Send Message
+              <Button color="primary" variant="contained" size="large" fullWidth type="submit" sx={{ borderRadius: 3, fontWeight: 700, fontSize: 18, py: 1.5, mt: 1 }} disabled={formik.isSubmitting}>
+                {formik.isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
+              {submitStatus === 'success' && (
+                <Typography color="success.main" sx={{ mt: 2 }}>
+                  Message sent successfully!
+                </Typography>
+              )}
+              {submitStatus === 'error' && (
+                <Typography color="error" sx={{ mt: 2 }}>
+                  {submitError || 'Failed to send message.'}
+                </Typography>
+              )}
             </Box>
           </Paper>
         </Box>

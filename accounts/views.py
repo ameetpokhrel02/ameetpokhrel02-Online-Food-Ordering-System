@@ -4,8 +4,17 @@ from django.contrib.auth import authenticate
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Product, Blog, CustomUser
-from .serializers import ProductSerializer, BlogSerializer
+from .models import Product, Blog, CustomUser, ContactMessage
+from .serializers import ProductSerializer, BlogSerializer, ContactMessageSerializer
+# Contact Form API
+class ContactMessageCreateView(APIView):
+    permission_classes = [permissions.AllowAny]
+    def post(self, request):
+        serializer = ContactMessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Message sent successfully.'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import permissions
 from rest_framework import serializers
