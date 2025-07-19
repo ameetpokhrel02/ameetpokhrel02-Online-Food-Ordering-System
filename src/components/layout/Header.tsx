@@ -1,7 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton, Drawer, Paper, Slide, Fade, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Container, Link as MuiLink, Box, IconButton, Drawer, Paper, Slide, Fade } from '@mui/material';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
 import newLogo from '../../assets/logo.jpg';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +18,6 @@ const Header = () => {
   const { search } = useAppSelector((state) => state.ui);
   const [cartOpen, setCartOpen] = React.useState(false);
   const { cartItems, removeFromCart, clearCart, addToCart, decreaseQuantity } = useCart();
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));
   };
@@ -27,41 +25,6 @@ const Header = () => {
   const getCartTotal = () => {
     return cartItems.reduce((sum: number, item: CartItem) => sum + Number(item.price) * item.quantity, 0);
   };
-  return (
-    <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
-      <Toolbar sx={{
-        </Drawer>
-          <IconButton color="primary" onClick={() => setCartOpen(true)} sx={{ ml: 2 }}>
-            <Badge badgeContent={cartCount} color="secondary">
-              <ShoppingCartIcon fontSize="large" />
-            </Badge>
-          </IconButton>
-          <Button component={Link} to="/login" variant="outlined" color="primary" sx={{ ml: 2, fontWeight: 600, borderRadius: 2 }}>
-            Login
-          </Button>
-          <Button component={Link} to="/signup" variant="contained" color="primary" sx={{ ml: 1, fontWeight: 600, borderRadius: 2 }}>
-            Signup
-          </Button>
-        </Box>
-        {/* Mobile Menu Button */}
-        <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
-          <IconButton color="primary" onClick={() => setMobileMenuOpen(true)}>
-            <MenuIcon fontSize="large" />
-          </IconButton>
-        </Box>
-        {/* Mobile Nav Drawer */}
-        <Drawer anchor="left" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
-          <Box sx={{ width: 250, pt: 2 }} role="presentation" onClick={() => setMobileMenuOpen(false)}>
-            <List>
-              {[
-                { text: 'Home', to: '/' },
-                { text: 'About', to: '/about' },
-                { text: 'Products', to: '/products' },
-                { text: 'Menu', to: '/menu' },
-                { text: 'Gallery', to: '/gallery' },
-                { text: 'Contact', to: '/contact' },
-                { text: 'Blog', to: '/blog' },
-                { text: 'Login', to: '/login' },
   return (
     <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
       <Toolbar sx={{
@@ -89,8 +52,7 @@ const Header = () => {
           </Typography>
         </Link>
         <Box sx={{ flexGrow: 1 }} />
-        {/* Desktop Nav */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <MuiLink component={Link} to="/" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Home</MuiLink>
           <MuiLink component={Link} to="/about" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>About</MuiLink>
           <MuiLink component={Link} to="/products" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Products</MuiLink>
@@ -120,36 +82,6 @@ const Header = () => {
             Signup
           </Button>
         </Box>
-        {/* Mobile Menu Button */}
-        <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
-          <IconButton color="primary" onClick={() => setMobileMenuOpen(true)}>
-            <MenuIcon fontSize="large" />
-          </IconButton>
-        </Box>
-        {/* Mobile Nav Drawer */}
-        <Drawer anchor="left" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
-          <Box sx={{ width: 250, pt: 2 }} role="presentation" onClick={() => setMobileMenuOpen(false)}>
-            <List>
-              {[
-                { text: 'Home', to: '/' },
-                { text: 'About', to: '/about' },
-                { text: 'Products', to: '/products' },
-                { text: 'Menu', to: '/menu' },
-                { text: 'Gallery', to: '/gallery' },
-                { text: 'Contact', to: '/contact' },
-                { text: 'Blog', to: '/blog' },
-                { text: 'Login', to: '/login' },
-                { text: 'Signup', to: '/signup' },
-              ].map((item) => (
-                <ListItem key={item.text} disablePadding>
-                  <ListItemButton component={Link} to={item.to}>
-                    <ListItemText primary={item.text} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
       </Toolbar>
       <Drawer
         anchor="right"
@@ -198,158 +130,9 @@ const Header = () => {
                         borderRadius: 1, 
                         marginRight: 16,
                         transition: 'transform 0.3s ease-in-out',
-                        // '&:hover': { transform: 'scale(1.05)' },
-                      }}
-                    />
-                    <Box sx={{ flex: 1 }}>
-                      <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
-                      <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                        <RemoveCircleOutlineIcon />
-                      </IconButton>
-                      <Typography sx={{ mx: 1, fontWeight: 500 }}>{item.quantity}</Typography>
-                      <IconButton size="small" color="primary" onClick={() => addToCart(item)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                        <AddCircleOutlineIcon />
-                      </IconButton>
-                    </Box>
-                    <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1, '&:hover': { bgcolor: 'error.light' } }}>
-                      <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>&times;</span>
-                    </IconButton>
-                  </Paper>
-                </Fade>
-              ))}
-            </Box>
-            <Box sx={{ p: 3, borderTop: '1px solid #eee', bgcolor: '#fff' }}>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>Total:</span>
-                <span>${getCartTotal().toFixed(2)}</span>
-              </Typography>
-              <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ mb: 1, borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
-                onClick={clearCart}
-              >
-                Clear Cart
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                component={Link}
-                to="/payment"
-                sx={{ borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 4px 8px rgba(255,59,0,0.2)' }}
-              >
-                Checkout
-              </Button>
-            </Box>
-          </>
-        )}
-      </Drawer>
-    </AppBar>
-  );
-}
-
-export default Header;
-                    <Box sx={{ flex: 1 }}>
-                      <Typography variant="subtitle1" fontWeight={600} noWrap>{item.name}</Typography>
-                      <Typography variant="body2" color="text.secondary">${Number(item.price).toFixed(2)}</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton size="small" color="primary" onClick={() => decreaseQuantity(item.id)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                        <RemoveCircleOutlineIcon />
-                      </IconButton>
-                      <Typography sx={{ mx: 1, fontWeight: 500 }}>{item.quantity}</Typography>
-                      <IconButton size="small" color="primary" onClick={() => addToCart(item)} sx={{ '&:hover': { bgcolor: 'primary.light' } }}>
-                        <AddCircleOutlineIcon />
-                      </IconButton>
-                    </Box>
-                    <IconButton color="error" onClick={() => removeFromCart(item.id)} sx={{ ml: 1, '&:hover': { bgcolor: 'error.light' } }}>
-                      <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>&times;</span>
-                    </IconButton>
-                  </Paper>
-                </Fade>
-              ))}
-            </Box>
-            <Box sx={{ p: 3, borderTop: '1px solid #eee', bgcolor: '#fff' }}>
-              <Typography variant="h6" fontWeight={700} sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>Total:</span>
-                <span>${getCartTotal().toFixed(2)}</span>
-              </Typography>
-              <Button
-                variant="outlined"
-                color="primary"
-                fullWidth
-                sx={{ mb: 1, borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
-                onClick={clearCart}
-              >
-                Clear Cart
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                component={Link}
-                to="/payment"
-                sx={{ borderRadius: 8, py: 1.5, fontWeight: 600, boxShadow: '0 4px 8px rgba(255,59,0,0.2)' }}
-              >
-                Checkout
-              </Button>
-            </Box>
-          </>
-        )}
-      </Drawer>
-      <Drawer
-        anchor="right"
-        open={cartOpen}
-        onClose={() => setCartOpen(false)}
-        PaperProps={{
-          sx: {
-            width: { xs: '100%', sm: 400 },
-            bgcolor: '#fefefe',
-            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-            borderRadius: { xs: '0', sm: '16px 0 0 16px' },
-            display: 'flex',
-            flexDirection: 'column',
-          },
-        }}
-        TransitionComponent={Slide}
-        transitionDuration={{ enter: 400, exit: 200 }}
-      >
-        <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #eee' }}>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
-            Shopping Cart
-          </Typography>
-          <IconButton onClick={() => setCartOpen(false)} sx={{ color: 'text.secondary' }}>
-            <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>&times;</span>
-          </IconButton>
-        </Box>
-        {cartItems.length === 0 ? (
-          <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6" color="text.secondary" sx={{ textAlign: 'center' }}>
-              Your cart is empty.
-            </Typography>
-          </Box>
-        ) : (
-          <>
-            <Box sx={{ flex: 1, overflowY: 'auto', p: 3 }}>
-              {cartItems.map((item, index) => (
-                <Fade in={cartOpen} timeout={400 + index * 50} key={item.id}>
-                  <Paper elevation={1} sx={{ display: 'flex', alignItems: 'center', mb: 2, p: 2, borderRadius: 2, bgcolor: '#fff' }}>
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.name} 
-                      style={{
-                        width: 64, 
-                        height: 64, 
-                        objectFit: 'cover', 
-                        borderRadius: 1, 
-                        marginRight: 16,
-                        transition: 'transform 0.3s ease-in-out',
-                        // '&:hover': { transform: 'scale(1.05)' },
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                        },
                       }}
                     />
                     <Box sx={{ flex: 1 }}>
@@ -404,4 +187,4 @@ export default Header;
   );
 };
 
-export default Header;
+export default Header; 
