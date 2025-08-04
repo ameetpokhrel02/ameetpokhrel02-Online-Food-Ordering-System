@@ -4,7 +4,6 @@ import { Box, CircularProgress } from '@mui/material';
 import { useAppSelector } from './hooks/useAppSelector';
 
 // Layout components
-import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import SubscribeSection from './components/layout/SubscribeSection';
 
@@ -25,7 +24,6 @@ const AppRoutes: React.FC = () => {
 
   return (
     <>
-      <Header />
       <Suspense
         fallback={
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -52,4 +50,4 @@ const AppRoutes: React.FC = () => {
   );
 };
 
-export default AppRoutes; 
+export default AppRoutes;

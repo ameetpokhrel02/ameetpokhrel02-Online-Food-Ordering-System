@@ -7,6 +7,7 @@ import { theme } from './theme';
 import AppRoutes from './routes';
 import ErrorBoundary from './components/ErrorBoundary';
 import { HelmetProvider } from 'react-helmet-async';
+import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <ErrorBoundary>
+            <Navbar />
             <AppRoutes />
           </ErrorBoundary>
         </ThemeProvider>
