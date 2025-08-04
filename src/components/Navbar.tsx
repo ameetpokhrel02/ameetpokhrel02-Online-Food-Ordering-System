@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
   Toolbar, 
@@ -23,12 +24,12 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   borderBottom: '1px solid #eee'
 }));
 
-const Logo = styled('img')({
+const Logo = styled('img')({  
   height: '40px',
   marginRight: '20px'
 });
 
-const NavButton = styled(Button)({
+const NavButton = styled(Button)({  
   color: '#333',
   textTransform: 'none',
   margin: '0 8px',
@@ -37,22 +38,46 @@ const NavButton = styled(Button)({
   }
 });
 
+const StyledLink = styled(Link)({
+  textDecoration: 'none',
+  color: 'inherit'
+});
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
-  const menuItems = ['Home', 'About', 'Products', 'Menu', 'Gallery', 'Contact', 'Blog'];
+  const menuItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Products', path: '/products' },
+    { name: 'Menu', path: '/menu' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Contact', path: '/contact' },
+    { name: 'Blog', path: '/blog' }
+  ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    if (mobileOpen) {
+      handleDrawerToggle();
+    }
+  };
+
   const drawer = (
     <List>
       {menuItems.map((item) => (
-        <ListItemButton key={item} onClick={() => handleDrawerToggle()}>
-          <ListItemText primary={item} />
+        <ListItemButton 
+          key={item.name} 
+          onClick={() => handleNavigation(item.path)}
+        >
+          <ListItemText primary={item.name} />
         </ListItemButton>
       ))}
     </List>
@@ -74,14 +99,18 @@ const Navbar = () => {
             </IconButton>
           )}
           
-          <Logo src="/logo.png" alt="BiteBazaar" />
+          <StyledLink to="/">
+            <Logo src="/logo.png" alt="BiteBazaar" />
+          </StyledLink>
           
           {!isMobile && (
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
               {menuItems.map((item) => (
-                <NavButton key={item}>
-                  {item}
-                </NavButton>
+                <StyledLink to={item.path} key={item.name}>
+                  <NavButton>
+                    {item.name}
+                  </NavButton>
+                </StyledLink>
               ))}
             </Box>
           )}
@@ -90,12 +119,16 @@ const Navbar = () => {
             <IconButton sx={{ color: '#333' }}>
               <ShoppingCartIcon />
             </IconButton>
-            <NavButton variant="outlined" sx={{ borderColor: '#FF4B3A', color: '#FF4B3A' }}>
-              Login
-            </NavButton>
-            <NavButton variant="contained" sx={{ backgroundColor: '#FF4B3A', color: '#fff', '&:hover': { backgroundColor: '#ff3621' } }}>
-              Signup
-            </NavButton>
+            <StyledLink to="/login">
+              <NavButton variant="outlined" sx={{ borderColor: '#FF4B3A', color: '#FF4B3A' }}>
+                Login
+              </NavButton>
+            </StyledLink>
+            <StyledLink to="/signup">
+              <NavButton variant="contained" sx={{ backgroundColor: '#FF4B3A', color: '#fff', '&:hover': { backgroundColor: '#ff3621' } }}>
+                Signup
+              </NavButton>
+            </StyledLink>
           </Box>
         </Toolbar>
       </StyledAppBar>
@@ -106,7 +139,7 @@ const Navbar = () => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
