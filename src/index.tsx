@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme'; // Import your custom theme
- // Import the CartProvider
+ // Import the CartProviders
 import { CartProvider } from './context/CartContext';
 
 const root = ReactDOM.createRoot(
