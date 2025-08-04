@@ -22,6 +22,7 @@ const BlogPage = React.lazy(() => import('./pages/BlogPage'));
 import OTPVerification from './components/auth/OTPVerification';
 import ResetPassword from './components/auth/ResetPassword';
 import ChangePassword from './components/auth/ChangePassword';
+import Header from './components/layout/Header';
 
 const AppRoutes: React.FC = () => {
   return (
