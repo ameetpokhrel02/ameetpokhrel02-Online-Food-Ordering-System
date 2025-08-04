@@ -23,5 +23,5 @@
   "include": [
     "src"
   ],
-  "extends": "expo/tsconfig.base"
+  // Removed expo base config since it's not found in the project
 }
