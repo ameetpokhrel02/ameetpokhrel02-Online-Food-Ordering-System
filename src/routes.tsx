@@ -19,11 +19,14 @@ const PaymentPage = React.lazy(() => import('./pages/PaymentPage'));
 const MenuPage = React.lazy(() => import('./pages/MenuPage'));
 const BlogPage = React.lazy(() => import('./pages/BlogPage'));
 
-const AppRoutes: React.FC = () => {
-  const { search } = useAppSelector((state) => state.ui);
+import OTPVerification from './components/auth/OTPVerification';
+import ResetPassword from './components/auth/ResetPassword';
+import ChangePassword from './components/auth/ChangePassword';
 
+const AppRoutes: React.FC = () => {
   return (
     <>
+      <Header />
       <Suspense
         fallback={
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -42,6 +45,9 @@ const AppRoutes: React.FC = () => {
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/verify-otp" element={<OTPVerification />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
       </Suspense>
       <SubscribeSection />

@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { 
-  Box, 
-  TextField, 
-  Button, 
-  Typography, 
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
   Container,
-  Paper,
-  Link
+  Paper
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
 
-const LoginPage = () => {
+const ResetPassword = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add login logic here
+    // Add password reset logic here
   };
 
   return (
@@ -31,7 +28,10 @@ const LoginPage = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Typography component="h1" variant="h5" sx={{ mb: 3, color: '#FF4B3A' }}>
-            Login to BiteBazaar
+            Reset Password
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 3 }}>
+            Enter your email address and we'll send you a link to reset your password
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
@@ -46,18 +46,6 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
             <Button
               type="submit"
               fullWidth
@@ -71,16 +59,8 @@ const LoginPage = () => {
                 }
               }}
             >
-              Sign In
+              Send Reset Link
             </Button>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-              <Link component={RouterLink} to="/forgot-password" variant="body2">
-                Forgot password?
-              </Link>
-              <Link component={RouterLink} to="/signup" variant="body2">
-                Don't have an account? Sign Up
-              </Link>
-            </Box>
           </Box>
         </Paper>
       </Box>
@@ -88,4 +68,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPassword;

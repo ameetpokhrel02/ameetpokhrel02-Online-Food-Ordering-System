@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { 
-  Box, 
-  TextField, 
-  Button, 
-  Typography, 
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
   Container,
-  Paper,
-  Link
+  Paper
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const ChangePassword = () => {
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add login logic here
+    // Add change password logic here
   };
 
   return (
@@ -31,32 +30,41 @@ const LoginPage = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Typography component="h1" variant="h5" sx={{ mb: 3, color: '#FF4B3A' }}>
-            Login to BiteBazaar
+            Change Password
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="currentPassword"
+              label="Current Password"
+              type="password"
+              id="currentPassword"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
+              name="newPassword"
+              label="New Password"
               type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="newPassword"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm New Password"
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Button
               type="submit"
@@ -71,16 +79,8 @@ const LoginPage = () => {
                 }
               }}
             >
-              Sign In
+              Update Password
             </Button>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-              <Link component={RouterLink} to="/forgot-password" variant="body2">
-                Forgot password?
-              </Link>
-              <Link component={RouterLink} to="/signup" variant="body2">
-                Don't have an account? Sign Up
-              </Link>
-            </Box>
           </Box>
         </Paper>
       </Box>
@@ -88,4 +88,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ChangePassword;
