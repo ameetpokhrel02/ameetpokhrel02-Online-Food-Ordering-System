@@ -1,3 +1,4 @@
+import Header from './components/layout/Header';
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
@@ -15,14 +16,14 @@ const GalleryPage = React.lazy(() => import('./pages/GalleryPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 const LoginPage = React.lazy(() => import('./components/auth/LoginPage'));
 const SignupPage = React.lazy(() => import('./components/auth/SignupPage'));
-const PaymentPage = React.lazy(() => import('./pages/PaymentPage'));
-const MenuPage = React.lazy(() => import('./pages/MenuPage'));
-const BlogPage = React.lazy(() => import('./pages/BlogPage'));
 
 import OTPVerification from './components/auth/OTPVerification';
 import ResetPassword from './components/auth/ResetPassword';
 import ChangePassword from './components/auth/ChangePassword';
-import Header from './components/layout/Header';
+
+const PaymentPage = React.lazy(() => import('./pages/PaymentPage'));
+const MenuPage = React.lazy(() => import('./pages/MenuPage'));
+const BlogPage = React.lazy(() => import('./pages/BlogPage'));
 
 const AppRoutes: React.FC = () => {
   return (
@@ -55,3 +56,4 @@ const AppRoutes: React.FC = () => {
     </>
   );
 }
+export default AppRoutes;
