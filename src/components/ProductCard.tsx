@@ -14,6 +14,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleAddToCart = () => {
+    console.log('Add to Cart:', product);
     addToCart(product);
   };
 

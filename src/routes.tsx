@@ -8,6 +8,10 @@ import { useAppSelector } from './hooks/useAppSelector';
 import Footer from './components/layout/Footer';
 import SubscribeSection from './components/layout/SubscribeSection';
 
+// Auth components
+import OTPVerification from './components/auth/OTPVerification';
+import ResetPassword from './components/auth/ResetPassword';
+import ChangePassword from './components/auth/ChangePassword';
 // Lazy-loaded pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
@@ -16,10 +20,6 @@ const GalleryPage = React.lazy(() => import('./pages/GalleryPage'));
 const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 const LoginPage = React.lazy(() => import('./components/auth/LoginPage'));
 const SignupPage = React.lazy(() => import('./components/auth/SignupPage'));
-
-import OTPVerification from './components/auth/OTPVerification';
-import ResetPassword from './components/auth/ResetPassword';
-import ChangePassword from './components/auth/ChangePassword';
 
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'));
 const MenuPage = React.lazy(() => import('./pages/MenuPage'));
