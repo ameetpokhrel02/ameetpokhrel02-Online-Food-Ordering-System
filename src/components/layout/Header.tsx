@@ -131,7 +131,7 @@ const Header = () => {
                         marginRight: 16,
                         transition: 'transform 0.3s ease-in-out',
                         '&:hover': {
-                          transform: 'scale(1.05)',
+                        transform: 'scale(1.05)',
                         },
                       }}
                     />

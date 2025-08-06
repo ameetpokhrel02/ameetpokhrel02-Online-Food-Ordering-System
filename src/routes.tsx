@@ -27,7 +27,6 @@ import Header from './components/layout/Header';
 const AppRoutes: React.FC = () => {
   return (
     <>
-      <Header />
       <Suspense
         fallback={
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -39,14 +38,14 @@ const AppRoutes: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/menu" element={<MenuPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/menu" element={<MenuPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/verify-otp" element={<OTPVerification />} />
+          <Route path="/otp" element={<OTPVerification />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
@@ -55,6 +54,4 @@ const AppRoutes: React.FC = () => {
       <Footer />
     </>
   );
-};
-
-export default AppRoutes;
+}
