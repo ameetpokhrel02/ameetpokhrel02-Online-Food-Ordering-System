@@ -31,14 +31,14 @@ const categories = ['All', 'Pizza', 'Burger', 'Special', 'Dessert', 'Rice', 'Sta
 interface ProductsPageProps {}
 
 const heroSlides = [
-  { name: 'Delicious Pizza', image: food1 },
-  { name: 'Tasty Burger', image: food2 },
-  { name: 'Special Dish', image: imagePng },
-  { name: 'Yummy Dessert', image: galleryPng },
-  { name: 'Classic Biryani', image: biryani },
-  { name: 'Chicken Lollipop', image: lolipop },
-  { name: 'Cheese Pizza', image: pizza },
-  { name: 'Steamed Momo', image: momo },
+  { id: 1, name: 'Delicious Pizza', price: '18', imageUrl: food1, description: 'A classic Italian pizza with fresh ingredients and a crispy crust.' },
+  { id: 2, name: 'Tasty Burger', price: '29.5', imageUrl: food2, description: 'Juicy burger with fresh veggies and special sauce.' },
+  { id: 3, name: 'Special Dish', price: '15', imageUrl: imagePng, description: 'A chef special with a unique blend of flavors.' },
+  { id: 4, name: 'Yummy Dessert', price: '12', imageUrl: galleryPng, description: 'Sweet treat to finish your meal.' },
+  { id: 5, name: 'Classic Biryani', price: '20', imageUrl: biryani, description: 'Aromatic rice with spices and meat.' },
+  { id: 6, name: 'Chicken Lollipop', price: '18.5', imageUrl: lolipop, description: 'Crispy fried chicken lollipops, a spicy treat.' },
+  { id: 7, name: 'Cheese Pizza', price: '22', imageUrl: pizza, description: 'Cheesy pizza with a golden crust.' },
+  { id: 8, name: 'Steamed Momo', price: '16', imageUrl: momo, description: 'Soft dumplings filled with savory goodness.' },
 ];
 
 const ProductsPage: React.FC<ProductsPageProps> = () => {
