@@ -26,8 +26,6 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   borderBottom: '1px solid #eee'
 }));
 
-
-import logoImg from '../assets/logo.jpg';
 const Logo = styled('img')({  
   height: '40px',
   marginRight: '20px'
