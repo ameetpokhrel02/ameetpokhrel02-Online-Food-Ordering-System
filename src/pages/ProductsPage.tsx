@@ -68,6 +68,7 @@ const ProductsPage: React.FC<ProductsPageProps> = () => {
         return res.json();
       })
       .then(data => {
+        console.log('API products response:', data);
         const formatted = Array.isArray(data) ? data.map((p: any) => ({
           ...p,
           imageUrl: p.image,

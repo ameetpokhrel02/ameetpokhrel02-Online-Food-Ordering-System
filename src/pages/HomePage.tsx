@@ -32,7 +32,9 @@ import DialogTitle from '@mui/material/DialogTitle'; // Added DialogTitle import
 import CloseIcon from '@mui/icons-material/Close'; // Added CloseIcon import
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
+
 import { setSearch } from '../store/slices/uiSlice';
+import { useCart } from '../context/CartContext';
 
 const carouselItems = [
   { image: food1, name: 'Delicious Pizza' },
@@ -43,42 +45,12 @@ const carouselItems = [
 
 // --- HERO CAROUSEL DATA ---
 const heroItems = [
-  {
-    name: 'Classic Biryani',
-    price: 22.0,
-    desc: 'Aromatic rice dish with tender meat and spices.',
-    image: biryani,
-  },
-  {
-    name: 'Delicious Pizza',
-    price: 18.0,
-    desc: 'A classic Italian pizza with fresh ingredients and a crispy crust.',
-    image: pizza,
-  },
-  {
-    name: 'Steamed Momo',
-    price: 16.0,
-    desc: 'Soft dumplings filled with savory goodness.',
-    image: momo,
-  },
-  {
-    name: 'Chicken Lollipop',
-    price: 18.5,
-    desc: 'Crispy fried chicken lollipops, a spicy treat.',
-    image: lolipop,
-  },
-  {
-    name: 'Tasty Burger',
-    price: 29.5,
-    desc: 'Juicy burger with fresh veggies and special sauce.',
-    image: food2,
-  },
-  {
-    name: 'Special Dish',
-    price: 15.0,
-    desc: 'A chef special with a unique blend of flavors.',
-    image: imagePng,
-  },
+  { id: 5, name: 'Classic Biryani', price: '22.00', imageUrl: biryani, description: 'Aromatic rice dish with tender meat and spices.' },
+  { id: 1, name: 'Delicious Pizza', price: '18.00', imageUrl: pizza, description: 'A classic Italian pizza with fresh ingredients and a crispy crust.' },
+  { id: 8, name: 'Steamed Momo', price: '16.00', imageUrl: momo, description: 'Soft dumplings filled with savory goodness.' },
+  { id: 6, name: 'Chicken Lollipop', price: '18.50', imageUrl: lolipop, description: 'Crispy fried chicken lollipops, a spicy treat.' },
+  { id: 2, name: 'Tasty Burger', price: '29.50', imageUrl: food2, description: 'Juicy burger with fresh veggies and special sauce.' },
+  { id: 3, name: 'Special Dish', price: '15.00', imageUrl: imagePng, description: 'A chef special with a unique blend of flavors.' },
 ];
 
 const AUTO_PLAY_INTERVAL = 4000;
@@ -89,6 +61,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = () => {
   const dispatch = useAppDispatch();
   const { search } = useAppSelector((state) => state.ui);
+  const { addToCart } = useCart();
 
   const products: Product[] = [
     { id: 1, name: 'Delicious Pizza', price: '19.99', imageUrl: food1, description: 'A delicious pizza made with the freshest ingredients.' },
@@ -273,6 +246,18 @@ const HomePage: React.FC<HomePageProps> = () => {
                     },
                     transition: 'all 0.4s ease',
                     opacity: animating ? 0 : 1,
+                  }}
+                  onClick={() => {
+                    if (featuredProduct) {
+                      // Map heroItem fields to Product shape if needed
+                      addToCart({
+                        id: featuredProduct.id || 0,
+                        name: featuredProduct.name,
+                        price: String(featuredProduct.price),
+                        imageUrl: featuredProduct.imageUrl || featuredProduct.image,
+                        description: featuredProduct.description || featuredProduct.desc || '',
+                      });
+                    }
                   }}
                 >
                   Order Now
