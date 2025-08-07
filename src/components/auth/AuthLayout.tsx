@@ -51,12 +51,13 @@ interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
+
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   const [slide, setSlide] = React.useState(0);
   React.useEffect(() => {
     const timer = setInterval(() => {
       setSlide((prev) => (prev + 1) % foodSlides.length);
-    }, 3000);
+    }, 3500);
     return () => clearInterval(timer);
   }, []);
 
@@ -64,38 +65,84 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     <Box
       sx={{
         minHeight: '100vh',
+        width: '100vw',
+        bgcolor: 'linear-gradient(120deg, #232526 0%, #414345 100%)',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: '#f5f5f5',
-        p: 2,
+        p: { xs: 0, sm: 2 },
       }}
     >
-      <Box
-        sx={{
-          textAlign: 'center',
-          mb: 4,
-        }}
-      >
-        <img src={foodLogo} alt="Logo" style={{ height: 60, marginBottom: 16 }} />
-        <Typography variant="h4" component="h1" sx={{ fontWeight: 700, color: 'primary.main' }}>
-          BiteBazaar
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          Your culinary journey starts here.
-        </Typography>
-      </Box>
       <Paper
         elevation={8}
         sx={{
-          width: { xs: '100%', sm: 400 },
-          p: { xs: 3, sm: 4 },
-          borderRadius: 2,
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          width: { xs: '100%', sm: 500, md: 820 },
+          minHeight: { xs: 600, md: 420 },
+          borderRadius: 4,
+          overflow: 'hidden',
+          boxShadow: '0px 8px 32px rgba(0,0,0,0.18)',
         }}
       >
-        {children}
+        {/* Left: Form */}
+        <Box
+          sx={{
+            flex: 1,
+            bgcolor: 'rgba(30,34,44,0.98)',
+            color: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            p: { xs: 3, sm: 4, md: 5 },
+            minWidth: { xs: '100%', md: 350 },
+          }}
+        >
+          <Box sx={{ width: '100%', maxWidth: 340 }}>{children}</Box>
+        </Box>
+        {/* Right: Image/Slide */}
+        <Box
+          sx={{
+            flex: 1,
+            display: { xs: 'none', md: 'flex' },
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            minWidth: 350,
+            background: 'linear-gradient(120deg, #355C7D 0%, #6C5B7B 100%)',
+            p: 0,
+          }}
+        >
+          <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4 }}>
+            <img
+              src={foodSlides[slide].image}
+              alt={foodSlides[slide].name}
+              style={{
+                width: 220,
+                height: 220,
+                objectFit: 'cover',
+                borderRadius: '50%',
+                boxShadow: '0 8px 32px #0004',
+                marginBottom: 24,
+                border: '4px solid #fff2',
+              }}
+            />
+            <Typography variant="h5" sx={{ color: '#fff', fontWeight: 700, mb: 1, textShadow: '0 2px 8px #0006' }}>
+              {foodSlides[slide].name}
+            </Typography>
+            <Typography variant="body1" sx={{ color: '#fff', opacity: 0.85, textAlign: 'center', textShadow: '0 1px 4px #0004' }}>
+              {foodSlides[slide].desc}
+            </Typography>
+          </Box>
+          <Box sx={{ position: 'absolute', bottom: 18, left: 0, width: '100%', textAlign: 'center' }}>
+            <img src={foodLogo} alt="Logo" style={{ height: 38, opacity: 0.7 }} />
+            <Typography variant="subtitle2" sx={{ color: '#fff', opacity: 0.7, fontWeight: 500, mt: 1 }}>
+              BiteBazaar
+            </Typography>
+          </Box>
+        </Box>
       </Paper>
     </Box>
   );
