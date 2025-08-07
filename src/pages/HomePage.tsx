@@ -149,13 +149,13 @@ const HomePage: React.FC<HomePageProps> = () => {
       <Box
         sx={{
           position: 'relative',
-          minHeight: 'calc(100vh - 64px)',
+          minHeight: { xs: 'auto', sm: 'calc(100vh - 64px)' },
           background: 'linear-gradient(135deg, #fff8f5 0%, #fff 100%)',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
-          pb: 8,
-          pt: 8,
+          pb: { xs: 4, md: 8 },
+          pt: { xs: 4, md: 8 },
         }}
       >
         {/* Large curved background shape with gradient */}
@@ -173,9 +173,9 @@ const HomePage: React.FC<HomePageProps> = () => {
           }}
         />
 
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: { xs: 2, md: 4 }, px: { xs: 0, md: 2 } }}>
           {/* Left Content: Title, Price, Description, Button */}
-          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
+          <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, px: { xs: 2, md: 0 } }}>
             {/* Conditionally render content only if featuredProduct is defined */}
             {featuredProduct ? (
               <>
@@ -184,8 +184,8 @@ const HomePage: React.FC<HomePageProps> = () => {
                   component="h1" 
                   sx={{
                     fontWeight: 700,
-                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4.5rem' },
-                    mb: 2,
+                    fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem', lg: '4.5rem' },
+                    mb: { xs: 1, md: 2 },
                     color: 'primary.main',
                     transition: 'all 0.4s ease',
                     opacity: animating ? 0 : 1,
@@ -202,13 +202,14 @@ const HomePage: React.FC<HomePageProps> = () => {
                   component="p" 
                   sx={{
                     fontWeight: 600,
-                    mb: 2,
+                    mb: { xs: 1, md: 2 },
                     color: 'secondary.main',
                     transition: 'all 0.4s ease',
                     opacity: animating ? 0 : 1,
                     display: 'flex',
                     alignItems: 'center',
                     gap: 1,
+                    fontSize: { xs: '1.5rem', md: '2.125rem' },
                   }}
                 >
                   <span style={{ color: 'primary.main' }}>$</span>
@@ -217,13 +218,13 @@ const HomePage: React.FC<HomePageProps> = () => {
                 <Typography 
                   variant="body1" 
                   sx={{
-                    mb: 4,
+                    mb: { xs: 2, md: 4 },
                     color: 'text.secondary',
-                    maxWidth: 400,
+                    maxWidth: { xs: '100%', md: 400 },
                     mx: { xs: 'auto', md: 0 },
                     transition: 'all 0.4s ease',
                     opacity: animating ? 0 : 1,
-                    fontSize: '1.1rem',
+                    fontSize: { xs: '1rem', md: '1.1rem' },
                     lineHeight: 1.8,
                   }}
                 >
@@ -235,9 +236,9 @@ const HomePage: React.FC<HomePageProps> = () => {
                   size="large"
                   sx={{
                     borderRadius: '25px',
-                    px: 4,
-                    py: 1.5,
-                    fontSize: '1.1rem',
+                    px: { xs: 3, md: 4 },
+                    py: { xs: 1, md: 1.5 },
+                    fontSize: { xs: '1rem', md: '1.1rem' },
                     background: 'linear-gradient(45deg, #FF4B2B 30%, #FF6B4B 90%)',
                     boxShadow: '0 3px 12px rgba(255, 75, 43, 0.3)',
                     '&:hover': {
@@ -277,7 +278,10 @@ const HomePage: React.FC<HomePageProps> = () => {
             alignItems: 'center',
             position: 'relative',
             overflow: 'visible',
-            minHeight: 320,
+            minHeight: { xs: 220, sm: 320 },
+            width: '100%',
+            maxWidth: { xs: '100%', md: 500 },
+            mx: { xs: 'auto', md: 0 },
           }}>
             {/* Previous Button */}
             <IconButton
@@ -292,6 +296,8 @@ const HomePage: React.FC<HomePageProps> = () => {
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
                 boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                width: { xs: 36, md: 48 },
+                height: { xs: 36, md: 48 },
               }}
             >
               <ArrowBackIos />
@@ -310,6 +316,8 @@ const HomePage: React.FC<HomePageProps> = () => {
                 bgcolor: 'rgba(255,255,255,0.7)',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' },
                 boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                width: { xs: 36, md: 48 },
+                height: { xs: 36, md: 48 },
               }}
             >
               <ArrowForwardIos />
@@ -321,9 +329,8 @@ const HomePage: React.FC<HomePageProps> = () => {
                 key={item.name}
                 sx={{
                   position: 'absolute',
-                  width: '100%',
-                  maxWidth: { xs: 300, md: 400 },
-                  maxHeight: { xs: 300, md: 340 },
+                  width: { xs: 180, sm: 240, md: 300, lg: 400 },
+                  height: { xs: 180, sm: 240, md: 300, lg: 340 },
                   borderRadius: '50%',
                   overflow: 'hidden',
                   boxShadow: '0 8px 32px #0002',
@@ -332,14 +339,18 @@ const HomePage: React.FC<HomePageProps> = () => {
                   transform: `scale(${idx === featuredIndex ? 1 : 0.98})`,
                   transition: 'opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1)',
                   willChange: 'transform, opacity',
+                  left: '50%',
+                  top: '50%',
+                  transformOrigin: 'center',
+                  transform: `translate(-50%, -50%) scale(${idx === featuredIndex ? 1 : 0.98})`,
                 }}
               >
                 <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </Box>
             ))}
             {/* Food name overlay (for mobile) */}
-            <Box sx={{ display: { xs: 'flex', md: 'none' }, position: 'absolute', bottom: 16, left: 0, right: 0, justifyContent: 'center', zIndex: 3 }}>
-              <Typography variant="h5" sx={{ bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', px: 2, py: 1, borderRadius: 2 }}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, position: 'absolute', bottom: 8, left: 0, right: 0, justifyContent: 'center', zIndex: 3 }}>
+              <Typography variant="h6" sx={{ bgcolor: 'rgba(0,0,0,0.5)', color: '#fff', px: 2, py: 0.5, borderRadius: 2, fontSize: '1rem' }}>
                 {heroItems[featuredIndex].name}
               </Typography>
             </Box>
@@ -347,8 +358,8 @@ const HomePage: React.FC<HomePageProps> = () => {
             {/* Circular thumbnail images positioned in an arc */}
             <Box sx={{
               position: 'absolute',
-              width: 380,
-              height: 380,
+              width: { xs: 200, sm: 300, md: 380 },
+              height: { xs: 200, sm: 300, md: 380 },
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
@@ -359,16 +370,19 @@ const HomePage: React.FC<HomePageProps> = () => {
                 // Spread arcCount images from arcStart to arcEnd degrees
                 const angle = arcStart + ((arcEnd - arcStart) * i) / (arcCount - 1);
                 const rad = (angle * Math.PI) / 180;
-                const x = 190 + arcRadius * Math.cos(rad) - 40; // 40 = half of small image size
-                const y = 190 + arcRadius * Math.sin(rad) - 40;
+                // Responsive arc radius and image size
+                const arcR = window.innerWidth < 600 ? 90 : window.innerWidth < 900 ? 130 : 180;
+                const imgSize = window.innerWidth < 600 ? 40 : 60;
+                const x = 100 + arcR * Math.cos(rad) - imgSize / 2;
+                const y = 100 + arcR * Math.sin(rad) - imgSize / 2;
                 return (
                   <Box
                     key={products[idx].id}
                     onClick={() => handleSelectFeatured(idx)}
                     sx={{
                       position: 'absolute',
-                      width: 80,
-                      height: 80,
+                      width: imgSize,
+                      height: imgSize,
                       borderRadius: '50%',
                       overflow: 'hidden',
                       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -379,12 +393,12 @@ const HomePage: React.FC<HomePageProps> = () => {
                       justifyContent: 'center',
                       left: x,
                       top: y,
-                      border: '3px solid #ffe0d9',
+                      border: '2px solid #ffe0d9',
                       zIndex: 5,
                       transition: 'box-shadow 0.2s, border 0.2s, transform 0.2s ease-in-out',
                       '&:hover': { 
                         boxShadow: '0 8px 24px #ff3b0033', 
-                        border: '3px solid #ff3b00',
+                        border: '2px solid #ff3b00',
                         transform: 'scale(1.1)',
                       },
                     }}
