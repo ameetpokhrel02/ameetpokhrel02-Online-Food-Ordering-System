@@ -66,7 +66,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       sx={{
         minHeight: '100vh',
         width: '100vw',
-        background: 'linear-gradient(120deg, #232526 0%, #414345 100%)',
+        background: 'linear-gradient(120deg, #ffffffff 0%, #e7e7e7ff 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

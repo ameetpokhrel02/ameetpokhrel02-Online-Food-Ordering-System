@@ -12,6 +12,8 @@ import SubscribeSection from './components/layout/SubscribeSection';
 import OTPVerification from './components/auth/OTPVerification';
 import ResetPassword from './components/auth/ResetPassword';
 import ChangePassword from './components/auth/ChangePassword';
+import ForgotPasswordEmail from './components/auth/ForgotPasswordEmail';
+import PasswordUpdated from './components/auth/PasswordUpdated';
 // Lazy-loaded pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const AboutPage = React.lazy(() => import('./pages/AboutPage'));
@@ -46,9 +48,10 @@ const AppRoutes: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordEmail />} />
           <Route path="/otp" element={<OTPVerification />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/password-updated" element={<PasswordUpdated />} />
         </Routes>
       </Suspense>
       <SubscribeSection />
