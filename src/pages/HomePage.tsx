@@ -367,14 +367,20 @@ const HomePage: React.FC<HomePageProps> = () => {
               pointerEvents: animating ? 'none' : 'auto',
             }}>
               {arcIndexes.map((idx, i) => {
-                // Spread arcCount images from arcStart to arcEnd degrees
-                const angle = arcStart + ((arcEnd - arcStart) * i) / (arcCount - 1);
-                const rad = (angle * Math.PI) / 180;
                 // Responsive arc radius and image size
-                const arcR = window.innerWidth < 600 ? 90 : window.innerWidth < 900 ? 130 : 180;
-                const imgSize = window.innerWidth < 600 ? 40 : 60;
-                const x = 100 + arcR * Math.cos(rad) - imgSize / 2;
-                const y = 100 + arcR * Math.sin(rad) - imgSize / 2;
+                let arcR, imgSize, centerX, centerY, arcStartDeg, arcEndDeg;
+                if (window.innerWidth >= 900) {
+                  arcR = 150; imgSize = 60; centerX = 190; centerY = 190; arcStartDeg = -60; arcEndDeg = 60;
+                } else if (window.innerWidth >= 600) {
+                  arcR = 110; imgSize = 50; centerX = 150; centerY = 150; arcStartDeg = -50; arcEndDeg = 50;
+                } else {
+                  arcR = 70; imgSize = 36; centerX = 100; centerY = 100; arcStartDeg = -40; arcEndDeg = 40;
+                }
+                // Spread arcCount images from arcStart to arcEnd degrees
+                const angle = arcStartDeg + ((arcEndDeg - arcStartDeg) * i) / (arcCount - 1);
+                const rad = (angle * Math.PI) / 180;
+                const x = centerX + arcR * Math.cos(rad) - imgSize / 2;
+                const y = centerY + arcR * Math.sin(rad) - imgSize / 2;
                 return (
                   <Box
                     key={products[idx].id}
