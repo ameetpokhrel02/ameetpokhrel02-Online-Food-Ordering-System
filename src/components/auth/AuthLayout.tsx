@@ -66,42 +66,50 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       sx={{
         minHeight: '100vh',
         width: '100vw',
-        bgcolor: 'linear-gradient(120deg, #232526 0%, #414345 100%)',
+        background: 'linear-gradient(120deg, #232526 0%, #414345 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         p: { xs: 0, sm: 2 },
+        overflow: 'auto',
       }}
     >
-      <Paper
-        elevation={8}
+      <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
-          width: { xs: '100%', sm: 500, md: 820 },
-          minHeight: { xs: 600, md: 420 },
-          borderRadius: 4,
+          width: { xs: '100%', sm: 500, md: 900 },
+          minHeight: { xs: 600, md: 480 },
+          borderRadius: 5,
           overflow: 'hidden',
-          boxShadow: '0px 8px 32px rgba(0,0,0,0.18)',
+          boxShadow: '0px 8px 32px 0px rgba(0,0,0,0.18)',
+          background: 'rgba(30,34,44,0.25)',
+          backdropFilter: 'blur(18px)',
+          WebkitBackdropFilter: 'blur(18px)',
+          border: '1.5px solid rgba(255,255,255,0.13)',
         }}
       >
-        {/* Left: Form */}
+        {/* Left: Form (Glassmorphism) */}
         <Box
           sx={{
             flex: 1,
-            bgcolor: 'rgba(30,34,44,0.98)',
+            background: 'rgba(30,34,44,0.65)',
             color: '#fff',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             p: { xs: 3, sm: 4, md: 5 },
-            minWidth: { xs: '100%', md: 350 },
+            minWidth: { xs: '100%', md: 370 },
+            boxShadow: '0 4px 32px 0 rgba(0,0,0,0.10)',
+            borderRight: { md: '1.5px solid rgba(255,255,255,0.10)' },
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
           }}
         >
           <Box sx={{ width: '100%', maxWidth: 340 }}>{children}</Box>
         </Box>
-        {/* Right: Image/Slide */}
+        {/* Right: Image/Slide (Glassmorphism) */}
         <Box
           sx={{
             flex: 1,
@@ -110,9 +118,12 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
-            minWidth: 350,
+            minWidth: 370,
             background: 'linear-gradient(120deg, #355C7D 0%, #6C5B7B 100%)',
             p: 0,
+            boxShadow: '0 4px 32px 0 rgba(0,0,0,0.10)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
           }}
         >
           <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', p: 4 }}>
@@ -127,12 +138,14 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
                 boxShadow: '0 8px 32px #0004',
                 marginBottom: 24,
                 border: '4px solid #fff2',
+                background: 'rgba(255,255,255,0.12)',
+                backdropFilter: 'blur(2px)',
               }}
             />
-            <Typography variant="h5" sx={{ color: '#fff', fontWeight: 700, mb: 1, textShadow: '0 2px 8px #0006' }}>
+            <Typography variant="h4" sx={{ color: '#fff', fontWeight: 700, mb: 1, textShadow: '0 2px 8px #0006' }}>
               {foodSlides[slide].name}
             </Typography>
-            <Typography variant="body1" sx={{ color: '#fff', opacity: 0.85, textAlign: 'center', textShadow: '0 1px 4px #0004' }}>
+            <Typography variant="body1" sx={{ color: '#fff', opacity: 0.85, textAlign: 'center', textShadow: '0 1px 4px #0004', fontSize: 18 }}>
               {foodSlides[slide].desc}
             </Typography>
           </Box>
@@ -143,7 +156,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
             </Typography>
           </Box>
         </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 };

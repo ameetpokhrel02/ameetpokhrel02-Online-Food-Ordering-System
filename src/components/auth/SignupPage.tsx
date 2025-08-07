@@ -32,151 +32,149 @@ const SignupPage = () => {
 
   return (
     <AuthLayout>
-      <Box sx={{ width: '100%', maxWidth: 340 }}>
-        <Typography variant="h4" align="center" fontWeight={700} color="#fff" gutterBottom sx={{ mb: 3 }}>
-          Sign Up
-        </Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-            sx={{
-              input: { color: 'rgba(0, 0, 0, 0.87)' },
-              label: { color: 'rgba(0, 0, 0, 0.6)' },
-              '& .MuiInputBase-input::placeholder': {
-                color: 'rgba(0, 0, 0, 0.6)',
-                opacity: 1,
+      <Typography variant="h4" align="center" fontWeight={700} color="#fff" gutterBottom sx={{ mb: 3 }}>
+        Sign Up
+      </Typography>
+      <form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
               },
-              mb: 2,
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.23)',
-                },
-                '&:hover fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.5)',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'primary.main',
-                },
+              '&:hover fieldset': {
+                borderColor: '#fff',
               },
-            }}
-            InputLabelProps={{ style: { color: 'rgba(0, 0, 0, 0.6)' } }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            sx={{
-              input: { color: 'rgba(0, 0, 0, 0.87)' },
-              label: { color: 'rgba(0, 0, 0, 0.6)' },
-              '& .MuiInputBase-input::placeholder': {
-                color: 'rgba(0, 0, 0, 0.6)',
-                opacity: 1,
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
               },
-              mb: 2,
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.23)',
-                },
-                '&:hover fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.5)',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'primary.main',
-                },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
               },
-            }}
-            InputLabelProps={{ style: { color: 'rgba(0, 0, 0, 0.6)' } }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Password"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            autoComplete="new-password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            sx={{
-              input: { color: 'rgba(0, 0, 0, 0.87)' },
-              label: { color: 'rgba(0, 0, 0, 0.6)' },
-              '& .MuiInputBase-input::placeholder': {
-                color: 'rgba(0, 0, 0, 0.6)',
-                opacity: 1,
+              '&:hover fieldset': {
+                borderColor: '#fff',
               },
-              mb: 1,
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.23)',
-                },
-                '&:hover fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.5)',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'primary.main',
-                },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
               },
-            }}
-            InputLabelProps={{ style: { color: 'rgba(0, 0, 0, 0.6)' } }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton 
-                    onClick={() => setShowPassword((s) => !s)} 
-                    edge="end" 
-                    tabIndex={-1}
-                    sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{ py: 1.2, fontWeight: 700, fontSize: 18, borderRadius: 2, mb: 2 }}
-          >
-            Sign up
-          </Button>
-        </form>
-        <Divider sx={{ my: 2, color: '#fff' }}>or continue with</Divider>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
-          <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><Google /></IconButton>
-          <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><GitHub /></IconButton>
-          <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><Facebook /></IconButton>
-        </Box>
-        <Typography align="center" color="#fff" fontSize={15}>
-          Already have an account?{' '}
-          <MuiLink component={Link} to="/login" color="secondary" underline="hover" fontWeight={700}>
-            Login
-          </MuiLink>
-        </Typography>
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Password"
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          autoComplete="new-password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 1,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
+              },
+              '&:hover fieldset': {
+                borderColor: '#fff',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton 
+                  onClick={() => setShowPassword((s) => !s)} 
+                  edge="end" 
+                  tabIndex={-1}
+                  sx={{ color: 'rgba(255,255,255,0.7)' }}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Button
+          fullWidth
+          type="submit"
+          variant="contained"
+          color="primary"
+          size="large"
+          sx={{ py: 1.2, fontWeight: 700, fontSize: 18, borderRadius: 2, mb: 2, mt: 2 }}
+        >
+          SIGN UP
+        </Button>
+      </form>
+      <Divider sx={{ my: 2, color: '#fff', opacity: 0.5 }}>or continue with</Divider>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
+        <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><Google /></IconButton>
+        <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><GitHub /></IconButton>
+        <IconButton color="primary" sx={{ bgcolor: '#fff', '&:hover': { bgcolor: '#eee' } }}><Facebook /></IconButton>
       </Box>
+      <Typography align="center" color="#fff" fontSize={15}>
+        Already have an account?{' '}
+        <MuiLink component={Link} to="/login" color="secondary" underline="hover" fontWeight={700}>
+          Login
+        </MuiLink>
+      </Typography>
     </AuthLayout>
   );
 };

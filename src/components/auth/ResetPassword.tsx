@@ -3,10 +3,9 @@ import {
   Box,
   TextField,
   Button,
-  Typography,
-  Container,
-  Paper
+  Typography
 } from '@mui/material';
+import AuthLayout from './AuthLayout';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
@@ -17,54 +16,57 @@ const ResetPassword = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
-          <Typography component="h1" variant="h5" sx={{ mb: 3, color: '#FF4B3A' }}>
-            Reset Password
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 3 }}>
-            Enter your email address and we'll send you a link to reset your password
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ 
-                mt: 3, 
-                mb: 2,
-                backgroundColor: '#FF4B3A',
-                '&:hover': {
-                  backgroundColor: '#ff3621'
-                }
-              }}
-            >
-              Send Reset Link
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </Container>
+    <AuthLayout>
+      <Typography variant="h4" align="center" fontWeight={700} color="#fff" gutterBottom sx={{ mb: 3 }}>
+        Reset Password
+      </Typography>
+      <Typography align="center" color="#fff" fontSize={15} sx={{ mb: 2, opacity: 0.8 }}>
+        Enter your email address and we'll send you a link to reset your password
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Email Address"
+          name="email"
+          type="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
+              },
+              '&:hover fieldset': {
+                borderColor: '#fff',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          sx={{ py: 1.2, fontWeight: 700, fontSize: 18, borderRadius: 2, mb: 2, mt: 2 }}
+        >
+          Send Reset Link
+        </Button>
+      </form>
+    </AuthLayout>
   );
 };
 

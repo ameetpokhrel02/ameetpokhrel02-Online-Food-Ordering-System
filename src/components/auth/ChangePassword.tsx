@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Box,
   TextField,
   Button,
-  Typography,
-  Container,
-  Paper
+  Typography
 } from '@mui/material';
+import AuthLayout from './AuthLayout';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -19,72 +17,112 @@ const ChangePassword = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
-          <Typography component="h1" variant="h5" sx={{ mb: 3, color: '#FF4B3A' }}>
-            Change Password
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="currentPassword"
-              label="Current Password"
-              type="password"
-              id="currentPassword"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="newPassword"
-              label="New Password"
-              type="password"
-              id="newPassword"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm New Password"
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ 
-                mt: 3, 
-                mb: 2,
-                backgroundColor: '#FF4B3A',
-                '&:hover': {
-                  backgroundColor: '#ff3621'
-                }
-              }}
-            >
-              Update Password
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </Container>
+    <AuthLayout>
+      <Typography variant="h4" align="center" fontWeight={700} color="#fff" gutterBottom sx={{ mb: 3 }}>
+        Change Password
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Current Password"
+          name="currentPassword"
+          type="password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
+              },
+              '&:hover fieldset': {
+                borderColor: '#fff',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="New Password"
+          name="newPassword"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
+              },
+              '&:hover fieldset': {
+                borderColor: '#fff',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Confirm New Password"
+          name="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          sx={{
+            input: { color: '#fff' },
+            label: { color: 'rgba(255,255,255,0.7)' },
+            '& .MuiInputBase-input::placeholder': {
+              color: 'rgba(255,255,255,0.7)',
+              opacity: 1,
+            },
+            mb: 2,
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'rgba(255,255,255,0.3)',
+              },
+              '&:hover fieldset': {
+                borderColor: '#fff',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+              },
+            },
+          }}
+          InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          sx={{ py: 1.2, fontWeight: 700, fontSize: 18, borderRadius: 2, mb: 2, mt: 2 }}
+        >
+          Update Password
+        </Button>
+      </form>
+    </AuthLayout>
   );
 };
 
