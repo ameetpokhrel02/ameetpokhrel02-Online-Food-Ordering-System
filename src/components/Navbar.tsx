@@ -87,7 +87,7 @@ const Navbar = () => {
 
   return (
     <>
-      <StyledAppBar position="static">
+      <StyledAppBar position="sticky">
         <Toolbar>
           {isMobile && (
             <IconButton
