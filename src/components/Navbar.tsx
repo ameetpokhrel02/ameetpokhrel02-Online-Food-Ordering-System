@@ -15,6 +15,8 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import logoImg from '../assets/logo.jpg';
 import { styled } from '@mui/material/styles';
 import { ListItemButton } from '@mui/material';
 
@@ -24,6 +26,8 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   borderBottom: '1px solid #eee'
 }));
 
+
+import logoImg from '../assets/logo.jpg';
 const Logo = styled('img')({  
   height: '40px',
   marginRight: '20px'
@@ -100,7 +104,7 @@ const Navbar = () => {
           )}
           
           <StyledLink to="/">
-            <Logo src="/logo.png" alt="BiteBazaar" />
+            <Logo src={logoImg} alt="BiteBazaar" />
           </StyledLink>
           
           {!isMobile && (
