@@ -227,7 +227,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     lineHeight: 1.8,
                   }}
                 >
-                  {featuredProduct.desc}
+                  {featuredProduct.description}
                 </Typography>
                 <Button
                   variant="contained"
@@ -254,8 +254,8 @@ const HomePage: React.FC<HomePageProps> = () => {
                         id: featuredProduct.id || 0,
                         name: featuredProduct.name,
                         price: String(featuredProduct.price),
-                        imageUrl: featuredProduct.imageUrl || featuredProduct.image,
-                        description: featuredProduct.description || featuredProduct.desc || '',
+                        imageUrl: featuredProduct.imageUrl,
+                        description: featuredProduct.description || '',
                       });
                     }
                   }}
