@@ -97,8 +97,6 @@ const Header = () => {
             flexDirection: 'column',
           },
         }}
-        TransitionComponent={Slide}
-        transitionDuration={{ enter: 400, exit: 200 }}
       >
         <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #eee' }}>
           <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>

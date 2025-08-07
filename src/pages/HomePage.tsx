@@ -334,7 +334,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                   willChange: 'transform, opacity',
                 }}
               >
-                <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </Box>
             ))}
             {/* Food name overlay (for mobile) */}
