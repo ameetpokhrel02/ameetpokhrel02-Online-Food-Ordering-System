@@ -21,7 +21,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addToCart = (product: Product) => {
     if (!product || typeof product.id !== 'number' || isNaN(Number(product.price))) {
-      console.warn('Invalid product passed to addToCart:', product);
+      console.warn('[CartContext] Invalid product passed to addToCart:', product);
+      alert('Cannot add this product to cart. Product data is invalid.');
       return;
     }
     setCartItems(prevItems => {

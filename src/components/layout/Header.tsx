@@ -70,7 +70,7 @@ const Header = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Box>
-          <IconButton color="primary" onClick={() => setCartOpen(true)} sx={{ ml: 2 }}>
+              <IconButton color="primary" onClick={() => { console.log('[Header] Cart icon clicked, opening cart drawer'); setCartOpen(true); }} sx={{ ml: 2 }}>
             <Badge badgeContent={cartCount} color="secondary">
               <ShoppingCartIcon fontSize="large" />
             </Badge>
