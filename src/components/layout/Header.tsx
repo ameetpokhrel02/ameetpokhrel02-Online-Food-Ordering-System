@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Link as MuiLink, Box, IconButton, Drawer, Paper, Slide, Fade } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Link as MuiLink, Box, IconButton, Drawer, Paper, Slide, Fade, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { Link } from 'react-router-dom';
 import newLogo from '../../assets/logo.jpg';
 import InputBase from '@mui/material/InputBase';
@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useCart, CartItem } from '../../context/CartContext';
+import MenuIcon from '@mui/icons-material/Menu';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -17,6 +18,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const { search } = useAppSelector((state) => state.ui);
   const [cartOpen, setCartOpen] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const { cartItems, removeFromCart, clearCart, addToCart, decreaseQuantity } = useCart();
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));
@@ -52,7 +54,8 @@ const Header = () => {
           </Typography>
         </Link>
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        {/* Desktop Nav Links */}
+        <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 2 }}>
           <MuiLink component={Link} to="/" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Home</MuiLink>
           <MuiLink component={Link} to="/about" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>About</MuiLink>
           <MuiLink component={Link} to="/products" color="inherit" underline="none" sx={{ fontWeight: 500, mx: 1, transition: 'color 0.2s, border-bottom 0.2s', '&:hover': { color: 'primary.main', borderBottom: '2px solid', borderColor: 'primary.main', bgcolor: 'transparent' } }}>Products</MuiLink>
@@ -70,7 +73,7 @@ const Header = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Box>
-              <IconButton color="primary" onClick={() => { console.log('[Header] Cart icon clicked, opening cart drawer'); setCartOpen(true); }} sx={{ ml: 2 }}>
+          <IconButton color="primary" onClick={() => { console.log('[Header] Cart icon clicked, opening cart drawer'); setCartOpen(true); }} sx={{ ml: 2 }}>
             <Badge badgeContent={cartCount} color="secondary">
               <ShoppingCartIcon fontSize="large" />
             </Badge>
@@ -82,7 +85,65 @@ const Header = () => {
             Signup
           </Button>
         </Box>
+        {/* Mobile Hamburger Icon */}
+        <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center' }}>
+          <IconButton color="primary" onClick={() => setMobileMenuOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+        </Box>
       </Toolbar>
+      {/* Mobile Drawer */}
+      <Drawer anchor="left" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
+        <Box sx={{ width: 240 }} role="presentation" onClick={() => setMobileMenuOpen(false)}>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/">
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/about">
+                <ListItemText primary="About" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/products">
+                <ListItemText primary="Products" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/menu">
+                <ListItemText primary="Menu" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/gallery">
+                <ListItemText primary="Gallery" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/contact">
+                <ListItemText primary="Contact" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/blog">
+                <ListItemText primary="Blog" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/login">
+                <ListItemText primary="Login" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/signup">
+                <ListItemText primary="Signup" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
       <Drawer
         anchor="right"
         open={cartOpen}

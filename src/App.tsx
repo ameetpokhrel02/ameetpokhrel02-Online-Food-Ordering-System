@@ -8,6 +8,7 @@ import AppRoutes from './routes';
 import ErrorBoundary from './components/ErrorBoundary';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/layout/Header';
+import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
   return (
