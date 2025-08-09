@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Container, Paper, Avatar, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import blogAuthor from '../assets/amit.jpg';
-// Removed unused imports
-// import pizza from '../assets/pizza.jpg';
-// import foodDeliveryBoy from '../assets/food delivery boy.jpg';
-// import vegetable from '../assets/vegetable.jpg';
-// import bakedSweetPotatoes from '../assets/buff-keema-noodles.jpg';
-// import creamyAvocadoPumpkin from '../assets/momo.jpeg';
-// import honeyFrenchToast from '../assets/lolipop.jpg';
-// import beetrootSmoothie from '../assets/chicken.jpg';
-// import technologyInFood from '../assets/technology in food.jpg';
-// import technologyInFood2 from '../assets/technology in food2.jpg';
-// import foodTechno from '../assets/food techno.jpg';
-// import aiFarming from '../assets/ai farming.jpg';
-// import framAi from '../assets/fram ai.jpg';
-
+import blogAuthor from '../assets/amit.jpg';// Removed unused imports
+import pizza from '../assets/pizza.jpg';// import foodDeliveryBoy from '../assets/food delivery boy.jpg';// import vegetable from '../assets/vegetable.jpg';// import bakedSweetPotatoes from '../assets/buff-keema-noodles.jpg';/ import creamyAvocadoPumpkin from '../assets/momo.jpeg';/ import honeyFrenchToast from '../assets/lolipop.jpg';
+ import beetrootSmoothie from '../assets/chicken.jpg';
+import technologyInFood from '../assets/technology in food.jpg';
+import technologyInFood2 from '../assets/technology in food2.jpg';
+ import foodTechno from '../assets/food techno.jpg';
+ import aiFarming from '../assets/ai farming.jpg';
+ import framAi from '../assets/fram ai.jpg';
+import aiVideo from '../assets/ai video.mp4';
 import { BlogPost } from '../types/blog';
 import { ArrowBack } from '@mui/icons-material';
 
@@ -66,7 +60,7 @@ const BlogPage = () => {
             zIndex: 0
           }}
         >
-          <source src={aiVideo} type="video/mp4" />
+        <source src={aiVideo} type="video/mp4" />
         </video>
         <Box
           sx={{
