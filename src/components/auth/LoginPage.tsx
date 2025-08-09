@@ -107,7 +107,7 @@ const LoginPage = () => {
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
-            ),
+            )
           }}
         />
         <Button
@@ -122,7 +122,7 @@ const LoginPage = () => {
         </Button>
       </form>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, mb: 2 }}>
-        <MuiLink component={RouterLink} to="/otp-verification" color="secondary" underline="hover" fontWeight={700}>
+        <MuiLink component={RouterLink} to="/forgot-password" color="secondary" underline="hover" fontWeight={700}>
           Forgot Password?
         </MuiLink>
         <MuiLink component={RouterLink} to="/signup" color="secondary" underline="hover" fontWeight={700}>
