@@ -15,7 +15,7 @@ import blogAuthor from '../assets/amit.jpg';
 // import foodTechno from '../assets/food techno.jpg';
 // import aiFarming from '../assets/ai farming.jpg';
 // import framAi from '../assets/fram ai.jpg';
-// import aiVideo from '../assets/ai vide.mp4';
+
 import { BlogPost } from '../types/blog';
 import { ArrowBack } from '@mui/icons-material';
 
