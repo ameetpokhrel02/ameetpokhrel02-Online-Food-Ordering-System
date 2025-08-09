@@ -100,11 +100,11 @@ const OTPVerification = () => {
                     maxLength: 1,
                     style: {
                       textAlign: 'center',
-                      fontSize: 17,
-                      width: 36,
-                      height: 36,
+                      fontSize: 15,
+                      width: 28,
+                      height: 28,
                       background: '#fff',
-                      borderRadius: 4,
+                      borderRadius: 3,
                       color: '#222',
                       fontWeight: 600,
                       border: '1.2px solid #e0e0e0',
@@ -115,8 +115,10 @@ const OTPVerification = () => {
                   }}
                   sx={{
                     bgcolor: '#fff',
-                    borderRadius: 1,
+                    borderRadius: 0.7,
                     boxShadow: '0 1px 4px #0001',
+                    minWidth: 32,
+                    minHeight: 32,
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: '#e0e0e0',
                     },
