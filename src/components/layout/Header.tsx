@@ -28,7 +28,7 @@ const Header = () => {
     return cartItems.reduce((sum: number, item: CartItem) => sum + Number(item.price) * item.quantity, 0);
   };
   return (
-    <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
+  <AppBar position="sticky" color="default" elevation={0} sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}`, top: 0, zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar sx={{
         flexWrap: 'wrap',
         py: { xs: 1, md: 0 },
