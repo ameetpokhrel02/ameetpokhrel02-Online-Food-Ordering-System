@@ -207,7 +207,6 @@ const BlogPage = () => {
                     color: '#333',
                     outline: 'none',
                     boxShadow: 'none',
-                    '&::placeholder': { color: '#999' },
                   }}
                 />
                 <Button variant="contained" sx={{
