@@ -12,11 +12,26 @@ import technologyInFood2 from '../assets/technology in food2.jpg';
 // import aiVideo from '../assets/ai.mp4';
 import { ArrowBack } from '@mui/icons-material';
 
+// BlogPost type definition
+type BlogPost = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  category: string;
+  date: string;
+  content: Array<{ type: string; text?: string; src?: string; alt?: string }>;
+  author: string;
+  readingTime?: string;
+  difficulty?: string;
+  isPopular?: boolean;
+  isOrganic?: boolean;
+};
+
 const BlogPage = () => {
   const theme = useTheme();
-  //const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
-  //const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  //const [error, setError] = useState<string | null>(null);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/api/blogs/')
