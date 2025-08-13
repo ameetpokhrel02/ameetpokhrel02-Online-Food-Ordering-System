@@ -9,7 +9,7 @@ import technologyInFood2 from '../assets/technology in food2.jpg';
  import foodTechno from '../assets/food techno.jpg';
  import aiFarming from '../assets/ai farming.jpg';
  import framAi from '../assets/fram ai.jpg';
-// import aiVideo from '../assets/ai.mp4';
+import aiVideo from '../assets/AI.mp4';
 import { ArrowBack } from '@mui/icons-material';
 
 // BlogPost type definition
