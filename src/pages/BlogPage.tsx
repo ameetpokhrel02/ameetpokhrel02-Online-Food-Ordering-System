@@ -14,9 +14,9 @@ import { ArrowBack } from '@mui/icons-material';
 
 const BlogPage = () => {
   const theme = useTheme();
-  const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  //const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
+  //const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/api/blogs/')
