@@ -31,3 +31,4 @@ requirements.txt
 # Ignore Docker files
 Dockerfile
 docker-compose.yml
+.dockerignore
