@@ -26,3 +26,7 @@ yarn-error.log*
 
 # Ignore requirements.txt for Python projects
 requirements.txt
+
+
+# Ignore Docker files
+Dockerfile
