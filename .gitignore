@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 # Ignore the .env file, which contains sensitive environment variables
 .env
+
+# Ignore requirements.txt for Python projects
+requirements.txt
