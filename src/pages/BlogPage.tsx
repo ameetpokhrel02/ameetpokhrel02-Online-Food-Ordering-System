@@ -74,7 +74,7 @@ const BlogPage = () => {
             zIndex: 0
           }}
         >
-        <source src={aiVideo} type="video/mp4" />
+        <source src={} type="video/mp4" />
         </video>
         <Box
           sx={{
