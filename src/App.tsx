@@ -10,6 +10,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/layout/Header';
 import Navbar from './components/Navbar';
 
+// Main App component
+
 const App: React.FC = () => {
   return (
     <Provider store={store}>
