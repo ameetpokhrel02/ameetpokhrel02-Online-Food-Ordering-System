@@ -9,6 +9,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/layout/Header';
 import Navbar from './components/Navbar';
+import ChatButton from './components/ChatButton';
 
 // Main App component
 
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <ErrorBoundary>
             <Header />
             <AppRoutes />
+            <ChatButton />
           </ErrorBoundary>
         </ThemeProvider>
       </HelmetProvider>
