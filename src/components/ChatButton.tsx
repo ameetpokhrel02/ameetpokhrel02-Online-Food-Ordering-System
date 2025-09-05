@@ -3,6 +3,7 @@ import { Box, IconButton, Modal, Typography, Button, OutlinedInput } from "@mui/
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: "fixed",
@@ -71,8 +72,11 @@ export default function ChatButton() {
           flexDirection: 'column',
           overflow: 'hidden',
         }}>
-          <Box sx={{ bgcolor: 'primary.main', color: '#fff', py: 1.5, px: 2, borderTopLeftRadius: 16, borderTopRightRadius: 16 }}>
+          <Box sx={{ bgcolor: 'primary.main', color: '#fff', py: 1.5, px: 2, borderTopLeftRadius: 16, borderTopRightRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="body2" sx={{ opacity: 0.8, fontWeight: 500, textAlign: 'center' }}>22 May</Typography>
+            <IconButton size="small" sx={{ color: '#fff' }} onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </IconButton>
           </Box>
           <Box sx={{ flex: 1, px: 2, py: 2, bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
